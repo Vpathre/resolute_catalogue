@@ -1,0 +1,172 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resolute Invoice Form</title>
+    <link rel="stylesheet" href="./public/style.css" />
+    <link rel="icon" type="image" href="./public/img/res_icon_white.png" />
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-interactivity@latest/dist/lottie-interactivity.min.js"></script>
+    <script src="./node_modules/tw-elements/dist/js/index.min.js"></script>
+    <script src="./node_modules/flowbite/dist/flowbite.js"></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/jspdf-invoice-template@1.4.0/dist/index.js"></script>
+  </head>
+
+  <body class="text-grey-600 font-poppins">
+    <div class="md:flex md:flex-col">
+      <!-- main banner of the page -->
+      <div
+        class="flex-col justify-center text-xl min-h-screen font-poppins uppercase bg-blue-700 text-white p-40 shadow-lg z-50"
+        id="banner2"
+      >
+        <div class="w-80 -ml-36 -mt-36">
+          <a href="./index.html">
+            <img src="./public/img/res_logo_white.png" alt="logo" />
+          </a>
+        </div>
+        <div class="flex items-center justify-center mt-5">
+          <span class="text-center text-lg font-poppins">
+            Thank you for placing an order with Resolute Education! <br />
+            We will get in touch with you shortly!
+          </span>
+        </div>
+        <div class="mt-20 flex justify-center">
+          <table
+            class="flex-col justify-start bg-white bg-opacity-20 shadow-2xl"
+          >
+            <thead class="bg-transparent">
+              <tr>
+                <th
+                  scope="col"
+                  class="text-sm flex-row font-medium text-white px-6 py-4 text-left w-96"
+                >
+                  Description
+                </th>
+                <th
+                  scope="col"
+                  class="text-sm flex-row font-medium text-white px-6 py-4 text-left"
+                >
+                  Qty.
+                </th>
+                <th
+                  scope="col"
+                  class="text-sm flex-row font-medium text-white px-6 py-4 text-left"
+                >
+                  Unit Price
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                class="bg-gray-500 bg-opacity-20 border-b transition duration-300 ease-in-out hover:bg-gray-100 hover:bg-opacity-30"
+              >
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm font-light text-white"
+                >
+                  Novice Stream
+                </td>
+                <td
+                  class="text-sm text-white font-light px-6 py-4 whitespace-nowrap"
+                >
+                  2
+                </td>
+                <td
+                  class="text-sm text-white font-light px-6 py-4 whitespace-nowrap"
+                >
+                  R2,500
+                </td>
+              </tr>
+              <tr
+                class="bg-gray-500 bg-opacity-20 border-b transition duration-300 ease-in-out hover:bg-gray-100 hover:bg-opacity-30"
+              >
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm font-light text-white"
+                >
+                  Master Stream
+                </td>
+                <td
+                  class="text-sm text-white font-light px-6 py-4 whitespace-nowrap"
+                >
+                  4
+                </td>
+                <td
+                  class="text-sm text-white font-light px-6 py-4 whitespace-nowrap"
+                >
+                  R3,000
+                </td>
+              </tr>
+              <tr
+                class="bg-gray-500 bg-opacity-20 border-b transition duration-300 ease-in-out hover:bg-gray-100 hover:bg-opacity-30"
+              >
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm font-light text-white"
+                >
+                  Adept Stream
+                </td>
+                <td
+                  class="text-sm text-white font-light px-6 py-4 whitespace-nowrap"
+                >
+                  1
+                </td>
+                <td
+                  class="text-sm text-white font-light px-6 py-4 whitespace-nowrap"
+                >
+                  R2,800
+                </td>
+              </tr>
+              <tr
+                class="bg-gray-500 bg-opacity-20 border-b transition duration-300 ease-in-out hover:bg-gray-100 hover:bg-opacity-30"
+              >
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm font-light text-white"
+                >
+                  Steam Day
+                </td>
+                <td
+                  class="text-sm text-white font-light px-6 py-4 whitespace-nowrap"
+                >
+                  2
+                </td>
+                <td
+                  class="text-sm text-white font-light px-6 py-4 whitespace-nowrap"
+                >
+                  R10,000,000
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pt-10 text-center text-lg">
+          <button
+            class="hover:text-gray-300 transition ease-in duration-150 uppercase"
+            onclick="generatePDF()"
+          >
+            Get a copy of your personalized quote
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function buttonClick(id, FADE) {
+        const pop = document.getElementById(id);
+
+        if (FADE) {
+          pop.classList.add("fd-in");
+          pop.classList.remove("fd-out");
+        } else if (!FADE) {
+          pop.classList.add("fd-out");
+          pop.classList.remove("fd-in");
+        }
+      }
+    </script>
+
+    <script src="./public/components.js"></script>
+    <script src="./public/components_draf.js"></script>
+    <script src="./public/index.js"></script>
+    <script src="./main.js"></script>
+    <!-- 313bf5 -->
+  </body>
+</html>
