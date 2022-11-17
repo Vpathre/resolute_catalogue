@@ -10,11 +10,12 @@ class TileRight extends HTMLElement {
   connectedCallback() {
     var title = this.attributes.title.value;
     var price = this.attributes.price.value;
+    var text_colour = this.attributes.text_colour.value;
     this.innerHTML = `<div
-    class="card flex justify-around snap-center shadow-xl"
+    class="card flex justify-around snap-center shadow-xl ${text_colour}"
   >
     <div class="shadow-2xl p-12 w-7/12 ${this.bg}">
-      <h1 class="font-poppins text-6xl bg-white text-right">
+      <h1 class="font-poppins text-6xl text-right">
         ${this.title}
       </h1>
 
@@ -37,7 +38,7 @@ class TileRight extends HTMLElement {
           </button>
           <input type="text"  value="${
             this.quantity
-          }" class="w-10 text-center p-0" id="${this.inputId}"/>
+          }" class="w-10 text-center p-0 text-black" id="${this.inputId}"/>
           <button
             class="w-10 h-10 ml-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
             id="${"plus_" + this.title}"  
@@ -152,8 +153,9 @@ class TileLeft extends HTMLElement {
     var title = this.attributes.title.value;
     this.inputId = "input_" + this.title;
     var price = this.attributes.price.value;
+    var text_colour = this.attributes.text_colour.value;
 
-    this.innerHTML = `<div class="card flex justify-around snap-center shadow-xl">
+    this.innerHTML = `<div class="card flex justify-around snap-center shadow-xl  ${text_colour}">
     <div class="w-5/12">
       <img src="${img}" alt="" />
     </div>
@@ -167,7 +169,7 @@ class TileLeft extends HTMLElement {
         ></button>
       </div>
       <div class="pb-12 pl-12 pr-12">
-      <h1 class="font-poppins text-6xl bg-white text-left">${title}</h1>
+      <h1 class="font-poppins text-6xl text-left">${title}</h1>
       <div class="font-poppins pt-10 pb-5">
         ${description}
       </div>
@@ -187,7 +189,7 @@ class TileLeft extends HTMLElement {
         </button>
         <input type="text" value="${
           this.quantity
-        }" class="w-10 text-center p-0"  id="${this.inputId}">
+        }" class="w-10 text-center p-0 text-black"  id="${this.inputId}">
         <button
           class="w-10 h-10 ml-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
           id="${"plus_" + title}"

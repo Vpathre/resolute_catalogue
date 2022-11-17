@@ -152,18 +152,20 @@ var today = new Date();
 
 var cont = false;
 
-// [Novice, Apprentice, Adept, Beginner, Advanced, Master]
-var product_array = [2300, 2415, 2530, 2645, 2875, 3450];
+// [Novice, Apprentice, Adept, Beginner, Advanced, Master, Facilitators, Student]
+var product_array = [2300, 2415, 2530, 2645, 2875, 3450, 300, 120];
 
 // keeps track of streams selected, saves inefficiency of iterating through entire cart
 var stream_tracker = [];
 var teacher_training = [];
+
 function updateQuantity(button_id) {
   /**
    * Updates the quantity of the streams selected in the modal pop-up.
    * @param button_id: refers to the element id recieved as a parameter
    */
   var inputIdString;
+  console.log(button_id);
   // get input element
   if (button_id.slice(0, 5) == "plus_") {
     inputIdString = "input_" + button_id.slice(5, button_id.length);
@@ -270,6 +272,11 @@ function addToCart(button_id) {
     case "Master Stream":
       price = product_array[5];
       break;
+  }
+  if (button_id.slice(4, 17) == "Facilitator's") {
+    price = product_array[6];
+  } else if (button_id.slice(4, 13) == "Student's") {
+    price = product_array[7];
   }
   displayModal("success", input, title);
   var temp = [title, input.value, price.toString(), "stream"];
@@ -749,6 +756,7 @@ function addTeacherTraining(param) {
       ]);
     }
   }
+
   // if we just need to add up total
   if (!param) {
     let total_price = document.getElementById("CardUnitPrice");
@@ -756,11 +764,14 @@ function addTeacherTraining(param) {
   }
   //add the total to the cart
   else {
-    total_order.push(cart.flat(2));
+    for (let i = 0; i < cart.length; i++) {
+      total_order.push(cart[i].flat(2));
+    }
     document.getElementById("cart_counter").innerHTML = getCartCount();
     document.getElementById("total_price").innerHTML =
       "R " + getCartTotal(total_order);
   }
+  console.log(total_order);
 }
 
 function updateQuantityTraining(button_id, identifier = false) {
@@ -784,8 +795,6 @@ function updateQuantityTraining(button_id, identifier = false) {
     if (parseInt(input.value) == 1 && !identifier) {
       return;
     } else if (parseInt(input.value) == 1 && identifier) {
-      input.value = (parseInt(input.value) - 1).toString();
-    } else if (parseInt(input.value) == 0 && identifier) {
       return;
     } else {
       input.value = (parseInt(input.value) - 1).toString();
@@ -934,8 +943,9 @@ function deleteCartItem(bin_id) {
     inputIdString = bin_id.slice(7, bin_id.length);
   }
 
-  if (inputIdString.slice(0, 7)) {
+  if (inputIdString.slice(0, 7) == "Package") {
     package_selected = false;
+    packageBenefits("lite", package_selected);
   }
 
   for (let i = 0; i < total_order.length; i++) {
