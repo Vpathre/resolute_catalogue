@@ -2455,7 +2455,11 @@
                 </div>
               </div>
               <div class="pt-5 pl-12 pr-12 pb-10 bg-white">
-                <table class="min-w-full">
+                <span
+                  class="text-lg font-semibold mt-14 mb-8 flex justify-center"
+                  id="teacher_training_container"
+                ></span>
+                <table class="min-w-full" id="teacher_training_table">
                   <thead class="bg-blue-200 border-b">
                     <tr>
                       <th
@@ -2511,9 +2515,10 @@
                         class="px-6 py-2 whitespace-nowrap text-sm font-light text-gray-900 text-center"
                       >
                         <input
-                          id="select_novice_training"
+                          id="select_novice"
                           type="checkbox"
                           value=""
+                          onclick="addTeacherTraining(false)"
                           class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
                         />
                       </td>
@@ -2590,9 +2595,10 @@
                         class="px-6 py-2 whitespace-nowrap text-sm font-light text-gray-900 text-center"
                       >
                         <input
-                          id="select_apprentice_training"
+                          id="select_apprentice"
                           type="checkbox"
                           value=""
+                          onclick="addTeacherTraining(false)"
                           class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
                         />
                       </td>
@@ -2669,9 +2675,10 @@
                         class="px-6 py-2 whitespace-nowrap text-sm font-light text-gray-900 text-center"
                       >
                         <input
-                          id="select_adept_training"
+                          id="select_adept"
                           type="checkbox"
                           value=""
+                          onclick="addTeacherTraining(false)"
                           class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
                         />
                       </td>
@@ -2748,9 +2755,10 @@
                         class="px-6 py-2 whitespace-nowrap text-sm font-light text-gray-900 text-center"
                       >
                         <input
-                          id="select_beginner_training"
+                          id="select_beginner"
                           type="checkbox"
                           value=""
+                          onclick="addTeacherTraining(false)"
                           class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
                         />
                       </td>
@@ -2827,9 +2835,10 @@
                         class="px-6 py-2 whitespace-nowrap text-sm font-light text-gray-900 text-center"
                       >
                         <input
-                          id="select_advanced_training"
+                          id="select_advanced"
                           type="checkbox"
                           value=""
+                          onclick="addTeacherTraining(false)"
                           class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
                         />
                       </td>
@@ -2906,9 +2915,10 @@
                         class="px-6 py-2 whitespace-nowrap text-sm font-light text-gray-900 text-center"
                       >
                         <input
-                          id="select_master_training"
+                          id="select_master"
                           type="checkbox"
                           value=""
+                          onclick="addTeacherTraining(false)"
                           class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
                         />
                       </td>
@@ -2981,11 +2991,11 @@
                 </table>
 
                 <div class="flex justify-between">
-                  <div class="text-xl font-semibold pt-5" id="CardUnitPrice">
+                  <div class="text-xl font-semibold pt-5" id="TeacherUnitPrice">
                     Total price:
                   </div>
 
-                  <div class="pt-5 pr-3">
+                  <div class="pt-5 pr-3" id="TeacherToggle">
                     <label
                       for="toogleA"
                       class="flex items-center cursor-pointer"
@@ -3021,7 +3031,7 @@
                   <div class="flex justify-center mt-3">
                     <button
                       class="rounded-full py-2 px-3 uppercase text-xs font-bold cursor-pointer tracking-wide border-2 text-white bg-resBlue border-resBlue hover:bg-white hover:text-gray-700 transition ease-out duration-300"
-                      id="Add"
+                      id="AddTeacher"
                       onclick="addTeacherTraining(true)"
                     >
                       Add to cart
