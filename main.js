@@ -307,7 +307,7 @@ function addToCart(button_id) {
   document.getElementById("cart_counter").innerHTML = getCartCount();
   document.getElementById("total_price").innerHTML =
     "R " + getCartTotal(total_order);
-  trainingCounter();
+  trainingCounter(true);
 }
 
 function getCartCount() {
@@ -636,7 +636,7 @@ function packageBenefits(package, package_selected) {
   cartChecker();
 }
 
-function trainingCounter() {
+function trainingCounter(param) {
   /**
    * Displays the selected streams in the span present on the teacher training card
    */
@@ -648,43 +648,55 @@ function trainingCounter() {
       return_string += stream_tracker[i];
     }
   }
-  document.getElementById("teacher_stream_identifier").innerHTML =
-    "Streams Selected:";
+  if (stream_tracker.length == 0) {
+    document.getElementById("teacher_stream_identifier").innerHTML =
+      "No Streams Selected";
+  } else {
+    document.getElementById("teacher_stream_identifier").innerHTML =
+      "Streams Selected:";
+  }
   document.getElementById("teacher_training_streams").innerHTML = return_string;
-  tableFieldEditor("stream");
+  tableFieldEditor();
 }
 
-function tableFieldEditor(identifier) {
+function tableFieldEditor() {
   /**
    * Modifies the teacher training modal to only show selected streams
    */
-  if (identifier == "stream") {
+  document.getElementById("teacher_novice").style.display = "none";
+  document.getElementById("teacher_apprentice").style.display = "none";
+  document.getElementById("teacher_adept").style.display = "none";
+  document.getElementById("teacher_beginner").style.display = "none";
+  document.getElementById("teacher_advanced").style.display = "none";
+  document.getElementById("teacher_master").style.display = "none";
+
+  // if no streams are selected
+  if (stream_tracker.length == 0) {
+    document.getElementById("teacher_training_table").style.display = "none";
+    var div = document.getElementById("teacher_training_container");
+    div.innerHTML = "No streams selected (ㆆ_ㆆ)";
+    div.style.display = "flex";
+    document.getElementById("TeacherUnitPrice").style.display = "none";
+    document.getElementById("TeacherToggle").style.display = "none";
+    document.getElementById("AddTeacher").innerHTML = "Continue";
+    document
+      .getElementById("AddTeacher")
+      .setAttribute("data-bs-dismiss", "modal");
+  } else {
+    console.log("hi we are not empty");
+    document.getElementById("teacher_training_table").style.display =
+      "flex row";
+    document.getElementById("teacher_training_container").style.display =
+      "none";
+    document.getElementById("TeacherUnitPrice").style.display = "block";
+    document.getElementById("TeacherToggle").style.display = "block";
+    document.getElementById("AddTeacher").innerHTML = "Add To Cart";
+    document.getElementById("AddTeacher").removeAttribute("data-bs-modal");
+    // if item is in the stream tracker array, table row, else none
     for (let i = 0; i < stream_tracker.length; i++) {
-      switch (stream_tracker[i]) {
-        case "Novice":
-          document.getElementById("teacher_novice").style.display = "table-row";
-          break;
-        case "Apprentice":
-          document.getElementById("teacher_apprentice").style.display =
-            "table-row";
-          break;
-        case "Adept":
-          document.getElementById("teacher_adept").style.display = "table-row";
-          break;
-        case "Beginner":
-          document.getElementById("teacher_beginner").style.display =
-            "table-row";
-          break;
-        case "Advanced":
-          document.getElementById("teacher_advanced").style.display =
-            "table-row";
-          break;
-        case "Master":
-          document.getElementById("teacher_master").style.display = "table-row";
-          break;
-      }
+      let temp = "teacher_" + stream_tracker[i].toLowerCase();
+      document.getElementById(temp).style.display = "table-row";
     }
-  } else if (identifier == "cart") {
   }
 }
 
@@ -723,6 +735,7 @@ function teacherPricing() {
     document.getElementById("teacher_price_master").innerHTML =
       "R " + getCartTotal(teacher_person.toString());
   }
+  tableFieldEditor();
   addTeacherTraining(false);
 }
 
@@ -734,26 +747,29 @@ function addTeacherTraining(param) {
   for (let i = 0; i < stream_tracker.length; i++) {
     let stream_name = stream_tracker[i].toLowerCase();
     let stream_name_input = "input_teacher_" + stream_name;
-    if (!toggle.checked) {
-      total +=
-        parseInt(document.getElementById(stream_name_input).value) *
-        teacher_online;
-      cart.push([
-        stream_tracker[i] + " Training",
-        document.getElementById(stream_name_input).value,
-        teacher_online.toString(),
-        "online training",
-      ]);
-    } else {
-      total +=
-        parseInt(document.getElementById(stream_name_input).value) *
-        teacher_person;
-      cart.push([
-        stream_tracker[i] + " Training",
-        document.getElementById(stream_name_input).value,
-        teacher_person.toString(),
-        "person training",
-      ]);
+    let check_training = document.getElementById("select_" + stream_name);
+    if (check_training.checked) {
+      if (!toggle.checked) {
+        total +=
+          parseInt(document.getElementById(stream_name_input).value) *
+          teacher_online;
+        cart.push([
+          stream_tracker[i] + " Training",
+          document.getElementById(stream_name_input).value,
+          teacher_online.toString(),
+          "online training",
+        ]);
+      } else {
+        total +=
+          parseInt(document.getElementById(stream_name_input).value) *
+          teacher_person;
+        cart.push([
+          stream_tracker[i] + " Training",
+          document.getElementById(stream_name_input).value,
+          teacher_person.toString(),
+          "person training",
+        ]);
+      }
     }
   }
 
@@ -771,7 +787,6 @@ function addTeacherTraining(param) {
     document.getElementById("total_price").innerHTML =
       "R " + getCartTotal(total_order);
   }
-  console.log(total_order);
 }
 
 function updateQuantityTraining(button_id, identifier = false) {
@@ -921,13 +936,6 @@ function updateQuantityCart(button_id) {
     }
   }
 
-  /**
-   * TODO:
-   * Add up the items in the cart view to display potential total at the bottom of modal.
-   * Update cart total at the bottom when the quantity buttons are clicked.
-   * Call getCartTotal when the continue/update button is clicked.
-   */
-
   document.getElementById("update_cart_card").innerHTML = "update";
 }
 
@@ -943,18 +951,40 @@ function deleteCartItem(bin_id) {
     inputIdString = bin_id.slice(7, bin_id.length);
   }
 
+  console.log(stream_tracker);
   if (inputIdString.slice(0, 7) == "Package") {
+    // if package deleted, revert price benefits
     package_selected = false;
     packageBenefits("lite", package_selected);
   }
-
-  for (let i = 0; i < total_order.length; i++) {
-    if (total_order[i][0] == inputIdString) {
-      total_order.splice(i, 1);
-      cart_view();
-      break;
-    }
+  // if stream is being deleted, delete the stream and corresponding training
+  else if (inputIdString == "Novice Stream") {
+    stream_tracker.splice(stream_tracker.indexOf("Novice"), 1);
+  } else if (inputIdString == "Apprentice Stream") {
+    stream_tracker.splice(stream_tracker.indexOf("Apprentice"), 1);
+  } else if (inputIdString == "Adept Stream") {
+    stream_tracker.splice(stream_tracker.indexOf("Adept"), 1);
+  } else if (inputIdString == "Beginner Stream") {
+    stream_tracker.splice(stream_tracker.indexOf("Beginner"), 1);
+  } else if (inputIdString == "Advanced Stream") {
+    stream_tracker.splice(stream_tracker.indexOf("Advanced"), 1);
+  } else if (inputIdString == "Master Stream") {
+    stream_tracker.splice(stream_tracker.indexOf("Master"), 1);
   }
+
+  var stream_string = inputIdString;
+  var training_string =
+    stream_string.slice(0, stream_string.indexOf(" ")) + " Training";
+  for (let i = 0; i < total_order.length; i++) {
+    if (total_order[i][0] == stream_string) {
+      total_order.splice(i, 1);
+    } else if (total_order[i][0] == training_string) {
+      total_order.splice(i, 1);
+    }
+    cart_view();
+  }
+
+  trainingCounter(false);
 }
 
 function displayModal(type, input, id) {
