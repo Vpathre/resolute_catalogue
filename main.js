@@ -1,5 +1,4 @@
 // var url = "https://resolute-invoice-form.herokuapp.com/salesrequest";
-
 // function process(state) {
 //   if (state == "loading") {
 //     updateMonday();
@@ -300,13 +299,19 @@ function addToCart(button_id) {
   } else {
     total_order.push(temp);
   }
-  if (stream_tracker.indexOf(title.slice(0, title.indexOf(" "))) === -1) {
-    stream_tracker.push(title.slice(0, title.indexOf(" ")));
+  console.log(title.slice(0, title.indexOf(" ")));
+  if (
+    title.slice(0, title.indexOf(" ")) != "Facilitator's" &&
+    title.slice(0, title.indexOf(" ")) != "Student's"
+  ) {
+    if (stream_tracker.indexOf(title.slice(0, title.indexOf(" "))) === -1) {
+      stream_tracker.push(title.slice(0, title.indexOf(" ")));
+    }
   }
-  console.log(total_order);
   document.getElementById("cart_counter").innerHTML = getCartCount();
   document.getElementById("total_price").innerHTML =
     "R " + getCartTotal(total_order);
+  console.log("Stream tracker", stream_tracker);
   trainingCounter(true);
 }
 
@@ -671,32 +676,32 @@ function tableFieldEditor() {
   document.getElementById("teacher_master").style.display = "none";
 
   // if no streams are selected
+  console.log("table field editor", stream_tracker.length);
   if (stream_tracker.length == 0) {
-    document.getElementById("teacher_training_table").style.display = "none";
+    document.getElementById("teacher_training_table").classList.add("hidden");
     var div = document.getElementById("teacher_training_container");
     div.innerHTML = "No streams selected (ㆆ_ㆆ)";
     div.style.display = "flex";
-    document.getElementById("TeacherUnitPrice").style.display = "none";
-    document.getElementById("TeacherToggle").style.display = "none";
+    document.getElementById("teacher_info").style.display = "none";
     document.getElementById("AddTeacher").innerHTML = "Continue";
     document
       .getElementById("AddTeacher")
       .setAttribute("data-bs-dismiss", "modal");
-  } else {
-    console.log("hi we are not empty");
-    document.getElementById("teacher_training_table").style.display =
-      "flex row";
-    document.getElementById("teacher_training_container").style.display =
-      "none";
-    document.getElementById("TeacherUnitPrice").style.display = "block";
-    document.getElementById("TeacherToggle").style.display = "block";
-    document.getElementById("AddTeacher").innerHTML = "Add To Cart";
-    document.getElementById("AddTeacher").removeAttribute("data-bs-modal");
+  } else if (stream_tracker.length > 0) {
     // if item is in the stream tracker array, table row, else none
     for (let i = 0; i < stream_tracker.length; i++) {
       let temp = "teacher_" + stream_tracker[i].toLowerCase();
       document.getElementById(temp).style.display = "table-row";
     }
+    document
+      .getElementById("teacher_training_table")
+      .classList.remove("hidden");
+    document.getElementById("teacher_training_table").classList.add("flex-row");
+    document.getElementById("teacher_training_container").style.display =
+      "none";
+    document.getElementById("teacher_info").style.display = "flex";
+    document.getElementById("AddTeacher").innerHTML = "Add To Cart";
+    document.getElementById("AddTeacher").removeAttribute("data-bs-modal");
   }
 }
 
@@ -775,7 +780,7 @@ function addTeacherTraining(param) {
 
   // if we just need to add up total
   if (!param) {
-    let total_price = document.getElementById("CardUnitPrice");
+    let total_price = document.getElementById("TeacherUnitPrice");
     total_price.innerHTML = "Total price: R " + getCartTotal(total.toString());
   }
   //add the total to the cart
@@ -911,6 +916,22 @@ function cart_view() {
   }
 }
 
+function updateCart() {
+  /**
+   * Updates the cart if any of the item quantities in the cart modal are modified
+   */
+  console.log(total_order);
+  for (let i = 0; i < total_order.length; i++) {
+    let current_input = document.getElementById(
+      "input_" + total_order[i][0] + "cart"
+    ).value;
+    total_order[i][1] = current_input;
+  }
+  document.getElementById("cart_counter").innerHTML = getCartCount();
+  document.getElementById("total_price").innerHTML =
+    "R " + getCartTotal(total_order);
+}
+
 function updateQuantityCart(button_id) {
   /**
    * Updates the quantity of the products present in the cart and calculates total value.
@@ -951,7 +972,6 @@ function deleteCartItem(bin_id) {
     inputIdString = bin_id.slice(7, bin_id.length);
   }
 
-  console.log(stream_tracker);
   if (inputIdString.slice(0, 7) == "Package") {
     // if package deleted, revert price benefits
     package_selected = false;
@@ -978,12 +998,23 @@ function deleteCartItem(bin_id) {
   for (let i = 0; i < total_order.length; i++) {
     if (total_order[i][0] == stream_string) {
       total_order.splice(i, 1);
-    } else if (total_order[i][0] == training_string) {
+      if (total_order.length == 0) {
+        cart_view();
+        break;
+      }
+    }
+    if (total_order[i][0] == training_string) {
       total_order.splice(i, 1);
     }
     cart_view();
   }
-
+  document.getElementById("cart_counter").innerHTML = getCartCount();
+  if (total_order.length > 0) {
+    document.getElementById("total_price").innerHTML =
+      "R " + getCartTotal(total_order);
+  } else {
+    document.getElementById("total_price").innerHTML = "R 0";
+  }
   trainingCounter(false);
 }
 
