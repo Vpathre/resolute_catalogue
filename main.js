@@ -1005,6 +1005,7 @@ function deleteCartItem(bin_id) {
     }
     if (total_order[i][0] == training_string) {
       total_order.splice(i, 1);
+      break;
     }
     cart_view();
   }

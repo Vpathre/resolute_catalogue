@@ -1,45 +1,45 @@
 <!-- 
 
-                            @@@                                                                         
-                       @@@@@@@@@@@@@@@@@@                                                           
-                                  @@@@@@@@@@@@@                                                     
-                                           @@@@@@@@@                                                
-                                                @@@@@@@@                                            
-                                                    @@@@@@@                                         
-                                                        @@@@@@                                      
-                                                           @@@@@@                                   
-                                                             @@@@@@                                 
-                                                                @@@@@                               
-                                                                  @@@@@                             
-                       @@@@@@@@@@@                                 @@@@@                            
-                       @@  @@@@@@@@@@@@                              @@@@@                          
-                       @@          @@@@@@@@                           @@@@@                         
-                       @@               @@@@@@                         @@@@@                        
-                       @@                 @@@@@@                        @@@@@                       
-                       @@                    @@@@@                       @@@@@                      
-                       @@                     @@@@@                       @@@@                      
-                       @@                       @@@@                       @@@@                     
-                       @@                        @@@@                      @@@@                     
-                       @@                        @@@@@                     @@@@@                    
-                       @@                         @@@@                      @@@@                    
-                     @@@@@@                       @@@@                      @@@@                    
-                      @@@@                        @@@@                      @@@@                    
-                          @@                      @@@@                      @@@@                    
-                            @@                   @@@@                      @@@@                     
-                              @@                @@@@@                      @@@@                     
-                                @@             @@@@@                       @@@@                     
-                                  @@          @@@@@                       @@@@                      
-                                    @@      @@@@@                        @@@@                       
-                                      @@  @@@@@                         @@@@                        
-                                      @@@@@@@                          @@@@@                        
-                                  @@@@@@@@@@                          @@@@                          
-                       @@@@@@@@@@@@@@@      @@                      @@@@@                           
-                       @@@@@@@@@              @@                   @@@@@                            
-                                                @@               @@@@@                              
-                                                  @@           @@@@@                                
-                                                    @@       @@@@@                                  
-                                                     @@@  @@@@@@                                    
-                                                       @@@@@@   
+       @@@                                                                         
+  @@@@@@@@@@@@@@@@@@                                                           
+             @@@@@@@@@@@@@                                                     
+                      @@@@@@@@@                                                
+                           @@@@@@@@                                            
+                               @@@@@@@                                         
+                                   @@@@@@                                      
+                                      @@@@@@                                   
+                                        @@@@@@                                 
+                                           @@@@@                               
+                                             @@@@@                             
+  @@@@@@@@@@@                                 @@@@@                            
+  @@  @@@@@@@@@@@@                              @@@@@                          
+  @@          @@@@@@@@                           @@@@@                         
+  @@               @@@@@@                         @@@@@                        
+  @@                 @@@@@@                        @@@@@                       
+  @@                    @@@@@                       @@@@@                      
+  @@                     @@@@@                       @@@@                      
+  @@                       @@@@                       @@@@                     
+  @@                        @@@@                      @@@@                     
+  @@                        @@@@@                     @@@@@                    
+  @@                         @@@@                      @@@@                    
+@@@@@@                       @@@@                      @@@@                    
+ @@@@                        @@@@                      @@@@                    
+     @@                      @@@@                      @@@@                    
+       @@                   @@@@                      @@@@                     
+         @@                @@@@@                      @@@@                     
+           @@             @@@@@                       @@@@                     
+             @@          @@@@@                       @@@@                      
+               @@      @@@@@                        @@@@                       
+                 @@  @@@@@                         @@@@                        
+                 @@@@@@@                          @@@@@                        
+             @@@@@@@@@@                          @@@@                          
+  @@@@@@@@@@@@@@@      @@                      @@@@@                           
+  @@@@@@@@@              @@                   @@@@@                            
+                           @@               @@@@@                              
+                             @@           @@@@@                                
+                               @@       @@@@@                                  
+                                @@@  @@@@@@                                    
+                                  @@@@@@   
  -->
 
 <html lang="en">
@@ -67,7 +67,7 @@
 
   <body class="text-grey-600 font-poppins" data-barba="wrapper">
     <ul
-      class="transition flex absolute z-50 h-full w-full top-0 left-0 m-0 pointer-events-none"
+      class="transition flex fixed z-50 h-full w-full top-0 left-0 m-0 pointer-events-none"
     >
       <li class="transform scale-y-0 bg-resBlue w-1/5"></li>
       <li class="transform scale-y-0 bg-resBlue w-1/5"></li>
@@ -80,39 +80,43 @@
     <main
       data-barba="container"
       data-barba-namespace="intro-section"
-      class="banner flex-col justify-center text-xl h-screen font-poppins uppercase bg-resBlue text-white p-40 z-40 w-screen fixed snap-end shadow-lg"
+      class="banner flex-col justify-center text-xl h-screen font-poppins uppercase bg-resBlue text-white z-40 w-screen fixed snap-end shadow-lg sm:pt-40 pl-20 pr-20 lg:p-40"
     >
-      <div class="flex justify-center">
+      <div class="flex justify-center mt-20 sm:mt-0">
         <img
           class="w-96 logo"
           src="./public/img/res_logo_white.png"
           alt="logo"
         />
       </div>
-      <div class="flex items-center justify-center mt-20">
-        <span class="text-center intro-text">
+      <div class="flex items-center justify-center mt-20 intro-text">
+        <span class="text-center text-sm sm:text-xl">
           This configurator serves to provide you with an estimated cost to
           implement a robotics and computer programming curriculum at your
           school!
         </span>
       </div>
-      <div class="text-center left-96 right-96 absolute bottom-0 intro-button">
-        <button
-          class="btn animate-bounce bg-white bg-opacity-100 text-black border-2 border-white hover:shadow-inner transform hover:scale-105 hover:text-white hover:bg-transparent hover:border-white transition ease-in duration-150"
-          id="getStarted"
+      <div class="flex justify-center">
+        <div
+          class="text-center flex-row items-center absolute bottom-0 intro-button"
         >
-          <a>Get Started</a>
-        </button>
-        <div class="flex justify-center text-center">
-          <lottie-player
-            src="https://assets3.lottiefiles.com/packages/lf20_H6LAE4.json"
-            background="transparent"
-            speed="1"
-            style="width: 5rem; height: 5rem"
-            loop
-            autoplay
+          <button
+            class="btn animate-bounce bg-white bg-opacity-100 text-black border-2 border-white hover:shadow-inner transform hover:scale-105 hover:text-white hover:bg-transparent hover:border-white transition ease-in duration-150"
+            id="getStarted"
           >
-          </lottie-player>
+            <a>Get Started</a>
+          </button>
+          <div class="flex justify-center text-center">
+            <lottie-player
+              src="https://assets3.lottiefiles.com/packages/lf20_H6LAE4.json"
+              background="transparent"
+              speed="1"
+              style="width: 5rem; height: 5rem"
+              loop
+              autoplay
+            >
+            </lottie-player>
+          </div>
         </div>
       </div>
     </main>
