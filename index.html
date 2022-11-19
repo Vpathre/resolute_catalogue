@@ -66,7 +66,7 @@
   </head>
 
   <body class="text-grey-600 font-poppins" data-barba="wrapper">
-    <ul
+    <!-- <ul
       class="transition flex fixed z-50 h-full w-full top-0 left-0 m-0 pointer-events-none"
     >
       <li class="transform scale-y-0 bg-resBlue w-1/5"></li>
@@ -74,10 +74,10 @@
       <li class="transform scale-y-0 bg-resBlue w-1/5"></li>
       <li class="transform scale-y-0 bg-resBlue w-1/5"></li>
       <li class="transform scale-y-0 bg-resBlue w-1/5"></li>
-    </ul>
+    </ul> -->
 
     <!-- main banner of the app -->
-    <main
+    <!-- <main
       data-barba="container"
       data-barba-namespace="intro-section"
       class="banner flex-col justify-center text-xl h-screen font-poppins uppercase bg-resBlue text-white z-40 w-screen fixed snap-end shadow-lg sm:pt-40 pl-20 pr-20 lg:p-40"
@@ -119,15 +119,18 @@
           </div>
         </div>
       </div>
-    </main>
+    </main> -->
 
     <!-- Swiper -->
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
-        <div class="swiper-slide overflow-hidden" id="packages-slide">
-          <!-- list of packages of the page -->
+        <div
+          class="swiper-slide overflow-y-scroll h-screen"
+          id="packages-slide"
+        >
+          <!-- list of packages on the page (larger screens)-->
           <main
-            class="px-16 py-4 pt-5 bg-gray-100 md:flex md:flex-col h-fit min-h-screen w-screen relative"
+            class="px-16 py-4 pt-5 bg-gray-100 flex-col h-fit min-h-screen w-screen pb-20 lg:pb-0"
             data-barba="container"
             id="packages"
           >
@@ -139,7 +142,336 @@
               </h2>
             </header>
 
-            <div class="tabs relative">
+            <div
+              class="grid lg:grid-cols-3 mt-8 gap-6 lg:gap-x-12 relative lg:hidden"
+            >
+              <div class="mb-6 lg:mb-0">
+                <div class="block rounded-lg shadow-lg bg-white h-full">
+                  <div class="p-6 border-b border-gray-300 text-center">
+                    <p class="uppercase mb-4 text-sm">
+                      <strong>Lite</strong>
+                    </p>
+                    <h3 class="text-2xl mb-6">
+                      <strong>R 34,500</strong>
+                    </h3>
+
+                    <button
+                      class="btn mt-5 mb-5 border-2 bg-resBlue bg-opacity-80 border-transparent text-white hover:shadow-inner transform hover:bg-opacity-100 hover:scale-105 hover:text-resBlue hover:bg-white hover:border-resBlue transition ease-in duration-150"
+                      onclick="addPackages('lite')"
+                    >
+                      Add to cart
+                    </button>
+                  </div>
+                  <div class="p-6">
+                    <ol class="list-inside">
+                      <li class="mb-4 flex items-center">
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          data-prefix="fas"
+                          data-icon="check"
+                          class="text-green-600 w-4 h-4 mr-2"
+                          role="img"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                          ></path></svg
+                        >Unlimited updates
+                      </li>
+                      <li class="mb-4 flex items-center">
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          data-prefix="fas"
+                          data-icon="check"
+                          class="text-green-600 w-4 h-4 mr-2"
+                          role="img"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                          ></path></svg
+                        >Git repository
+                      </li>
+                      <li class="mb-4 flex items-center">
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          data-prefix="fas"
+                          data-icon="check"
+                          class="text-green-600 w-4 h-4 mr-2"
+                          role="img"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                          ></path></svg
+                        >npm installation
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-6 lg:mb-0">
+                <div class="block rounded-lg shadow-lg bg-white h-full">
+                  <div class="p-6 border-b border-gray-300 text-center">
+                    <p class="uppercase mb-4 text-sm">
+                      <strong>Standard</strong>
+                    </p>
+                    <h3 class="text-2xl mb-6">
+                      <strong>R 69,000</strong>
+                    </h3>
+                    <button
+                      class="btn mt-5 mb-5 border-2 bg-resBlue bg-opacity-80 border-transparent text-white hover:shadow-inner transform hover:bg-opacity-100 hover:scale-105 hover:text-resBlue hover:bg-white hover:border-resBlue transition ease-in duration-150"
+                      onclick="addPackages('standard')"
+                    >
+                      Add to cart
+                    </button>
+                  </div>
+                  <div class="p-6">
+                    <ol class="list-inside">
+                      <li class="mb-4 flex items-center">
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          data-prefix="fas"
+                          data-icon="check"
+                          class="text-green-600 w-4 h-4 mr-2"
+                          role="img"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                          ></path></svg
+                        >Unlimited updates
+                      </li>
+                      <li class="mb-4 flex items-center">
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          data-prefix="fas"
+                          data-icon="check"
+                          class="text-green-600 w-4 h-4 mr-2"
+                          role="img"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                          ></path></svg
+                        >Git repository
+                      </li>
+                      <li class="mb-4 flex items-center">
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          data-prefix="fas"
+                          data-icon="check"
+                          class="text-green-600 w-4 h-4 mr-2"
+                          role="img"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                          ></path></svg
+                        >npm installation
+                      </li>
+                      <li class="mb-4 flex items-center">
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          data-prefix="fas"
+                          data-icon="check"
+                          class="text-green-600 w-4 h-4 mr-2"
+                          role="img"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                          ></path></svg
+                        >Code examples
+                      </li>
+                      <li class="mb-4 flex items-center">
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          data-prefix="fas"
+                          data-icon="check"
+                          class="text-green-600 w-4 h-4 mr-2"
+                          role="img"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                          ></path></svg
+                        >Premium snippets
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-6 lg:mb-0">
+                <div class="block rounded-lg shadow-lg bg-white h-full">
+                  <div class="p-6 border-b border-gray-300 text-center">
+                    <p class="uppercase mb-4 text-sm">
+                      <strong>Premium</strong>
+                    </p>
+                    <h3 class="text-2xl mb-6">
+                      <strong>R 109,250 </strong>
+                    </h3>
+                    <button
+                      class="btn mt-5 mb-5 border-2 bg-resBlue bg-opacity-80 border-transparent text-white hover:shadow-inner transform hover:bg-opacity-100 hover:scale-105 hover:text-resBlue hover:bg-white hover:border-resBlue transition ease-in duration-150"
+                      onclick="addPackages('premium')"
+                    >
+                      Add to cart
+                    </button>
+                  </div>
+                  <div class="p-6">
+                    <ol class="list-inside">
+                      <li class="mb-4 flex items-center">
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          data-prefix="fas"
+                          data-icon="check"
+                          class="text-green-600 w-4 h-4 mr-2"
+                          role="img"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                          ></path></svg
+                        >Unlimited updates
+                      </li>
+                      <li class="mb-4 flex items-center">
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          data-prefix="fas"
+                          data-icon="check"
+                          class="text-green-600 w-4 h-4 mr-2"
+                          role="img"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                          ></path></svg
+                        >Git repository
+                      </li>
+                      <li class="mb-4 flex items-center">
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          data-prefix="fas"
+                          data-icon="check"
+                          class="text-green-600 w-4 h-4 mr-2"
+                          role="img"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                          ></path></svg
+                        >npm installation
+                      </li>
+                      <li class="mb-4 flex items-center">
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          data-prefix="fas"
+                          data-icon="check"
+                          class="text-green-600 w-4 h-4 mr-2"
+                          role="img"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                          ></path></svg
+                        >Code examples
+                      </li>
+                      <li class="mb-4 flex items-center">
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          data-prefix="fas"
+                          data-icon="check"
+                          class="text-green-600 w-4 h-4 mr-2"
+                          role="img"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                          ></path></svg
+                        >Premium snippets
+                      </li>
+                      <li class="mb-4 flex items-center">
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          data-prefix="fas"
+                          data-icon="check"
+                          class="text-green-600 w-4 h-4 mr-2"
+                          role="img"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                          ></path></svg
+                        >Premium support
+                      </li>
+                      <li class="mb-4 flex items-center">
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          data-prefix="fas"
+                          data-icon="check"
+                          class="text-green-600 w-4 h-4 mr-2"
+                          role="img"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                          ></path></svg
+                        >Drag&amp;Drop builder
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tabs hidden lg:block">
               <ul
                 class="nav nav-tabs nav-justified flex flex-col md:flex-row flex-wrap list-none border-b-0 pl-0 mb-4 mt-2"
                 id="tabs-tabJustify"
@@ -222,7 +554,7 @@
                           </th>
                           <th
                             scope="col"
-                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left bg-blue-300"
                           >
                             Expos
                           </th>
@@ -846,10 +1178,13 @@
             </div>
           </main>
         </div>
-        <div class="swiper-slide overflow-hidden h-screen" id="products-slide">
+        <div
+          class="swiper-slide overflow-y-scroll h-screen"
+          id="products-slide"
+        >
           <!-- list of products for sale -->
           <main
-            class="px-16 py-6 bg-gray-100 md:flex md:flex-col w-screen relative h-screen"
+            class="px-16 py-6 bg-gray-100 min-h-screen w-screen h-fit pb-20 lg:pb-0 md:flex md:flex-col relative"
             id="streams"
           >
             <header>
@@ -968,10 +1303,10 @@
             </div>
           </main>
         </div>
-        <div class="swiper-slide overflow-scroll" id="books-slide">
+        <div class="swiper-slide overflow-y-scroll" id="books-slide">
           <!-- list of books and extras -->
           <main
-            class="px-16 py-6 bg-gray-100 md:flex md:flex-col w-screen"
+            class="px-16 py-6 bg-gray-100 min-h-screen w-screen h-fit pb-20 lg:pb-0 md:flex md:flex-col relative"
             id="extras"
           >
             <header>
@@ -1729,7 +2064,7 @@
 
     <!-- final price bar at bottom of screen -->
     <div
-      class="z-20 h-16 bg-white flex justify-between sticky w-screen -bottom-0 shadow-inner"
+      class="z-20 h-16 bg-white flex justify-between absolute w-screen -bottom-0 shadow-inner"
     >
       <div class="flex justify-between">
         <div class="pl-5 md:flex md:justify-between">
@@ -3283,7 +3618,7 @@
         });
         tl.to(".banner", {
           duration: 0.5,
-          translateY: -1000,
+          translateY: -10000,
           transformOrigin: "bottom right",
           stagger: 0.2,
         });
