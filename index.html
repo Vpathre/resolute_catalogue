@@ -66,7 +66,7 @@
   </head>
 
   <body class="text-grey-600 font-poppins" data-barba="wrapper">
-    <!-- <ul
+    <ul
       class="transition flex fixed z-50 h-full w-full top-0 left-0 m-0 pointer-events-none"
     >
       <li class="transform scale-y-0 bg-resBlue w-1/5"></li>
@@ -74,10 +74,10 @@
       <li class="transform scale-y-0 bg-resBlue w-1/5"></li>
       <li class="transform scale-y-0 bg-resBlue w-1/5"></li>
       <li class="transform scale-y-0 bg-resBlue w-1/5"></li>
-    </ul> -->
+    </ul>
 
     <!-- main banner of the app -->
-    <!-- <main
+    <main
       data-barba="container"
       data-barba-namespace="intro-section"
       class="banner flex-col justify-center text-xl h-screen font-poppins uppercase bg-resBlue text-white z-40 w-screen fixed snap-end shadow-lg sm:pt-40 pl-20 pr-20 lg:p-40"
@@ -119,7 +119,7 @@
           </div>
         </div>
       </div>
-    </main> -->
+    </main>
 
     <!-- Swiper -->
     <div class="swiper mySwiper">
@@ -130,13 +130,13 @@
         >
           <!-- list of packages on the page (larger screens)-->
           <main
-            class="px-16 py-4 pt-5 bg-gray-100 flex-col h-fit min-h-screen w-screen pb-20 lg:pb-0"
+            class="px-16 py-4 pt-5 bg-gray-100 flex-col h-fit min-h-screen w-screen pb-20 xl:pb-0"
             data-barba="container"
             id="packages"
           >
             <header class="">
               <h2
-                class="heading text-grey-700 text-xl font-poppins uppercase border-b border-gray-300"
+                class="heading text-grey-700 text-md lg:text-xl font-poppins uppercase border-b border-gray-300"
               >
                 Our Packages
               </h2>
@@ -146,7 +146,7 @@
               class="grid lg:grid-cols-3 mt-8 gap-6 lg:gap-x-12 relative lg:hidden"
             >
               <div class="mb-6 lg:mb-0">
-                <div class="block rounded-lg shadow-lg bg-white h-full">
+                <div class="block rounded-lg shadow-xl bg-white h-full">
                   <div class="p-6 border-b border-gray-300 text-center">
                     <p class="uppercase mb-4 text-sm">
                       <strong>Lite</strong>
@@ -165,55 +165,22 @@
                   <div class="p-6">
                     <ol class="list-inside">
                       <li class="mb-4 flex items-center">
-                        <svg
-                          aria-hidden="true"
-                          focusable="false"
-                          data-prefix="fas"
-                          data-icon="check"
-                          class="text-green-600 w-4 h-4 mr-2"
-                          role="img"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                          ></path></svg
-                        >Unlimited updates
+                        <tick-svg> </tick-svg>Online Video Library & Quizzes
                       </li>
                       <li class="mb-4 flex items-center">
-                        <svg
-                          aria-hidden="true"
-                          focusable="false"
-                          data-prefix="fas"
-                          data-icon="check"
-                          class="text-green-600 w-4 h-4 mr-2"
-                          role="img"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                          ></path></svg
-                        >Git repository
+                        <tick-svg> </tick-svg>Student Guides & Textbooks
                       </li>
                       <li class="mb-4 flex items-center">
-                        <svg
-                          aria-hidden="true"
-                          focusable="false"
-                          data-prefix="fas"
-                          data-icon="check"
-                          class="text-green-600 w-4 h-4 mr-2"
-                          role="img"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                          ></path></svg
-                        >npm installation
+                        <tick-svg> </tick-svg>Web Simulators
+                      </li>
+                      <li class="mb-4 flex items-center">
+                        <tick-svg> </tick-svg>Teaching Plans & Curriculums
+                      </li>
+                      <li class="mb-4 flex items-center">
+                        <tick-svg> </tick-svg>Pre-recorded Training Modules
+                      </li>
+                      <li class="mb-4 flex items-center">
+                        <tick-svg> </tick-svg>Onboarding
                       </li>
                     </ol>
                   </div>
@@ -221,7 +188,7 @@
               </div>
 
               <div class="mb-6 lg:mb-0">
-                <div class="block rounded-lg shadow-lg bg-white h-full">
+                <div class="block rounded-lg shadow-xl bg-white h-full">
                   <div class="p-6 border-b border-gray-300 text-center">
                     <p class="uppercase mb-4 text-sm">
                       <strong>Standard</strong>
@@ -239,89 +206,20 @@
                   <div class="p-6">
                     <ol class="list-inside">
                       <li class="mb-4 flex items-center">
-                        <svg
-                          aria-hidden="true"
-                          focusable="false"
-                          data-prefix="fas"
-                          data-icon="check"
-                          class="text-green-600 w-4 h-4 mr-2"
-                          role="img"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                          ></path></svg
-                        >Unlimited updates
+                        <tick-svg> </tick-svg>Assessments, Student Analytics,
+                        Teacher Presentations
                       </li>
                       <li class="mb-4 flex items-center">
-                        <svg
-                          aria-hidden="true"
-                          focusable="false"
-                          data-prefix="fas"
-                          data-icon="check"
-                          class="text-green-600 w-4 h-4 mr-2"
-                          role="img"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                          ></path></svg
-                        >Git repository
+                        <tick-svg> </tick-svg>Facilitator's Guides & Textbooks
                       </li>
                       <li class="mb-4 flex items-center">
-                        <svg
-                          aria-hidden="true"
-                          focusable="false"
-                          data-prefix="fas"
-                          data-icon="check"
-                          class="text-green-600 w-4 h-4 mr-2"
-                          role="img"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                          ></path></svg
-                        >npm installation
+                        <tick-svg> </tick-svg> Class Management System
                       </li>
                       <li class="mb-4 flex items-center">
-                        <svg
-                          aria-hidden="true"
-                          focusable="false"
-                          data-prefix="fas"
-                          data-icon="check"
-                          class="text-green-600 w-4 h-4 mr-2"
-                          role="img"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                          ></path></svg
-                        >Code examples
+                        <tick-svg> </tick-svg>Training Plans: SACE Accredited
                       </li>
                       <li class="mb-4 flex items-center">
-                        <svg
-                          aria-hidden="true"
-                          focusable="false"
-                          data-prefix="fas"
-                          data-icon="check"
-                          class="text-green-600 w-4 h-4 mr-2"
-                          role="img"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                          ></path></svg
-                        >Premium snippets
+                        <tick-svg> </tick-svg>Continuous Technical Support
                       </li>
                     </ol>
                   </div>
@@ -329,7 +227,7 @@
               </div>
 
               <div class="mb-6 lg:mb-0">
-                <div class="block rounded-lg shadow-lg bg-white h-full">
+                <div class="block rounded-lg shadow-xl bg-white h-full">
                   <div class="p-6 border-b border-gray-300 text-center">
                     <p class="uppercase mb-4 text-sm">
                       <strong>Premium</strong>
@@ -347,123 +245,13 @@
                   <div class="p-6">
                     <ol class="list-inside">
                       <li class="mb-4 flex items-center">
-                        <svg
-                          aria-hidden="true"
-                          focusable="false"
-                          data-prefix="fas"
-                          data-icon="check"
-                          class="text-green-600 w-4 h-4 mr-2"
-                          role="img"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                          ></path></svg
-                        >Unlimited updates
+                        <tick-svg> </tick-svg>Live Chat Functionality
                       </li>
                       <li class="mb-4 flex items-center">
-                        <svg
-                          aria-hidden="true"
-                          focusable="false"
-                          data-prefix="fas"
-                          data-icon="check"
-                          class="text-green-600 w-4 h-4 mr-2"
-                          role="img"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                          ></path></svg
-                        >Git repository
+                        <tick-svg> </tick-svg>Annual Review
                       </li>
                       <li class="mb-4 flex items-center">
-                        <svg
-                          aria-hidden="true"
-                          focusable="false"
-                          data-prefix="fas"
-                          data-icon="check"
-                          class="text-green-600 w-4 h-4 mr-2"
-                          role="img"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                          ></path></svg
-                        >npm installation
-                      </li>
-                      <li class="mb-4 flex items-center">
-                        <svg
-                          aria-hidden="true"
-                          focusable="false"
-                          data-prefix="fas"
-                          data-icon="check"
-                          class="text-green-600 w-4 h-4 mr-2"
-                          role="img"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                          ></path></svg
-                        >Code examples
-                      </li>
-                      <li class="mb-4 flex items-center">
-                        <svg
-                          aria-hidden="true"
-                          focusable="false"
-                          data-prefix="fas"
-                          data-icon="check"
-                          class="text-green-600 w-4 h-4 mr-2"
-                          role="img"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                          ></path></svg
-                        >Premium snippets
-                      </li>
-                      <li class="mb-4 flex items-center">
-                        <svg
-                          aria-hidden="true"
-                          focusable="false"
-                          data-prefix="fas"
-                          data-icon="check"
-                          class="text-green-600 w-4 h-4 mr-2"
-                          role="img"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                          ></path></svg
-                        >Premium support
-                      </li>
-                      <li class="mb-4 flex items-center">
-                        <svg
-                          aria-hidden="true"
-                          focusable="false"
-                          data-prefix="fas"
-                          data-icon="check"
-                          class="text-green-600 w-4 h-4 mr-2"
-                          role="img"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                          ></path></svg
-                        >Drag&amp;Drop builder
+                        <tick-svg> </tick-svg>STEAM Days included
                       </li>
                     </ol>
                   </div>
@@ -1184,12 +972,12 @@
         >
           <!-- list of products for sale -->
           <main
-            class="px-16 py-6 bg-gray-100 min-h-screen w-screen h-fit pb-20 lg:pb-0 md:flex md:flex-col relative"
+            class="px-16 py-6 bg-gray-100 min-h-screen w-screen h-fit pb-20 xl:pb-0 md:flex md:flex-col relative"
             id="streams"
           >
             <header>
               <h2
-                class="text-grey-700 text-xl font-poppins uppercase border-b border-gray-300"
+                class="text-grey-700 text-md lg:text-xl font-poppins uppercase border-b border-gray-300"
               >
                 Our Streams
               </h2>
@@ -1303,15 +1091,15 @@
             </div>
           </main>
         </div>
-        <div class="swiper-slide overflow-y-scroll" id="books-slide">
+        <div class="swiper-slide overflow-y-scroll h-screen" id="books-slide">
           <!-- list of books and extras -->
           <main
-            class="px-16 py-6 bg-gray-100 min-h-screen w-screen h-fit pb-20 lg:pb-0 md:flex md:flex-col relative"
+            class="px-16 py-6 bg-gray-100 min-h-screen w-screen h-fit pb-20 xl:pb-0 md:flex md:flex-col relative"
             id="extras"
           >
             <header>
               <h2
-                class="text-grey-700 text-xl font-poppins uppercase border-b border-gray-300"
+                class="text-grey-700 text-md lg:text-xl font-poppins uppercase border-b border-gray-300"
               >
                 Our books
               </h2>
@@ -1652,30 +1440,35 @@
             </div>
           </main>
         </div>
-        <div class="swiper-slide overflow-scroll" id="events-slide">
+        <div class="swiper-slide overflow-y-scroll h-screen" id="events-slide">
           <!-- list of events and add-ons -->
           <main
-            class="px-16 py-6 bg-gray-100 md:flex md:flex-col w-screen"
+            class="px-16 py-6 pb-24 xl:pb-0 h-fit bg-gray-100 md:flex md:flex-col w-screen"
             id="events"
           >
             <header>
               <h2
-                class="text-grey-700 text-xl font-poppins uppercase border-b border-gray-300"
+                class="text-grey-700 text-md lg:text-xl font-poppins uppercase border-b border-gray-300"
               >
                 Events and Add-ons
               </h2>
             </header>
 
+            <!-- w-5/12, w-7/12 -->
             <div>
-              <div class="card flex justify-around snap-center shadow-xl mt-10">
-                <div class="w-5/12">
-                  <img src="" alt="" />
+              <div class="card snap-center shadow-xl mt-10 lg:flex">
+                <div class="items-center flex">
+                  <img src="./public/img/streams.png" alt="" />
                 </div>
-                <div class="shadow-2xl p-12 w-7/12 ${bg}">
-                  <h1 class="font-poppins text-6xl bg-white text-left">
+                <div class="shadow-2xl p-12">
+                  <h1
+                    class="text-2xl md:text-3xl lg:text-6xl lg:font-poppins bg-white text-left"
+                  >
                     Teacher Training
                   </h1>
-                  <div class="font-poppins pt-10 pb-5">
+                  <div
+                    class="font-poppins text-xs md:text-sm lg:text-lg pt-10 pb-5"
+                  >
                     Resolute hosts STEAM innovation days as part of our
                     initiative to empower students through project-based
                     learning in Science, Technology, Engineering, Arts and Math.
@@ -1687,14 +1480,14 @@
                   <div class="flex justify-left text-left">
                     <div>
                       <span
-                        class="font-semibold text-lg"
+                        class="font-semibold text-xs md:text-sm lg:text-lg"
                         id="teacher_stream_identifier"
                         >No Streams Selected</span
                       >
                     </div>
                     <div>
                       <span
-                        class="flex font-semibold text-lg pl-2"
+                        class="flex font-semibold text-xs md:text-sm lg:text-lg pl-2"
                         id="teacher_training_streams"
                       ></span>
                     </div>
@@ -1715,16 +1508,20 @@
               </div>
 
               <div
-                class="card flex justify-around snap-center shadow-xl mt-10 filter blur-sm"
+                class="card snap-center shadow-xl mt-10 lg:flex filter blur-sm"
               >
-                <div class="w-5/12">
-                  <img src="" alt="" />
+                <div class="items-center flex">
+                  <img src="./public/img/streams.png" alt="" />
                 </div>
-                <div class="shadow-2xl p-12 w-7/12 ${bg}">
-                  <h1 class="font-poppins text-6xl bg-white text-left">
+                <div class="shadow-2xl p-12">
+                  <h1
+                    class="text-2xl md:text-3xl lg:text-6xl lg:font-poppins bg-white text-left"
+                  >
                     STEAM Days
                   </h1>
-                  <div class="font-poppins pt-10 pb-5">
+                  <div
+                    class="font-poppins text-xs md:text-sm lg:text-lg pt-10 pb-5"
+                  >
                     Resolute hosts STEAM innovation days as part of our
                     initiative to empower students through project-based
                     learning in Science, Technology, Engineering, Arts and Math.
@@ -1735,7 +1532,7 @@
                   </div>
                   <div
                     class="text-xl font-semibold pt-10 pb-5"
-                    id="steam_day_price"
+                    id="open_day_price"
                   >
                     Unit Price:
                   </div>
@@ -1780,16 +1577,20 @@
               </div>
 
               <div
-                class="card flex justify-around snap-center shadow-xl mt-10 filter blur-sm"
+                class="card snap-center shadow-xl mt-10 lg:flex filter blur-sm"
               >
-                <div class="w-5/12">
-                  <img src="" alt="" />
+                <div class="items-center flex">
+                  <img src="./public/img/streams.png" alt="" />
                 </div>
-                <div class="shadow-2xl p-12 w-7/12 ${bg}">
-                  <h1 class="font-poppins text-6xl bg-white text-left">
+                <div class="shadow-2xl p-12">
+                  <h1
+                    class="text-2xl md:text-3xl lg:text-6xl lg:font-poppins bg-white text-left"
+                  >
                     Open Days
                   </h1>
-                  <div class="font-poppins pt-10 pb-5">
+                  <div
+                    class="font-poppins text-xs md:text-sm lg:text-lg pt-10 pb-5"
+                  >
                     Resolute hosts STEAM innovation days as part of our
                     initiative to empower students through project-based
                     learning in Science, Technology, Engineering, Arts and Math.
@@ -1847,14 +1648,14 @@
           </main>
         </div>
 
-        <div class="swiper-slide overflow-hidden" id="detail-slide">
+        <div class="swiper-slide overflow-y-scroll h-screen" id="detail-slide">
           <!-- details of customer -->
           <main
-            class="px-16 py-6 bg-gray-100 md:flex md:flex-col w-screen h-screen"
+            class="px-16 py-6 bg-gray-100 md:flex md:flex-col w-screen h-fit pb-20 xl:pb-0"
           >
             <header>
               <h2
-                class="text-grey-700 text-xl font-poppins uppercase border-b border-gray-300"
+                class="text-grey-700 text-md lg:text-xl font-poppins uppercase border-b border-gray-300"
               >
                 Get in touch
               </h2>
@@ -2063,8 +1864,45 @@
     </div>
 
     <!-- final price bar at bottom of screen -->
+    <!-- smaller screens -->
     <div
-      class="z-20 h-16 bg-white flex justify-between absolute w-screen -bottom-0 shadow-inner"
+      class="z-20 h-20 bg-white flex-col absolute w-screen -bottom-0 shadow-inner lg:hidden"
+    >
+      <div class="flex justify-evenly">
+        <div class="flex justify-start">
+          <p class="font-poppins mt-5 text-sm">Items in cart:</p>
+          <p class="font-semibold mt-5 ml-2 text-sm" id="cart_counter">0</p>
+        </div>
+        <div class="mt-3 pt-2">
+          <button
+            class="font-poppins text-sm text-blue-500 hover:text-blue-900 transition ease-out duration-500 uppercase"
+            data-bs-toggle="modal"
+            data-bs-target="#cart_card"
+            onclick="cart_view()"
+          >
+            View Cart
+          </button>
+        </div>
+        <div class="flex justify-start">
+          <p class="font-poppins mt-5 text-sm">Your Total:</p>
+          <p class="font-semibold mt-5 ml-2 text-sm" id="total_price">R 0</p>
+        </div>
+      </div>
+
+      <div class="text-center w-fit">
+        <button
+          class="text-xs h-1/3 w-full text-black mt-2 bg-blue-200 hover:bg-gray-50 hover:text-black transition ease-out duration-500 uppercase font-poppins cursor-pointer tracking-wide"
+          id="submit-button"
+          onclick="submitForm()"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+
+    <!-- larger screens -->
+    <div
+      class="z-20 h-16 bg-white hidden lg:flex justify-between absolute w-screen -bottom-0 shadow-inner"
     >
       <div class="flex justify-between">
         <div class="pl-5 md:flex md:justify-between">
