@@ -12,9 +12,9 @@ class TileRight extends HTMLElement {
     var price = this.attributes.price.value;
     var text_colour = this.attributes.text_colour.value;
     this.innerHTML = `<div
-    class="card flex justify-around snap-center shadow-xl ${text_colour}"
+    class="card snap-center shadow-xl lg:flex ${text_colour}"
   >
-    <div class="shadow-2xl p-12 w-7/12 ${this.bg}">
+    <div class="shadow-2xl p-12 ${this.bg}">
       <h1 class="font-poppins text-6xl text-right">
         ${this.title}
       </h1>
@@ -58,7 +58,7 @@ class TileRight extends HTMLElement {
         </div>
       </div>
     </div>
-    <div class="w-5/12">
+    <div class="items-center flex">
       <div class="flex justify-end">
         <button
           type="button"
@@ -155,59 +155,72 @@ class TileLeft extends HTMLElement {
     var price = this.attributes.price.value;
     var text_colour = this.attributes.text_colour.value;
 
-    this.innerHTML = `<div class="card flex justify-around snap-center shadow-xl  ${text_colour}">
-    <div class="w-5/12">
-      <img src="${img}" alt="" />
-    </div>
-    <div class="shadow-2xl w-7/12 ${bg}">
-    <div class="flex justify-end">
+    this.innerHTML = `<div class="card snap-center shadow-xl lg:flex   ${text_colour}">
+    <div class="">
+      <div class="flex justify-end lg:hidden">
         <button
           type="button"
-          class="btn-close box-content w-4 h-4 p-5 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+          class="btn-close box-content w-4 h-4 p-5 fixed text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline z-10"
           data-bs-dismiss="modal"
           aria-label="Close"
         ></button>
       </div>
-      <div class="pb-12 pl-12 pr-12">
-      <h1 class="font-poppins text-6xl text-left">${title}</h1>
-      <div class="font-poppins pt-10 pb-5">
-        ${description}
+      <div class="items-center flex">
+        <img src="${img}" alt="" />
       </div>
-      <div class="text-xl font-semibold pt-10 pb-5" id="${
-        "cardUnitPrice_" + title
-      }">
-        Unit Price: ${price}
-      </div>
-      <div class="pt-10">
-        <div class="flex justify-center">
-          <button
-          class="w-10 h-10 mr-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
-          id="${"minus_" + title}"
-          onclick = updateQuantity(id)
-        >
-          -
-        </button>
-        <input type="text" value="${
-          this.quantity
-        }" class="w-10 text-center p-0 text-black"  id="${this.inputId}">
+    </div>
+    <div class=" ${bg}">
+      <div class="hidden lg:flex justify-end">
         <button
-          class="w-10 h-10 ml-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
-          id="${"plus_" + title}"
-          onclick = updateQuantity(id)
-        >
-          +
-        </button>
+          type="button"
+          class="btn-close box-content w-4 h-4 p-5 fixed text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline z-10"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="shadow-2xl p-12 flex-col">
+        <div class="pb-12 pl-12 pr-12">
+        <h1 class="font-poppins text-6xl text-left">${title}</h1>
+        <div class="font-poppins pt-5 lg:pt-10 pb-5">
+          ${description}
         </div>
-      <div class=" flex justify-center mt-3">
-        <button class="rounded-full py-2 px-3  uppercase text-xs font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
-          id="${"Add_" + title}"
-          onclick = addToCart(id)
-        >
-          Add to cart
-        </button>
+        <div class="text-xl font-semibold pt-5 lg:pt-10 pb-5" id="${
+          "cardUnitPrice_" + title
+        }">
+          Unit Price: ${price}
+        </div>
+        <div class="pt-10">
+          <div class="flex justify-center">
+            <button
+            class="w-10 h-10 mr-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+            id="${"minus_" + title}"
+            onclick = updateQuantity(id)
+          >
+            -
+          </button>
+          <input type="text" value="${
+            this.quantity
+          }" class="w-10 text-center p-0 text-black"  id="${this.inputId}">
+          <button
+            class="w-10 h-10 ml-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+            id="${"plus_" + title}"
+            onclick = updateQuantity(id)
+          >
+            +
+          </button>
+          </div>
+        <div class=" flex justify-center mt-3">
+          <button class="rounded-full py-2 px-3  uppercase text-xs font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+            id="${"Add_" + title}"
+            onclick = addToCart(id)
+          >
+            Add to cart
+          </button>
+        </div>
+        </div>
+        </div>
       </div>
-      </div>
-    </div></div>
+    </div>
   </div>`;
   }
 }
