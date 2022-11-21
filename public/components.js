@@ -48,7 +48,7 @@ class Card extends HTMLElement {
         </div>
       </div>
     </div>
-    <div class="bg-blue-200 text-gray-700 text-xs uppercase font-bold rounded-full p-2 absolute top-0 ml-2 mt-2">
+    <div class="bg-blue-200 flex text-gray-700 text-xs uppercase font-bold rounded-full p-2 absolute top-0 ml-2 mt-2">
       <svg
         class="w-5 inline-block"
         xmlns="http://www.w3.org/2000/svg"

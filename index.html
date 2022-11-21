@@ -66,7 +66,7 @@
   </head>
 
   <body class="text-grey-600 font-poppins" data-barba="wrapper">
-    <ul
+    <!-- <ul
       class="transition flex fixed z-50 h-full w-full top-0 left-0 m-0 pointer-events-none"
     >
       <li class="transform scale-y-0 bg-resBlue w-1/5"></li>
@@ -74,10 +74,10 @@
       <li class="transform scale-y-0 bg-resBlue w-1/5"></li>
       <li class="transform scale-y-0 bg-resBlue w-1/5"></li>
       <li class="transform scale-y-0 bg-resBlue w-1/5"></li>
-    </ul>
+    </ul> -->
 
     <!-- main banner of the app -->
-    <main
+    <!-- <main
       data-barba="container"
       data-barba-namespace="intro-section"
       class="banner flex-col justify-center text-xl h-screen font-poppins uppercase bg-resBlue text-white z-40 w-screen fixed snap-end shadow-lg sm:pt-40 pl-20 pr-20 lg:p-40"
@@ -119,7 +119,7 @@
           </div>
         </div>
       </div>
-    </main>
+    </main> -->
 
     <!-- Swiper -->
     <div class="swiper mySwiper">
@@ -1651,7 +1651,7 @@
         <div class="swiper-slide overflow-y-scroll h-screen" id="detail-slide">
           <!-- details of customer -->
           <main
-            class="px-16 py-6 h-screen bg-gray-100 md:flex md:flex-col w-screen pb-20 xl:pb-0"
+            class="px-16 py-6 h-fit bg-gray-100 md:flex md:flex-col w-screen pb-20 xl:pb-0"
           >
             <header>
               <h2
@@ -1891,7 +1891,7 @@
 
       <div class="text-center w-fit">
         <button
-          class="text-xs h-1/3 w-full text-black mt-2 bg-blue-200 hover:bg-gray-50 hover:text-black transition ease-out duration-500 uppercase font-poppins cursor-pointer tracking-wide"
+          class="px-3 text-xs h-1/3 text-black mt-2 bg-blue-200 hover:bg-gray-50 hover:text-black transition ease-out duration-500 uppercase font-poppins cursor-pointer tracking-wide"
           id="submit-button"
           onclick="submitForm()"
         >
@@ -3424,7 +3424,8 @@
                   "bg-resBlue",
                   "hover:bg-white",
                   "hover:text-blue-900",
-                  "hover:border-blue-400"
+                  "hover:border-blue-400",
+                  "w-full"
                 );
             }
           },
