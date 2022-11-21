@@ -181,11 +181,11 @@ class TileLeft extends HTMLElement {
       </div>
       <div class="shadow-2xl p-5 lg:p-12 flex-col">
         <div class="pb-12 pl-4 pr-4 lg:pl-12 lg:pr-12">
-        <h1 class="font-poppins text-6xl text-left">${title}</h1>
-        <div class="font-poppins pt-5 lg:pt-10 pb-5">
+        <h1 class="font-poppins text-3xl lg:text-6xl text-left">${title}</h1>
+        <div class="font-poppins text-sm lg:text-lg pt-5 lg:pt-10 pb-5">
           ${description}
         </div>
-        <div class="text-xl font-semibold pt-5 lg:pt-10 pb-5" id="${
+        <div class="text-md lg:text-xl font-semibold pt-5 lg:pt-10 pb-5" id="${
           "cardUnitPrice_" + title
         }">
           Unit Price: ${price}
