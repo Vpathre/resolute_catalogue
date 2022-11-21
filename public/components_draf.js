@@ -1,3 +1,4 @@
+// not being used due to styling issues on mobile
 class TileRight extends HTMLElement {
   constructor() {
     super();
@@ -178,8 +179,8 @@ class TileLeft extends HTMLElement {
           aria-label="Close"
         ></button>
       </div>
-      <div class="shadow-2xl p-12 flex-col">
-        <div class="pb-12 pl-12 pr-12">
+      <div class="shadow-2xl p-5 lg:p-12 flex-col">
+        <div class="pb-12 pl-4 pr-4 lg:pl-12 lg:pr-12">
         <h1 class="font-poppins text-6xl text-left">${title}</h1>
         <div class="font-poppins pt-5 lg:pt-10 pb-5">
           ${description}
