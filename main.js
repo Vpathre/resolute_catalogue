@@ -157,6 +157,7 @@ var product_array = [2300, 2415, 2530, 2645, 2875, 3450, 300, 120];
 // keeps track of streams selected, saves inefficiency of iterating through entire cart
 var stream_tracker = [];
 var teacher_training = [];
+var delete_item = "";
 
 function updateQuantity(button_id) {
   /**
@@ -220,8 +221,11 @@ function addPackages(id) {
   if (!package_selected) {
     var temp = [title, "1", price.toString(), "package"];
     total_order.push(temp);
-    document.getElementById("cart_counter").innerHTML = getCartCount();
-    document.getElementById("total_price").innerHTML =
+    document.getElementById("cart_counter_small").innerHTML = getCartCount();
+    document.getElementById("total_price_small").innerHTML =
+      "R " + getCartTotal(total_order);
+    document.getElementById("cart_counter_large").innerHTML = getCartCount();
+    document.getElementById("total_price_large").innerHTML =
       "R " + getCartTotal(total_order);
   }
   // only can select one package (revised package condition)
@@ -234,8 +238,11 @@ function addPackages(id) {
         total_order.splice(i, 0, temp);
       }
     }
-    document.getElementById("cart_counter").innerHTML = getCartCount();
-    document.getElementById("total_price").innerHTML =
+    document.getElementById("cart_counter_small").innerHTML = getCartCount();
+    document.getElementById("total_price_small").innerHTML =
+      "R " + getCartTotal(total_order);
+    document.getElementById("cart_counter_large").innerHTML = getCartCount();
+    document.getElementById("total_price_large").innerHTML =
       "R " + getCartTotal(total_order);
   }
   package_selected = true;
@@ -308,8 +315,11 @@ function addToCart(button_id) {
       stream_tracker.push(title.slice(0, title.indexOf(" ")));
     }
   }
-  document.getElementById("cart_counter").innerHTML = getCartCount();
-  document.getElementById("total_price").innerHTML =
+  document.getElementById("cart_counter_small").innerHTML = getCartCount();
+  document.getElementById("total_price_small").innerHTML =
+    "R " + getCartTotal(total_order);
+  document.getElementById("cart_counter_large").innerHTML = getCartCount();
+  document.getElementById("total_price_large").innerHTML =
     "R " + getCartTotal(total_order);
   console.log("Stream tracker", stream_tracker);
   trainingCounter(true);
@@ -788,8 +798,11 @@ function addTeacherTraining(param) {
     for (let i = 0; i < cart.length; i++) {
       total_order.push(cart[i].flat(2));
     }
-    document.getElementById("cart_counter").innerHTML = getCartCount();
-    document.getElementById("total_price").innerHTML =
+    document.getElementById("cart_counter_small").innerHTML = getCartCount();
+    document.getElementById("total_price_small").innerHTML =
+      "R " + getCartTotal(total_order);
+    document.getElementById("cart_counter_large").innerHTML = getCartCount();
+    document.getElementById("total_price_large").innerHTML =
       "R " + getCartTotal(total_order);
   }
 }
@@ -883,7 +896,9 @@ function cart_view() {
     <td>
     <button id="${"remove_" + total_order[i][0]}"
     class="cursor-pointer tracking-wide hover:text-red-600 transition ease-out duration-150"
-    onclick="deleteCartItem(id)"
+    data-bs-toggle="modal"
+    data-bs-target="#delete_modal"
+    onclick="delete_item = id; confirmCartDelete(false)"
     >
     <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -907,11 +922,15 @@ function cart_view() {
     document.getElementById("CartUnitPrice").innerHTML =
       "Cart Total: R " + getCartTotal(total_order);
   }
-  document.getElementById("cart_counter").innerHTML = getCartCount();
+  document.getElementById("cart_counter_small").innerHTML = getCartCount();
+  document.getElementById("cart_counter_large").innerHTML = getCartCount();
   if (total_order.length == 0) {
-    document.getElementById("total_price").innerHTML = "R 0";
+    document.getElementById("total_price_small").innerHTML = "R 0";
+    document.getElementById("total_price_large").innerHTML = "R 0";
   } else {
-    document.getElementById("total_price").innerHTML =
+    document.getElementById("total_price_small").innerHTML =
+      "R " + getCartTotal(total_order);
+    document.getElementById("total_price_large").innerHTML =
       "R " + getCartTotal(total_order);
   }
 }
@@ -927,8 +946,11 @@ function updateCart() {
     ).value;
     total_order[i][1] = current_input;
   }
-  document.getElementById("cart_counter").innerHTML = getCartCount();
-  document.getElementById("total_price").innerHTML =
+  document.getElementById("cart_counter_small").innerHTML = getCartCount();
+  document.getElementById("total_price_small").innerHTML =
+    "R " + getCartTotal(total_order);
+  document.getElementById("cart_counter_large").innerHTML = getCartCount();
+  document.getElementById("total_price_large").innerHTML =
     "R " + getCartTotal(total_order);
 }
 
@@ -940,7 +962,9 @@ function updateQuantityCart(button_id) {
   var inputIdString;
   // get input element
   if (button_id.slice(0, 5) == "plus_") {
-    inputIdString = "input_" + button_id.slice(5, button_id.length);
+    if (button_id.slice(5, 12) != "Package") {
+      inputIdString = "input_" + button_id.slice(5, button_id.length);
+    }
   } else if (button_id.slice(0, 6) == "minus_") {
     inputIdString = "input_" + button_id.slice(6, button_id.length);
   }
@@ -958,6 +982,17 @@ function updateQuantityCart(button_id) {
   }
 
   document.getElementById("update_cart_card").innerHTML = "update";
+}
+
+function confirmCartDelete(param) {
+  /**
+   * Pop-up modal to delete an item from the cart
+   * @param param: used to confirm deletion of item in cart*/
+  if (param) {
+    deleteCartItem(delete_item);
+  } else {
+    return;
+  }
 }
 
 function deleteCartItem(bin_id) {
@@ -1009,12 +1044,16 @@ function deleteCartItem(bin_id) {
     }
     cart_view();
   }
-  document.getElementById("cart_counter").innerHTML = getCartCount();
+  document.getElementById("cart_counter_small").innerHTML = getCartCount();
+  document.getElementById("cart_counter_large").innerHTML = getCartCount();
   if (total_order.length > 0) {
-    document.getElementById("total_price").innerHTML =
+    document.getElementById("total_price_small").innerHTML =
+      "R " + getCartTotal(total_order);
+    document.getElementById("total_price_large").innerHTML =
       "R " + getCartTotal(total_order);
   } else {
-    document.getElementById("total_price").innerHTML = "R 0";
+    document.getElementById("total_price_small").innerHTML = "R 0";
+    document.getElementById("total_price_large").innerHTML = "R 0";
   }
   trainingCounter(false);
 }
