@@ -1,147 +1,4 @@
-// var url = "https://resolute-invoice-form.herokuapp.com/salesrequest";
-// function process(state) {
-//   if (state == "loading") {
-//     updateMonday();
-//   } else if (state == "done") {
-//     document.getElementById("loading_bar").style.display = "none";
-//     document.getElementById("sucess").style.display = "block";
-//   } else if (state == "error") {
-//     document.getElementById("loading_bar").style.display = "none";
-//     document.getElementById("error").style.display = "block";
-//   }
-// }
-// function redirect(url) {
-//   //window.location.href = url;
-// }
-
-// async function sendDataToApi(method, url) {
-//   // HTTP Request handler
-//   if (method == "GET") {
-//     return fetch(url, {
-//       method: method, // POST, PUT, GET, DELETE
-//       mode: "cors",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     });
-//   } else {
-//     return fetch(url, {
-//       method: method, // POST, PUT, GET, DELETE
-//       mode: "cors",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         name: document.getElementById("name_field").value,
-//         designation: document.getElementById("designation_field").value,
-//         school_name: document.getElementById("school_field").value,
-//         email: document.getElementById("email_field").value,
-//         phone: document.getElementById("phone_field").value,
-//         package: document.getElementById("package_selection").value,
-//         Novice: document.getElementById("Novice_kits_field").value,
-//         Apprentice: document.getElementById("Apprentice_kits_field").value,
-//         Adept: document.getElementById("Adept_kits_field").value,
-//         Beginner: document.getElementById("Beginner_kits_field").value,
-//         Advanced: document.getElementById("Advanced_kits_field").value,
-//         Master: document.getElementById("Master_kits_field").value,
-//       }),
-//     });
-//   }
-// }
-
-// async function updateMonday() {
-//   if (/*validate_fields() == */ true) {
-//     try {
-//       document.getElementById("sub_button").style.display = "none";
-//       document.getElementById("questions").style.display = "none";
-//       document.getElementById("loading_bar").style.display = "block";
-//       const res = await (await sendDataToApi("POST", url)).json();
-//       console.log(res);
-//       if (res.data == "recieved") {
-//         process("done");
-//       } else {
-//         process("error");
-//       }
-//     } catch (e) {
-//       process("error");
-//     }
-//   } else {
-//     alert("Please check all your fields!");
-//   }
-// }
-
-// function validate_fields() {
-//   var Novice = document.getElementById("Novice_kits_field").value;
-//   var Apprentice = document.getElementById("Apprentice_kits_field").value;
-//   var Adept = document.getElementById("Adept_kits_field").value;
-//   var Beginner = document.getElementById("Beginner_kits_field").value;
-//   var Advanced = document.getElementById("Advanced_kits_field").value;
-//   var Master = document.getElementById("Master_kits_field").value;
-
-//   if (
-//     Novice == "" &&
-//     Apprentice == "" &&
-//     Adept == "" &&
-//     Beginner == "" &&
-//     Advanced == "" &&
-//     Master == ""
-//   ) {
-//     return false;
-//   } else {
-//     if (document.getElementById("Novice_kits_field").value == "") {
-//       document.getElementById("Novice_kits_field").value = "0";
-//     }
-//     if (document.getElementById("Apprentice_kits_field").value == "") {
-//       document.getElementById("Apprentice_kits_field").value = "0";
-//     }
-//     if (document.getElementById("Adept_kits_field").value == "") {
-//       document.getElementById("Adept_kits_field").value = "0";
-//     }
-//     if (document.getElementById("Beginner_kits_field").value == "") {
-//       document.getElementById("Beginner_kits_field").value = "0";
-//     }
-//     if (document.getElementById("Advanced_kits_field").value == "") {
-//       document.getElementById("Advanced_kits_field").value = "0";
-//     }
-//     if (document.getElementById("Master_kits_field").value == "") {
-//       document.getElementById("Master_kits_field").value = "0";
-//     }
-//   }
-//   if (
-//     document.getElementById("name_field").value == "" ||
-//     document.getElementById("designation_field").value == "" ||
-//     document.getElementById("school_field").value == "" ||
-//     document.getElementById("email_field").value == "" ||
-//     document.getElementById("phone_field").value == ""
-//   ) {
-//     return false;
-//   } else {
-//     return true;
-//   }
-// }
-
-// var novice_plus;
-// var novice_minus;
-// var novice_cart;
-
-// if (document.readyState === "complete") {
-//   novice_plus = document.getElementById("plus_Novice Stream");
-//   novice_minus = document.getElementById("minus_Novice Stream");
-//   novice_cart = document.getElementById("Add_Novice Stream");
-// }
-
-// // document.addEventListener("DOMContentLoaded", function () {});
-
-// novice_plus.addEventListener("click", () => {
-//   console.log("plus");
-// });
-// novice_minus.addEventListener("click", () => {
-//   console.log("minus");
-// });
-// novice_cart.addEventListener("click", () => {
-//   console.log("cart");
-// });
-
+var url = "https://vpathre.github.io/resolute_catalogue/";
 var total_order = [];
 // [title, quantity, price, identifier]
 var package_selected = false;
@@ -1322,3 +1179,70 @@ var props = {
   pageEnable: true,
   pageLabel: "Page ",
 };
+
+// API Functionality
+
+function process(field) {
+  /**
+   * Used as a redirection function to make API calls
+   * @param field: denotes the type of function to carry out
+   */
+
+  if (field == "loading") {
+    // make API call
+    makeApiCall();
+  } else if (field == "done") {
+    // take to summary page
+  } else {
+    // if errors, alert user? Probably no errors
+    return;
+  }
+}
+
+async function apiDataHandler(method) {
+  /**
+   * fetches data from url and sends it to FLASK
+   * @param method: specifies the method of the API call
+   */
+  if (method == "GET") {
+    return fetch(url, {
+      method: method,
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } else if (method == "POST") {
+    return fetch(url, {
+      method: method,
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name:
+          document.getElementById("first_name").value +
+          " " +
+          document.getElementById("last_name").value,
+        designation: document.getElementById("position_school").value,
+        school_name: document.getElementById("school").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        // package: document.getElementById("package_selection").value,
+      }),
+    });
+  }
+}
+
+async function makeApiCall() {
+  const api_data = await (await apiDataHandler("POST")).json();
+  try {
+    if (api_data.data == "received") {
+      console.log('done \n process "DONE"');
+    } else {
+      console.log("error has occured");
+    }
+  } catch (e) {
+    console.log("Error caught");
+  }
+}
