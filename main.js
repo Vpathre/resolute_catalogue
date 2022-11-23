@@ -1,4 +1,5 @@
 var url = "https://vpathre.github.io/resolute_catalogue/";
+// var url = "http://127.0.0.1:5500";
 var total_order = [];
 // [title, quantity, price, identifier]
 var package_selected = false;
@@ -1212,7 +1213,7 @@ async function apiDataHandler(method) {
         "Content-Type": "application/json",
       },
     });
-  } else if (method == "POST") {
+  } else {
     return fetch(url, {
       method: method,
       mode: "cors",
