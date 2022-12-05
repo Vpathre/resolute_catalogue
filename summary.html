@@ -14,7 +14,7 @@
     <script src="https://unpkg.com/jspdf-invoice-template@1.4.0/dist/index.js"></script>
   </head>
 
-  <body class="text-grey-600 font-poppins">
+  <body class="text-grey-600 font-poppins" onload="summaryTable()">
     <div class="md:flex md:flex-col">
       <!-- main banner of the page -->
       <div
@@ -28,13 +28,17 @@
         </div>
         <div class="flex items-center justify-center mt-5">
           <span class="text-center text-lg font-poppins">
-            Thank you for placing an order with Resolute Education! <br />
+            Thank you for using this estimate generator by Resolute Education!
+            <br />
+            You will receive an email with an estimate of the cost of your order
+            <br />
             We will get in touch with you shortly!
           </span>
         </div>
         <div class="mt-20 flex justify-center">
           <table
             class="flex-col justify-start bg-white bg-opacity-20 shadow-2xl"
+            id="final_table"
           >
             <thead class="bg-transparent">
               <tr>
@@ -58,84 +62,7 @@
                 </th>
               </tr>
             </thead>
-            <tbody>
-              <tr
-                class="bg-gray-500 bg-opacity-20 border-b transition duration-300 ease-in-out hover:bg-gray-100 hover:bg-opacity-30"
-              >
-                <td
-                  class="px-6 py-4 whitespace-nowrap text-sm font-light text-white"
-                >
-                  Novice Stream
-                </td>
-                <td
-                  class="text-sm text-white font-light px-6 py-4 whitespace-nowrap"
-                >
-                  2
-                </td>
-                <td
-                  class="text-sm text-white font-light px-6 py-4 whitespace-nowrap"
-                >
-                  R2,500
-                </td>
-              </tr>
-              <tr
-                class="bg-gray-500 bg-opacity-20 border-b transition duration-300 ease-in-out hover:bg-gray-100 hover:bg-opacity-30"
-              >
-                <td
-                  class="px-6 py-4 whitespace-nowrap text-sm font-light text-white"
-                >
-                  Master Stream
-                </td>
-                <td
-                  class="text-sm text-white font-light px-6 py-4 whitespace-nowrap"
-                >
-                  4
-                </td>
-                <td
-                  class="text-sm text-white font-light px-6 py-4 whitespace-nowrap"
-                >
-                  R3,000
-                </td>
-              </tr>
-              <tr
-                class="bg-gray-500 bg-opacity-20 border-b transition duration-300 ease-in-out hover:bg-gray-100 hover:bg-opacity-30"
-              >
-                <td
-                  class="px-6 py-4 whitespace-nowrap text-sm font-light text-white"
-                >
-                  Adept Stream
-                </td>
-                <td
-                  class="text-sm text-white font-light px-6 py-4 whitespace-nowrap"
-                >
-                  1
-                </td>
-                <td
-                  class="text-sm text-white font-light px-6 py-4 whitespace-nowrap"
-                >
-                  R2,800
-                </td>
-              </tr>
-              <tr
-                class="bg-gray-500 bg-opacity-20 border-b transition duration-300 ease-in-out hover:bg-gray-100 hover:bg-opacity-30"
-              >
-                <td
-                  class="px-6 py-4 whitespace-nowrap text-sm font-light text-white"
-                >
-                  Steam Day
-                </td>
-                <td
-                  class="text-sm text-white font-light px-6 py-4 whitespace-nowrap"
-                >
-                  2
-                </td>
-                <td
-                  class="text-sm text-white font-light px-6 py-4 whitespace-nowrap"
-                >
-                  R10,000,000
-                </td>
-              </tr>
-            </tbody>
+            <tbody id="final_table_body"></tbody>
           </table>
         </div>
         <div class="pt-10 text-center text-lg">
@@ -143,28 +70,46 @@
             class="hover:text-gray-300 transition ease-in duration-150 uppercase"
             onclick="generatePDF()"
           >
-            Get a copy of your personalized quote
+            You can download a copy of your personalized quote here
           </button>
         </div>
       </div>
     </div>
 
     <script>
-      function buttonClick(id, FADE) {
-        const pop = document.getElementById(id);
+      function summaryTable() {
+        /**
+         * Generate the final table as observed on the summary screen
+         */
+        let total_order = JSON.parse(localStorage.getItem("total_order"));
+        document.getElementById("final_table").style.display = "table-row";
+        var table_body = document.getElementById("final_table_body");
+        table_body.innerHTML = ``;
 
-        if (FADE) {
-          pop.classList.add("fd-in");
-          pop.classList.remove("fd-out");
-        } else if (!FADE) {
-          pop.classList.add("fd-out");
-          pop.classList.remove("fd-in");
+        for (let i = 0; i < total_order.length; i++) {
+          table_body.innerHTML += `<tr
+        class="bg-grey-200 bg-opacity-20 border-b text-white transition duration-300 ease-in-out"
+      >
+        <td
+          class="px-6 py-4 whitespace-nowrap text-sm font-light text-grey-900"
+        >
+          ${total_order[i][0]}
+        </td>
+        <td
+          class="text-sm text-grey-900 font-light px-6 py-4 whitespace-nowrap"
+        >
+        ${total_order[i][1]}
+        </td>
+        <td
+          class="text-sm text-grey-900 font-light px-6 py-4 whitespace-nowrap"
+        >
+          ${"R " + parseInt(total_order[i][1]) * parseInt(total_order[i][2])}
+        </td>
+      </tr>`;
         }
+        window.re;
       }
     </script>
-
-    <script src="./public/components.js"></script>
-    <script src="./public/components_draf.js"></script>
     <script src="./public/index.js"></script>
     <script src="./main.js"></script>
     <!-- 313bf5 -->

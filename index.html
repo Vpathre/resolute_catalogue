@@ -57,6 +57,7 @@
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-interactivity@latest/dist/lottie-interactivity.min.js"></script>
     <script src="./node_modules/tw-elements/dist/js/index.min.js"></script>
+    <!-- <script src="{{ url_for('static', filename='node_modules/toastr/toastr.js')}}"></script> -->
     <script src="./node_modules/flowbite/dist/flowbite.js"></script>
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
     <script src="https://unpkg.com/jspdf-invoice-template@1.4.0/dist/index.js"></script>
@@ -85,7 +86,7 @@
       <div class="flex justify-center mt-20 sm:mt-0">
         <img
           class="w-96 logo"
-          src="./public/img/res_logo_white.png"
+          src="../public/img/res_logo_white.png"
           alt="logo"
         />
       </div>
@@ -106,7 +107,7 @@
           >
             <a>Get Started</a>
           </button>
-          <div class="flex justify-center text-center">
+          <div class="justify-center text-center hidden lg:flex">
             <lottie-player
               src="https://assets3.lottiefiles.com/packages/lf20_H6LAE4.json"
               background="transparent"
@@ -994,7 +995,7 @@
                   <product-card
                     title="Novice"
                     author="Grade R-3"
-                    image="./public/img/Novice Box New.png"
+                    image="../public/img/Novice Box New.png"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover "
                     time="12h 46m"
@@ -1011,7 +1012,7 @@
                   <product-card
                     title="Apprentice"
                     author="Grade 4-6"
-                    image="./public/img/Apprentice Box.png"
+                    image="../public/img/Apprentice Box.png"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover"
                     time="4h 45m"
@@ -1028,7 +1029,7 @@
                   <product-card
                     title="Adept"
                     author="Grade 7-9"
-                    image="./public/img/Adept Box.png"
+                    image="../public/img/Adept Box.png"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover"
                     time="16h 12m"
@@ -1045,7 +1046,7 @@
                   <product-card
                     title="Beginner"
                     author="Grade 8-12"
-                    image="./public/img/Beginner Box.png"
+                    image="../public/img/Beginner Box.png"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover"
                     time="15h 57m"
@@ -1062,7 +1063,7 @@
                   <product-card
                     title="Advanced"
                     author="Grade 9-12"
-                    image="./public/img/Advanced Box.png"
+                    image="../public/img/Advanced Box.png"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover"
                     time="21h 31m"
@@ -1079,7 +1080,7 @@
                   <product-card
                     title="Master"
                     author="Grade 10+"
-                    image="./public/img/Master Box.png"
+                    image="../public/img/Master Box.png"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover"
                     time="17h 28m"
@@ -1124,7 +1125,7 @@
                   <product-card
                     title="Novice: Level 1"
                     author="Grade R-3"
-                    image="./public/img/Level 1 Novice.png"
+                    image="../public/img/Level 1 Novice.png"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover "
                     time="Level 1"
@@ -1141,7 +1142,7 @@
                   <product-card
                     title="Apprentice: Level 1"
                     author="Grade R-3"
-                    image="./public/img/Level 1 Apprentice.png"
+                    image="../public/img/Level 1 Apprentice.png"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover "
                     time="Level 1"
@@ -1157,7 +1158,7 @@
                   <product-card
                     title="Advanced: Level 1"
                     author="Grade R-3"
-                    image="./public/img/"
+                    image="../public/img/"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover "
                     time="Level 1"
@@ -1176,7 +1177,7 @@
                   <product-card
                     title="Novice: Level 2"
                     author="Grade 4-6"
-                    image="./public/img/Level 2 Novice.png"
+                    image="../public/img/Level 2 Novice.png"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover"
                     time="Level 2"
@@ -1193,7 +1194,7 @@
                   <product-card
                     title="Apprentice: Level 2"
                     author="Grade 4-6"
-                    image="./public/img/Level 1 Apprentice.png"
+                    image="../public/img/Level 2 Apprentice.png"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover"
                     time="Level 2"
@@ -1210,7 +1211,7 @@
                   <product-card
                     title="Advanced: Level 2"
                     author="Grade 4-6"
-                    image="./public/img/"
+                    image="../public/img/"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover"
                     time="Level 2"
@@ -1228,7 +1229,7 @@
                   <product-card
                     title="Novice: Level 3"
                     author="Grade 7-9"
-                    image="./public/img/"
+                    image="../public/img/"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover"
                     time="Level 3"
@@ -1244,7 +1245,7 @@
                   <product-card
                     title="Apprentice: Level 3"
                     author="Grade 7-9"
-                    image="./public/img/"
+                    image="../public/img/"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover"
                     time="Level 3"
@@ -1261,7 +1262,7 @@
                   <product-card
                     title="Advanced: Level 3"
                     author="Grade 7-9"
-                    image="./public/img/"
+                    image="../public/img/"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover"
                     time="Level 3"
@@ -1291,7 +1292,7 @@
                   <product-card
                     title="Novice: Level 1"
                     author="Grade R-3"
-                    image="./public/img/Level 1 Novice.png"
+                    image="../public/img/Level 1 Novice.png"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover "
                     time="Level 1"
@@ -1308,7 +1309,7 @@
                   <product-card
                     title="Apprentice: Level 1"
                     author="Grade R-3"
-                    image="./public/img/Level 1 Apprentice.png"
+                    image="../public/img/Level 1 Apprentice.png"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover "
                     time="Level 1"
@@ -1324,7 +1325,7 @@
                   <product-card
                     title="Advanced: Level 1"
                     author="Grade R-3"
-                    image="./public/img/"
+                    image="../public/img/"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover "
                     time="Level 1"
@@ -1343,7 +1344,7 @@
                   <product-card
                     title="Novice: Level 2"
                     author="Grade 4-6"
-                    image="./public/img/Level 2 Novice.png"
+                    image="../public/img/Level 2 Novice.png"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover"
                     time="Level 2"
@@ -1360,7 +1361,7 @@
                   <product-card
                     title="Apprentice: Level 2"
                     author="Grade 4-6"
-                    image="./public/img/Level 1 Apprentice.png"
+                    image="../public/img/Level 1 Apprentice.png"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover"
                     time="Level 2"
@@ -1377,7 +1378,7 @@
                   <product-card
                     title="Advanced: Level 2"
                     author="Grade 4-6"
-                    image="./public/img/"
+                    image="../public/img/"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover"
                     time="Level 2"
@@ -1395,7 +1396,7 @@
                   <product-card
                     title="Novice: Level 3"
                     author="Grade 7-9"
-                    image="./public/img/"
+                    image="../public/img/"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover"
                     time="Level 3"
@@ -1411,7 +1412,7 @@
                   <product-card
                     title="Apprentice: Level 3"
                     author="Grade 7-9"
-                    image="./public/img/"
+                    image="../public/img/"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover"
                     time="Level 3"
@@ -1428,7 +1429,7 @@
                   <product-card
                     title="Advanced: Level 3"
                     author="Grade 7-9"
-                    image="./public/img/"
+                    image="../public/img/"
                     alt="bbq"
                     image_style="h-32 w-full sm:h-48 object-cover"
                     time="Level 3"
@@ -1454,26 +1455,24 @@
               </h2>
             </header>
 
-            <!-- w-5/12, w-7/12 -->
             <div>
               <div class="card snap-center shadow-xl mt-10 lg:flex">
-                <div class="items-center flex">
-                  <img src="./public/img/streams.png" alt="" />
+                <div class="items-center flex lg:w-5/12">
+                  <img src="../public/img/streams.png" alt="" />
                 </div>
-                <div class="shadow-2xl p-6 md:p-12">
+                <div class="shadow-2xl p-6 md:p-12 lg:w-7/12">
                   <h1
                     class="text-3xl lg:text-6xl lg:font-poppins bg-white text-left"
                   >
                     Teacher Training
                   </h1>
                   <div class="font-poppins text-sm lg:text-lg pt-10 pb-5">
-                    Resolute hosts STEAM innovation days as part of our
-                    initiative to empower students through project-based
-                    learning in Science, Technology, Engineering, Arts and Math.
+                    Our teacher training courses are SACE accredited and will
+                    equip the facilitators with everything they need to know to
+                    teach robotics and coding.
                     <br /><br />
-                    STEAM days aim to encourage students to use logical
-                    thinking, creativity and teamwork to make decisions and
-                    solve problems.
+                    To optimise the training and learning, we offer a phased
+                    training approach of 3-4 sessions throughout the year.
                   </div>
                   <div class="flex justify-left text-left">
                     <div>
@@ -1508,10 +1507,10 @@
               <div
                 class="card snap-center shadow-xl mt-10 lg:flex filter blur-sm"
               >
-                <div class="items-center flex">
-                  <img src="./public/img/streams.png" alt="" />
+                <div class="items-center flex lg:w-5/12">
+                  <img src="../public/img/streams.png" alt="" />
                 </div>
-                <div class="shadow-2xl p-12">
+                <div class="shadow-2xl p-6 md:p-12 lg:w-7/12">
                   <h1
                     class="text-2xl md:text-3xl lg:text-6xl lg:font-poppins bg-white text-left"
                   >
@@ -1577,10 +1576,10 @@
               <div
                 class="card snap-center shadow-xl mt-10 lg:flex filter blur-sm"
               >
-                <div class="items-center flex">
-                  <img src="./public/img/streams.png" alt="" />
+                <div class="items-center flex lg:w-5/12">
+                  <img src="../public/img/streams.png" alt="" />
                 </div>
-                <div class="shadow-2xl p-12">
+                <div class="shadow-2xl p-6 md:p-12 lg:w-7/12">
                   <h1
                     class="text-2xl md:text-3xl lg:text-6xl lg:font-poppins bg-white text-left"
                   >
@@ -1659,7 +1658,7 @@
               </h2>
             </header>
 
-            <form id="contact_form">
+            <form id="contact_form" onsubmit="return false">
               <div class="grid gap-6 mt-5 mb-6 md:grid-cols-2 text-poppins">
                 <div>
                   <label
@@ -1721,14 +1720,22 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                     >Province</label
                   >
-                  <input
-                    type="tel"
-                    for="provincial"
-                    id="province"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="ex. Gauteng"
-                    required=""
-                  />
+                  <select
+                    class="form-select appearance-none block w-full px-2 font-normal bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-clip-padding bg-no-repeat transition ease-in-out m-0 focus:text-gray-700"
+                    aria-label="Default select example"
+                    id="location"
+                  >
+                    <option selected>Select</option>
+                    <option value="Eastern Cape">Eastern Cape</option>
+                    <option value="Free State">Free State</option>
+                    <option value="Gauteng">Gauteng</option>
+                    <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                    <option value="Limpopo">Limpopo</option>
+                    <option value="Mpumalanga">Mpumalanga</option>
+                    <option value="Northern Cape">Northern Cape</option>
+                    <option value="North West">North West</option>
+                    <option value="Western Cape">Western Cape</option>
+                  </select>
                 </div>
                 <div>
                   <label
@@ -1762,8 +1769,8 @@
               <div class="flex items-start mb-6">
                 <div class="flex items-center h-5">
                   <input
-                    id="remember"
                     type="checkbox"
+                    id="newsletter_tick"
                     value=""
                     class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
                   />
@@ -1779,7 +1786,7 @@
         </div>
       </div>
       <div class="swiper-controls">
-        <div class="swiper-button-next"></div>
+        <div class="swiper-button-next" \></div>
         <div class="swiper-button-prev"></div>
         <div class="swiper-pagination sticky" style="padding-bottom: 6px"></div>
       </div>
@@ -1895,8 +1902,9 @@
       <div class="text-center w-fit">
         <button
           class="px-3 text-xs h-1/3 text-white mt-2 bg-white hover:bg-gray-50 hover:text-black transition ease-out duration-500 uppercase font-poppins cursor-pointer tracking-wide"
+          type="button"
           id="submit-button"
-          onclick="process('loading')"
+          onclick="submitForm(id)"
         >
           Submit
         </button>
@@ -1943,7 +1951,8 @@
         <button
           class="text-xs w-48 h-full text-black border-blue-400 bg-white hover:bg-gray-50 hover:text-black hover:border-red-500 md:border-2 hover:border-4 transition ease-out duration-500 uppercase font-poppins cursor-pointer tracking-wide"
           id="submit-button-large"
-          onclick="process('loading')"
+          type="button"
+          onclick="submitForm(id)"
         >
           Submit
         </button>
@@ -1967,9 +1976,9 @@
           <div class="modal-body relative">
             <product-tile-left
               bg="bg-yellow-200"
-              description="The Novice stream is aimed towards equipping learners with a better understanding of pattern recognition, sequencing and practical problem-solving. Using real-life experiences and intuition and applying it to robotics and programming, a strong foundation is laid for a better understanding of the world of electronics and computers. Covering the beginning stages of block coding and subsequently possessing a good knowledge with regards to the limitations of robots, students are able to utilize them in order to make task easier and more enjoyable."
+              description="<b>Suitable for Grades R-3</b> <br><br> This course begins with an introduction to what computers, robots and applications are. Once learners have gained basic knowledge of computers and robots and what their fundamental components are, they will then progress to an introductory course on Resly. Learners will engage interactively with lessons that challenge their thinking. They will apply their fundamental knowledge in a variety of ways to test their newfound understanding. From learning how to make their first LED blink to coding object avoidance, learners will grasp how to fully code and control their Novice Bot. "
               title="Novice Stream"
-              img="./public/img/Novice Box New.png"
+              img="../public/img/Novice Box New.png"
               price="R2,300"
               text_colour="text-black"
             ></product-tile-left>
@@ -1994,9 +2003,9 @@
           <div class="modal-body relative">
             <product-tile-left
               bg="bg-yellow-300"
-              description="Being an introduction to basic computer skills, the Apprentice stream offers learners with a foundational knowledge of computer skill and their corresponding components such as internet and e-communications. This knowledge is further supplemented by an introductory MakeCode course. MakeCode is a platform that facilitates an engaging first-time programming experience. This collective knowledge forms a foundation for a tailored experience which revolves around learners creating and executing user programs on a simulated target such as the Micro:Bit which is sipplementary to a Micro:Bit car."
+              description="<b>Suitable for Grades 4-5</b> <br><br> This course begins with an introduction to basic computer skills. Once learners have gained a basic understanding of computer skills and their fundamental components, such as the internet and e-communications, they will then progress to an introductory course on MakeCode and Scratch. These platforms will provide learners with the opportunity to create interactive and engaging programming experiences as first-time members to the world of programming. The knowledge and skills that learners gain will form a foundation for a tailored experience that enables learners to create and run user programs on simulated targets such as the Micro:bit and Micro:bit Car. "
               title="Apprentice Stream"
-              img="./public/img/Apprentice Box.png"
+              img="../public/img/Apprentice Box.png"
               price="R2,415"
               text_colour="text-black"
             ></product-tile-left>
@@ -2021,9 +2030,9 @@
           <div class="modal-body relative">
             <product-tile-left
               bg="bg-green-300"
-              description=""
+              description="<b>Suitable for Grades 6-7</b> <br><br> The course starts off teaching learners Scratch coding, which is an online platform that forms the building blocks of programming. This will be followed by a TinkerCad course that uses the concept of simulation to familiarise learners with electronic circuit components. This will allow learners to transition from block-based coding to text-based coding. Learners will then continue to build their knowledge in a practical setting by learning the rules of electronic circuits and working with hardware. The course also teaches learners about Arduino coding, which is an industry-relevant skill. The knowledge and skills learners gain will then be transferred to an engineering-based practical project like the Smart Garden."
               title="Adept Stream"
-              img="./public/img/Adept Box.png"
+              img="../public/img/Adept Box.png"
               price="R2,530"
               text_colour="text-black"
             ></product-tile-left>
@@ -2048,15 +2057,7 @@
           <div class="modal-body relative">
             <product-tile-left
               bg="bg-blue-300"
-              description="The Resolute Beginner Kit is a great way to become comfortable in the world of robotics and coding. It includes all the components required to build projects like the Automated Hand Sanitiser, the Home Automation System and much more. There are also fun challenges to test the students’ understanding of what they've learned.
-      
-                          This package offers a year-long robotics course. The course commences with the fundamentals of robotics and coding as well as the importance of simulation.
-                          
-                          Once the fundamentals are covered, students take part in a practical project where they’re required to build an automated hand sanitiser. An infrared sensor will detect a hand and the system will discharge a small amount of soap or sanitiser.
-                          
-                          The second project in the course is a practical project called the Home Automation System. In this project, students will demonstrate the practical application of servo motors, temperature sensors, infrared sensors, fans, buzzers, lighting and a security system feature in a home automation system.
-                          
-                          After completing these two practical projects, the course will introduce students to the world's most popular coding language: Python. Throughout the course, students will learn how to develop several applications such as Tic Tac Toe, Hangman and Pong. They’ll also be introduced to libraries such as Turtle to help grow their understanding of how programming works and how code is read by the computer."
+              description="<b>Suitable for Grades 6-7</b> <br><br> The course starts off teaching learners Scratch coding, which is an online platform that forms the building blocks of programming. This will be followed by a TinkerCad course that uses the concept of simulation to familiarise learners with electronic circuit components. This will allow learners to transition from block-based coding to text-based coding. Learners will then continue to build their knowledge in a practical setting by learning the rules of electronic circuits and working with hardware. The course also teaches learners about Arduino coding, which is an industry-relevant skill. The knowledge and skills learners gain will then be transferred to an engineering-based practical project like the Smart Garden."
               title="Beginner Stream"
               img=""
               price="R2,645"
@@ -2083,13 +2084,7 @@
           <div class="modal-body relative">
             <product-tile-left
               bg="bg-red-300"
-              description="The Resolute Advanced Kit is a great way for students to continue their robotics journey. It includes all the components needed to build a range of projects such as the Autonomous Line Following Car and the Access Control System using RFID tags. With a little bit of creativity, these components can be used to build hundreds of other projects. This kit gives you access to an online platform where step-by-step video instructions are given to help you learn and build with ease.
-      
-                          The course starts off with an introduction to the fundamentals of Arduino programming and electronic circuit theory fundamentals. Students will learn about simulation, sensors, automation and processing real-world data. They’ll get creative with a practical project like the Autonomous Line Following Car where an infrared sensor is used to detect a black line and an Arduino uno is programmed to send a set of instructions to the DC motors directing the car.
-                          
-                          Students will be challenged further by applying their programming and engineering skills to design and build an access control system. They'll create their own security system by programming an RFID tag to automatically open a door, granting access to authorised personnel only.
-                          
-                          Students will also learn to master the world's most popular coding language, Python. They’ll learn essential game development concepts such as controlling player and non-player sprites, implementing in-game physics and collision, object-oriented game design, randomization and artificial intelligence."
+              description="<b>Suitable for Grades 8-10</b> <br><br> The Resolute Advanced Kit is a great way for learners to continue their robotics journey. It includes all the components needed to build a range of projects such as the Autonomous Line Following Car and the Access Control System using RFID tags. With a little bit of creativity, these components can be used to build hundreds of other projects. This kit gives learners access to an online platform where step-by-step video instructions are given to help them learn and build with ease."
               title="Advanced Stream"
               img=""
               price="R2,875"
@@ -2116,7 +2111,7 @@
           <div class="modal-body relative">
             <product-tile-left
               bg="bg-purple-300"
-              description="This course exposes students to the world of computing. They will set up a Raspberry Pi with Linux. The students will test their skills by programming in a high-level language to build 2D games. Once Students grasp their programming skills they will use a webcam to perform image processing using pre-built classification libraries and testing their understanding of data analytics. This will expose them to Machine learning and computer vision."
+              description="<b>Suitable for Grades 10+</b> <br><br> This course gives learners exposure to the world of computing. Learners will set up a Raspberry Pi with a Linux operating system. They will test their skills by programming in a high-level language to build 2D games. Once learners grasp their programming skills they will use a webcam to perform image processing using pre-built classification libraries—testing their understanding of data analytics. This will expose learners to machine learning and computer vision."
               title="Master Stream"
               img=""
               price="R3,450"
@@ -2743,13 +2738,14 @@
                               <select
                                 class="form-select appearance-none block w-full px-2 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                 aria-label="Default select example"
+                                id="session_novice"
                               >
                                 <option selected>Select</option>
                                 <option value="1">1 session</option>
                                 <option value="2">2 sessions</option>
                                 <option value="3">3 sessions</option>
                                 <option value="4">4 sessions</option>
-                                <option value="5">6 sessions</option>
+                                <option value="6">6 sessions</option>
                               </select>
                             </div>
                           </div>
@@ -2823,13 +2819,14 @@
                               <select
                                 class="form-select appearance-none block w-full px-2 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                 aria-label="Default select example"
+                                id="session_apprentice"
                               >
                                 <option selected>Select</option>
                                 <option value="1">1 session</option>
                                 <option value="2">2 sessions</option>
                                 <option value="3">3 sessions</option>
                                 <option value="4">4 sessions</option>
-                                <option value="5">6 sessions</option>
+                                <option value="6">6 sessions</option>
                               </select>
                             </div>
                           </div>
@@ -2903,13 +2900,14 @@
                               <select
                                 class="form-select appearance-none block w-full px-2 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                 aria-label="Default select example"
+                                id="session_adept"
                               >
                                 <option selected>Select</option>
                                 <option value="1">1 session</option>
                                 <option value="2">2 sessions</option>
                                 <option value="3">3 sessions</option>
                                 <option value="4">4 sessions</option>
-                                <option value="5">6 sessions</option>
+                                <option value="6">6 sessions</option>
                               </select>
                             </div>
                           </div>
@@ -2983,13 +2981,14 @@
                               <select
                                 class="form-select appearance-none block w-full px-2 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                 aria-label="Default select example"
+                                id="session_beginner"
                               >
                                 <option selected>Select</option>
                                 <option value="1">1 session</option>
                                 <option value="2">2 sessions</option>
                                 <option value="3">3 sessions</option>
                                 <option value="4">4 sessions</option>
-                                <option value="5">6 sessions</option>
+                                <option value="6">6 sessions</option>
                               </select>
                             </div>
                           </div>
@@ -3063,13 +3062,14 @@
                               <select
                                 class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                 aria-label="Default select example"
+                                id="session_advanced"
                               >
                                 <option selected>Select</option>
                                 <option value="1">1 session</option>
                                 <option value="2">2 sessions</option>
                                 <option value="3">3 sessions</option>
                                 <option value="4">4 sessions</option>
-                                <option value="5">6 sessions</option>
+                                <option value="6">6 sessions</option>
                               </select>
                             </div>
                           </div>
@@ -3143,13 +3143,14 @@
                               <select
                                 class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                 aria-label="Default select example"
+                                id="session_master"
                               >
                                 <option selected>Select</option>
                                 <option value="1">1 session</option>
                                 <option value="2">2 sessions</option>
                                 <option value="3">3 sessions</option>
                                 <option value="4">4 sessions</option>
-                                <option value="5">6 sessions</option>
+                                <option value="6">6 sessions</option>
                               </select>
                             </div>
                           </div>
@@ -3357,7 +3358,7 @@
 
     <!-- error modal -->
     <div
-      class="modal-secondary fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+      class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
       id="error_modal"
       tabindex="-1"
       aria-labelledby="exampleModalCenterTitle"
@@ -3479,7 +3480,7 @@
       </div>
     </div>
 
-    <script src="./main.js"></script>
+    <script src="main.js"></script>
     <script src="./public/components.js"></script>
     <script src="./public/components_draf.js"></script>
     <script src="./public/index.js"></script>

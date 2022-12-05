@@ -1,5 +1,5 @@
-var url = "https://vpathre.github.io/resolute_catalogue/";
-// var url = "http://127.0.0.1:5500";
+// var url = "https://vpathre.github.io/resolute_catalogue/";
+var url = "http://127.0.0.1:5000/estimate";
 var total_order = [];
 // [title, quantity, price, identifier]
 var package_selected = false;
@@ -16,6 +16,7 @@ var product_array = [2300, 2415, 2530, 2645, 2875, 3450, 300, 120];
 var stream_tracker = [];
 var teacher_training = [];
 var delete_item = "";
+var total_cost;
 
 function updateQuantity(button_id) {
   /**
@@ -116,34 +117,44 @@ function addToCart(button_id) {
   var title = button_id.slice(4, button_id.length);
   var input = document.getElementById(inputIdString);
   var price;
+  var identifier;
 
   switch (title) {
     case "Novice Stream":
       price = product_array[0];
+      identifier = "stream";
       break;
     case "Apprentice Stream":
       price = product_array[1];
+      identifier = "stream";
       break;
     case "Adept Stream":
       price = product_array[2];
+      identifier = "stream";
       break;
     case "Beginner Stream":
       price = product_array[3];
+      identifier = "stream";
       break;
     case "Advanced Stream":
       price = product_array[4];
+      identifier = "stream";
       break;
     case "Master Stream":
       price = product_array[5];
+      identifier = "stream";
       break;
   }
   if (button_id.slice(4, 17) == "Facilitator's") {
-    price = product_array[6];
+    price = 300;
+    identifier = "facilitator";
   } else if (button_id.slice(4, 13) == "Student's") {
-    price = product_array[7];
+    price = 120;
+    identifier = "student";
   }
+
   displayModal("success", input, title);
-  var temp = [title, input.value, price.toString(), "stream"];
+  var temp = [title, input.value, price.toString(), identifier];
   // if same stream is added more than once, just increase quantity of pre-existing stream
   if (total_order.length > 0) {
     let flag = false;
@@ -212,6 +223,7 @@ function getCartTotal(param) {
   }
 
   // handle decimal points
+  total_cost = counter;
   var index = counter.toString().indexOf(".");
   var return_string;
 
@@ -621,6 +633,7 @@ function addTeacherTraining(param) {
     let stream_name = stream_tracker[i].toLowerCase();
     let stream_name_input = "input_teacher_" + stream_name;
     let check_training = document.getElementById("select_" + stream_name);
+    let sessions = document.getElementById("session_" + stream_name);
     if (check_training.checked) {
       if (!toggle.checked) {
         total +=
@@ -630,6 +643,7 @@ function addTeacherTraining(param) {
           stream_tracker[i] + " Training",
           document.getElementById(stream_name_input).value,
           teacher_online.toString(),
+          sessions.value,
           "online training",
         ]);
       } else {
@@ -640,12 +654,14 @@ function addTeacherTraining(param) {
           stream_tracker[i] + " Training",
           document.getElementById(stream_name_input).value,
           teacher_person.toString(),
+          sessions.value,
           "person training",
         ]);
       }
     }
   }
 
+  console.log(total_order);
   // if we just need to add up total
   if (!param) {
     let total_price = document.getElementById("TeacherUnitPrice");
@@ -954,24 +970,19 @@ function displayModal(type, input, id) {
   }
 }
 
-function submitForm() {
+function submitForm(id) {
   var first = document.getElementById("first_name").value;
   var last = document.getElementById("last_name").value;
   var school = document.getElementById("school").value;
-  var province = document.getElementById("province").value;
+  var province = document.getElementById("location").value;
   var email = document.getElementById("email").value;
   var training = false;
 
-  localStorage.setItem("name", toString(first + " " + last));
-  localStorage.setItem("school", toString(school));
-  localStorage.setItem("province", toString(province));
-  localStorage.setItem("email", toString(email));
-
-  console.log(
-    localStorage.getItem("name"),
-    localStorage.getItem("school"),
-    localStorage.getItem("province")
-  );
+  localStorage.setItem("name", first + " " + last);
+  localStorage.setItem("school", school);
+  localStorage.setItem("province", province);
+  localStorage.setItem("email", email);
+  localStorage.setItem("total_order", JSON.stringify(total_order));
 
   // check if total order contains training
   for (let i = 0; i < total_order.length; i++) {
@@ -985,6 +996,7 @@ function submitForm() {
     }
   }
   if ((!training || !package_selected) && !cont) {
+    console.log("package not chosen");
     var str;
     if (!training && !package_selected) {
       str =
@@ -996,17 +1008,13 @@ function submitForm() {
       str =
         "It looks like you haven't selected a package option. Are you sure you want to continue?";
     }
-    document
-      .getElementById("submit-button")
-      .setAttribute("data-bs-toggle", "modal");
-    document
-      .getElementById("submit-button")
-      .setAttribute("data-bs-target", "#error_modal");
-    document.getElementById("submit-button").removeAttribute("form");
-    document.getElementById("submit-button").removeAttribute("type");
+    document.getElementById(id).setAttribute("data-bs-toggle", "modal");
+    document.getElementById(id).setAttribute("data-bs-target", "#error_modal");
+    document.getElementById(id).removeAttribute("form");
+    document.getElementById(id).removeAttribute("type");
     document.getElementById("error-modal-message").innerHTML = str;
     // force the first modal pop-up
-    document.getElementById("submit-button").click();
+    document.getElementById(id).click();
   } else if (
     first != "" &&
     last != "" &&
@@ -1018,28 +1026,32 @@ function submitForm() {
     cont == true
   ) {
     console.log("training chosen");
-    document.getElementById("submit-button").removeAttribute("data-bs-toggle");
-    document.getElementById("submit-button").removeAttribute("data-bs-target");
-    document
-      .getElementById("submit-button")
-      .setAttribute("form", "contact_form");
-    document.getElementById("submit-button").setAttribute("type", "submit");
-    window.location = "./summary.html";
-  } else if (cont) {
-    console.log("pppp");
-    console.log("hhihih");
-    document.getElementById("submit-button").removeAttribute("data-bs-toggle");
-    document.getElementById("submit-button").removeAttribute("data-bs-target");
-    document
-      .getElementById("submit-button")
-      .setAttribute("form", "contact_form");
-    document.getElementById("submit-button").setAttribute("type", "submit");
+    document.getElementById(id).removeAttribute("data-bs-toggle");
+    document.getElementById(id).removeAttribute("data-bs-target");
+    document.getElementById(id).setAttribute("form", "contact_form");
+    document.getElementById(id).setAttribute("type", "submit");
+    document.getElementById(id).setAttribute("onclick", "process('loading')");
+    // TODO: ADD stuff here to cater for the pop-up modal regarding the addition of packages (custom for training and package)
+  } else {
+    console.log("training and package chosen");
+    document.getElementById(id).removeAttribute("data-bs-toggle");
+    document.getElementById(id).removeAttribute("data-bs-target");
+    localStorage.setItem("pdf", jsPDFInvoiceTemplate.default(props));
+    document.getElementById(id).setAttribute("form", "contact_form");
+    document.getElementById(id).setAttribute("type", "submit");
+    document.getElementById(id).setAttribute("onclick", "process('loading')");
+    document.getElementById(id).click();
+    window.location.replace("summary.html");
   }
 }
 
 function setContinue() {
   cont = true;
-  setTimeout(submitForm(), 500);
+  if (document.documentElement.clientWidth < 1024) {
+    setTimeout(submitForm("submit-button"), 500);
+  } else {
+    setTimeout(submitForm("submit-button-large"), 500);
+  }
 }
 
 function updateBooks(button_id, identifier = false) {
@@ -1074,12 +1086,25 @@ function updateBooks(button_id, identifier = false) {
 }
 
 function generatePDF() {
-  var pdfObject = jsPDFInvoiceTemplate.default(props); //returns number of pages created
-  console.log(today.toString().slice(0, 15));
+  var pdfObject = jsPDFInvoiceTemplate.default(saveProps); //returns number of pages created
+}
+
+function pdfTableGenerator() {
+  return_table = [];
+  temp = JSON.parse(localStorage.getItem("total_order"));
+  for (let i = 0; i < temp.length; i++) {
+    return_table.push([
+      temp[i][0],
+      temp[i][2],
+      temp[i][1],
+      temp[i][2] * temp[i][1],
+    ]);
+  }
+  return return_table;
 }
 
 // jspdf generation
-var props = {
+var saveProps = {
   outputType: jsPDFInvoiceTemplate.OutputType.Save,
   returnJsPDFDocObject: true,
   fileName: "Test Invoice 2022",
@@ -1115,13 +1140,13 @@ var props = {
     website: "www.resoluteeducation.com",
   },
   contact: {
-    label: "Invoice issued for:",
+    label: "Estimate issued for:",
     name: localStorage.getItem("name") + ", " + localStorage.getItem("school"),
     email: localStorage.getItem("email"),
   },
   invoice: {
-    label: "Invoice #: ",
-    num: "xx",
+    label: "Estimate #: ",
+    num: "1",
     invGenDate: "Invoice Date: " + today.toString().slice(0, 15),
     headerBorder: false,
     tableBodyBorder: false,
@@ -1134,16 +1159,9 @@ var props = {
       },
       { title: "Price" },
       { title: "Quantity" },
-      { title: "Unit" },
       { title: "Total" },
     ],
-    table: Array.from(Array(10), (item, index) => [
-      "Streams, Packages, Trainings ",
-      200.5,
-      4.5,
-      "m2",
-      400.5,
-    ]),
+    table: pdfTableGenerator(),
     additionalRows: [
       {
         col1: "Total:",
@@ -1170,7 +1188,103 @@ var props = {
         },
       },
     ],
-    invDescLabel: "Invoice Note",
+    invDescLabel: "",
+    invDesc:
+      "Our team will get in touch with you and your school shortly.\nThank you for choosing Resolute.",
+  },
+  footer: {
+    text: "The invoice is created on a computer and is valid without the signature and stamp.",
+  },
+  pageEnable: true,
+  pageLabel: "Page ",
+};
+
+// jspdf localstorage
+var props = {
+  outputType: jsPDFInvoiceTemplate.OutputType,
+  returnJsPDFDocObject: true,
+  fileName: "Test Invoice 2022",
+  orientationLandscape: false,
+  compress: true,
+  logo: {
+    src: "./public/img/res_logo_black.png",
+    type: "PNG", //optional, when src= data:uri (nodejs case)
+    width: 75, //aspect ratio = width/height
+    height: 18,
+    margin: {
+      top: 5, //negative or positive num, from the current position
+      left: 0, //negative or positive num, from the current position
+    },
+  },
+  stamp: {
+    inAllPages: true, //by default = false, just in the last page
+    src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
+    type: "JPG", //optional, when src= data:uri (nodejs case)
+    width: 20, //aspect ratio = width/height
+    height: 20,
+    margin: {
+      top: 0, //negative or positive num, from the current position
+      left: 0, //negative or positive num, from the current position
+    },
+  },
+  business: {
+    name: "Resolute Education",
+    address: "2 The Aviary, 60 Glenwood Road, Lynnwood Glen",
+    phone: "(+27) 067 609 0699",
+    email: "info@resolute.education",
+    email1: "xxyyzz@resolute.education",
+    website: "www.resoluteeducation.com",
+  },
+  contact: {
+    label: "Estimate issued for:",
+    name: localStorage.getItem("name") + ", " + localStorage.getItem("school"),
+    email: localStorage.getItem("email"),
+  },
+  invoice: {
+    label: "Estimate #: ",
+    num: "1",
+    invGenDate: "Invoice Date: " + today.toString().slice(0, 15),
+    headerBorder: false,
+    tableBodyBorder: false,
+    header: [
+      {
+        title: "Description",
+        style: {
+          width: 80,
+        },
+      },
+      { title: "Price" },
+      { title: "Quantity" },
+      { title: "Total" },
+    ],
+    table: pdfTableGenerator(),
+    additionalRows: [
+      {
+        col1: "Total:",
+        col2: "145,250.50",
+        col3: "ALL",
+        style: {
+          fontSize: 14, //optional, default 12
+        },
+      },
+      {
+        col1: "VAT:",
+        col2: "20",
+        col3: "%",
+        style: {
+          fontSize: 10, //optional, default 12
+        },
+      },
+      {
+        col1: "SubTotal:",
+        col2: "116,199.90",
+        col3: "ALL",
+        style: {
+          fontSize: 10, //optional, default 12
+        },
+      },
+    ],
+    invDescLabel: "",
     invDesc:
       "Our team will get in touch with you and your school shortly.\nThank you for choosing Resolute.",
   },
@@ -1183,7 +1297,7 @@ var props = {
 
 // API Functionality
 
-function process(field) {
+async function process(field) {
   /**
    * Used as a redirection function to make API calls
    * @param field: denotes the type of function to carry out
@@ -1205,6 +1319,39 @@ async function apiDataHandler(method) {
    * fetches data from url and sends it to FLASK
    * @param method: specifies the method of the API call
    */
+  let newsletter_value = "";
+  let package;
+  // subscription to newsletter
+  if (document.getElementById("newsletter_tick").checked) {
+    newsletter_value = "Yes";
+  } else {
+    newsletter_value = "No";
+  }
+
+  console.log(total_order);
+  // package selected??
+  if (total_order.flat(2).findIndex((e) => e.includes("Package:")) != -1) {
+    package = total_order
+      .flat(2)
+      [total_order.flat(2).findIndex((e) => e.includes("Package:"))].slice(
+        9,
+        total_order.flat(2)[
+          total_order.flat(2).findIndex((e) => e.includes("Package:"))
+        ].length
+      )
+      .toString();
+  } else {
+    package = "Not Selected";
+  }
+
+  // process phone number
+  let phone_number = document.getElementById("phone").value;
+  phone_number = phone_number.slice(
+    phone_number.length - 9,
+    phone_number.length
+  );
+  phone_number_processed = "+27" + phone_number;
+
   if (method == "GET") {
     return fetch(url, {
       method: method,
@@ -1220,7 +1367,7 @@ async function apiDataHandler(method) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
+      _body: JSON.stringify({
         name:
           document.getElementById("first_name").value +
           " " +
@@ -1228,15 +1375,27 @@ async function apiDataHandler(method) {
         designation: document.getElementById("position_school").value,
         school_name: document.getElementById("school").value,
         email: document.getElementById("email").value,
-        phone: document.getElementById("phone").value,
-        // package: document.getElementById("package_selection").value,
+        phone: phone_number_processed,
+        location: document.getElementById("location").value,
+        newsletter: newsletter_value,
+        package: package,
+        total_order: total_order,
+        cost: total_cost,
+        pdf: localStorage.getItem("pdf", jsPDFInvoiceTemplate.default(props)),
       }),
+      get body() {
+        return this._body;
+      },
+      set body(value) {
+        this._body = value;
+      },
     });
   }
 }
 
 async function makeApiCall() {
   const api_data = await (await apiDataHandler("POST")).json();
+  console.log(api_data);
   try {
     if (api_data.data == "received") {
       console.log('done \n process "DONE"');
