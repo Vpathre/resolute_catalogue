@@ -1,3 +1,4 @@
+from __future__ import print_function
 from flask import Flask, jsonify, request, json, render_template
 from flask_cors import CORS
 import numpy as np
@@ -5,10 +6,28 @@ import requests
 from datetime import date
 import time
 import math
+from base64 import b64decode
+import os
+from pathlib import Path
+import google
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+from googleapiclient.http import MediaFileUpload
 
-apiKey = "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjE5ODIyMDgwNiwidWlkIjozNjcyMjYzNCwiaWFkIjoiMjAyMi0xMS0yMlQxMToxNTozNy4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MTQyMTM2NDgsInJnbiI6InVzZTEifQ.Iv4gkzBTpjp5af4lDd_pZwjMx3URxZ-4jpZETrqmNGE"
+boardID = "3711665804"
+apiKey = "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjIxMzgyMzg4NiwidWlkIjozNzU5OTg3NywiaWFkIjoiMjAyMi0xMi0yN1QxMjo1NToyNC44NjJaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MTQ1NzIyNjgsInJnbiI6InVzZTEifQ.NxKqCC_1dTd1bHovQ4pILa-94a-reNSu8kHj-OQA8Mk"
 apiUrl = "https://api.monday.com/v2"
+apiItemsUrl = "https://api.monday.com/v2/boards/3711665804/items"
+apiFileUrl = "https://api.monday.com/v2/file "
 headers = {"Authorization": apiKey}
+
+folder_id = "1SX7rNCw5kDGAdhlI9QbOsesTuWbjuyD8"  # Google drive folder ID
+SCOPES = ['https://www.googleapis.com/auth/drive']
+google_api_token = "ya29.a0AX9GBdWPo-IjKMejGrssDwSz4jrUz9YZ3ljx-zKVZoRY6KL23rCFS1bHo23EcFmudqACTa2K20Hghcav1Kwlf4fEUMPY3tB0jPkF_W9hTfLio8MaRfm9X5dyOFV99OfcZ9-rdVHbmxRBUgXmBwOL6nX89d3yjy4aCgYKAVYSAQASFQHUCsbCv1P7-x2nAqjFIBRQsH-CYA0166"
+google_refresh_token = "1//04hmW32Bf9JhYCgYIARAAGAQSNwF-L9IroJmAgHxBKC0x0x1rLQ71ZNSTLX2CBDE9OCfHc2rgW41aPyA1re8R2_EXH-NxeMhN0OM"
 
 Lite_package = "The Lite package that you selected means that your school will get a basic implementation which includes student licenses, student guides and books, curriculum & teaching plans, and basic support."
 Standard_package = "The Standard package that you selected means that your school will have full access to our platform and curriculum, as well as 5% discount on kits and 15% discount on teacher training."
@@ -61,8 +80,12 @@ def data_sort(data):
         proposal = math.ceil(int(data["cost"]))
         location = province_locations[location]
         total_order = list(np.concatenate(data["total_order"]).flat)
-        print(proposal)
-        print(total_order)
+        pdf = convert_to_pdf(data["pdf"], name)        
+        link = upload_to_drive2(pdf)
+        os.remove(pdf)
+        # print(proposal)
+        # print(total_order)
+        # print(pdf)
 
 
         for i in range(len(total_order)):
@@ -92,7 +115,6 @@ def data_sort(data):
         training_dropdown = temp_training[0]
         training_qty = temp_training[1]
         training_type = str(temp_training[2])
-        pdf = data["pdf"]
         print(training_type)
 
         # add streams to dict
@@ -111,30 +133,30 @@ def data_sort(data):
         for i in range(len(data["total_order"])):
             pricing[data["total_order"][i][0]] = data["total_order"][i][2]
 
-        query = 'mutation ($myItemName: String!, $columnVals: JSON!) { create_item (board_id:3559887347, item_name:$myItemName, column_values:$columnVals) { id } }'
+        query = 'mutation ($myItemName: String!, $columnVals: JSON!) { create_item (board_id:3711665804, item_name:$myItemName, column_values:$columnVals) { id } }'
         vars = {
             'myItemName': name,
             'columnVals': json.dumps({
                 "status": {"label": "Awaiting approval"},
-                "date4": date_field,                                # date
-                "text": name,                                       # client name
-                "text8": school,                                    # school
-                "text5": designation,                               # designation at school
-                "location": location,                               # location of school
-                "phone": phone,                                     # phone number
-                "email": {'email': email, 'text': email},           # email
-                "text05": package,                                  # package selected
-                "dropdown": selected_streams_str,                   # streams selected by user
-                "numbers7": proposal,                               # estimated potential sale
-                "files": pdf,                                       # estimate pdf
-                "text2": stream_quantity,                           # quantity of the streams selected
-                "dropdown80": facilitator_books_dropdown,           # streams selected by user
-                "text59": facilitator_books_qty,                    # quantity of the streams selected
-                "dropdown21": student_books_dropdown,               # streams selected by user
-                "text6": student_books_qty,                         # quantity of the streams selected
-                "dropdown215": training_dropdown,
-                "text9": training_qty,
-                "status_1": {"label": training_type},
+                "date4": date_field,                                            # date
+                "text": name,                                                   # client name
+                "text4": school,                                                # school
+                "text7": designation,                                           # designation at school
+                "location": location,                                           # location of school
+                "phone": phone,                                                 # phone number
+                "email": {'email': email, 'text': email},                       # email
+                "numbers": proposal,                                           # estimated potential sale
+                "text6": package,                                              # package selected
+                "link": {'url': link, 'text': name + " Estimate"},                                         # URL of the PDF generated by the app
+                "dropdown": selected_streams_str,                               # streams selected by user
+                "dropdown2": facilitator_books_dropdown,                       # streams selected by user
+                "dropdown8": student_books_dropdown,                           # streams selected by user
+                "dropdown6": training_dropdown,                               # trainings selected by the user
+                "status_1": {"label": training_type},                           # type of training selected
+                "long_text": stream_quantity,                             # quantity of the streams selected                
+                "long_text6": facilitator_books_qty,           # quantity of the streams selected
+                "long_text4": student_books_qty,                    # quantity of the streams selected
+                "long_text5": training_qty,
             })
         }
         print("sending data to monday")
@@ -155,28 +177,29 @@ def dropdown_streams(streams):
     for i in range(len(streams)):
         if streams[i][0] == "Novice Stream":
             str_array.append(1)
-            return_array.append(f"Novice Stream: {streams[i][1]}")
+            return_array.append(f"Novice: {streams[i][1]}")
         if streams[i][0] == "Apprentice Stream":
             str_array.append(2)
-            return_array.append(f"Apprentice Stream: {streams[i][1]}")
+            return_array.append(f"Apprentice: {streams[i][1]}")
         if streams[i][0] == "Adept Stream":
             str_array.append(3)
-            return_array.append(f"Adept Stream: {streams[i][1]}")
+            return_array.append(f"Adept: {streams[i][1]}")
         if streams[i][0] == "Beginner Stream":
             str_array.append(4)
-            return_array.append(f"Beginner Stream: {streams[i][1]}")
+            return_array.append(f"Beginner: {streams[i][1]}")
         if streams[i][0] == "Advanced Stream":
             str_array.append(5)
-            return_array.append(f"Advanced Stream: {streams[i][1]}")
+            return_array.append(f"Advanced: {streams[i][1]}")
         if streams[i][0] == "Master Stream":
             str_array.append(6)
-            return_array.append(f"Master Stream: {streams[i][1]}")
+            return_array.append(f"Master: {streams[i][1]}")
 
     str_array.sort()
     temp = list(map(str, str_array))
     return_str = ','. join(temp)
-    return_str_2 = '<br>'. join(return_array)
+    return_str_2 = '\n'. join(return_array)
     return [return_str, return_str_2]
+
 
 def dropdown_books(books):
     '''
@@ -220,10 +243,11 @@ def dropdown_books(books):
     temp_1 = list(map(str, str_array_facilitator))
     temp_2 = list(map(str, str_array_student))
     return_str_1 = ','. join(temp_1) # facilitator book dropdowns
-    return_str_2 = '<br>'. join(return_array_facilitator) # facilitator book quantity
+    return_str_2 = '\n'. join(return_array_facilitator) # facilitator book quantity
     return_str_3 = ','. join(temp_2) # student book dropdowns
-    return_str_4 = '<br>'. join(return_array_student) # student book quantity
+    return_str_4 = '\n'. join(return_array_student) # student book quantity
     return [return_str_1, return_str_2, return_str_3, return_str_4]
+
 
 def dropdown_training(training):
     '''
@@ -236,32 +260,32 @@ def dropdown_training(training):
     for i in range(len(training)):
         if training[i][0] == "Novice Training":
             training_dropdown.append(1)
-            training_qty.append(f"Novice: {training[i][1]}; {training[i][3]} sessions")
+            training_qty.append(f"Novice: {training[i][1]} trainings ({training[i][3]} sessions)")
             if training[i][4] == "Person":
                 flag = True
         if training[i][0] == "Apprentice Training":
             training_dropdown.append(2)
-            training_qty.append(f"Apprentice: {training[i][1]}; {training[i][3]} sessions")
+            training_qty.append(f"Apprentice: {training[i][1]} trainings ({training[i][3]} sessions)")
             if training[i][4] == "Person":
                 flag = True
         if training[i][0] == "Adept Training":
             training_dropdown.append(3)
-            training_qty.append(f"Adept: {training[i][1]}; {training[i][3]} sessions")
+            training_qty.append(f"Adept: {training[i][1]} trainings ({training[i][3]} sessions)")
             if training[i][4] == "Person":
                 flag = True
         if training[i][0] == "Beginner Training":
             training_dropdown.append(4)
-            training_qty.append(f"Beginner: {training[i][1]}; {training[i][3]} sessions")
+            training_qty.append(f"Beginner: {training[i][1]} trainings ({training[i][3]} sessions)")
             if training[i][4] == "Person":
                 flag = True
         if training[i][0] == "Advanced Training":
             training_dropdown.append(5)
-            training_qty.append(f"Advanced: {training[i][1]}; {training[i][3]} sessions")
+            training_qty.append(f"Advanced: {training[i][1]} trainings ({training[i][3]} sessions)")
             if training[i][4] == "Person":
                 flag = True
         if training[i][0] == "Master Training":
             training_dropdown.append(6)
-            training_qty.append(f"Master: {training[i][1]}; {training[i][3]} sessions")
+            training_qty.append(f"Master: {training[i][1]} trainings ({training[i][3]} sessions)")
             if training[i][4] == "Person":
                 flag = True
 
@@ -273,8 +297,83 @@ def dropdown_training(training):
     training_dropdown.sort()
     temp = list(map(str, training_dropdown))
     return_str = ','. join(temp)
-    return_str_2 = '<br>'. join(training_qty)
+    return_str_2 = '\n'. join(training_qty)
     return [return_str, return_str_2, return_status]
+
+
+def convert_to_pdf(pdfString, name):
+    base64String = pdfString[pdfString.find("base64,")+7: len(pdfString)]
+    bytes = b64decode(base64String, validate=True)
+    if bytes[0:4] != b'%PDF':
+        raise ValueError('Missing the PDF file signature')
+
+    # Write the PDF contents to a local file
+    filename = "./Resolute Estimate for " + name + ".pdf"
+    f = open(filename, 'wb')
+    f.write(bytes)
+    f.close()
+    return filename
+
+
+def upload_to_drive(pdfFile, API_KEY, REFRESH_TOKEN):
+    head = {
+    "Authorization":f"Bearer {REFRESH_TOKEN}"
+    }
+ 
+    parameters = {
+        "name":pdfFile[2:len(pdfFile)],
+        "parents":[folder_id]
+    }
+ 
+    files = {
+        'data':('metadata',json.dumps(parameters),'application/json;charset=UTF-8'),
+        'file':open(pdfFile,'rb')
+    }
+    
+    r = requests.post("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
+        headers=head,
+        files=files
+    )
+
+
+def upload_to_drive2(pdfFile):
+    '''
+    Upload the pdf to the corresponding drive folder
+    '''
+     # Make request to the drive API
+    creds = None
+    if os.path.exists('token.json'):
+        print("Token Exists")
+        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    
+    if not creds or not creds.valid:
+        print("Invalid token")
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                'credentials.json', SCOPES)
+            creds = flow.run_local_server(port=0)
+        # Save the credentials for the next run
+        with open('token.json', 'w') as token:
+            token.write(creds.to_json())
+    
+    print("Authorization completed...")
+
+    # Upload the file to the drive folder sepcified by the folder ID
+    try:
+        service = build("drive", "v3", credentials = creds)
+
+        media = MediaFileUpload(pdfFile, mimetype="application/pdf")
+        file_metadata = {"name": pdfFile[2:len(pdfFile)], "parents":[folder_id]}
+        file = service.files().create(body=file_metadata, media_body = media, fields = "id").execute()
+        print(F'File with id: {file["id"]}, has been added to the folder with URL: "https://drive.google.com/drive/{folder_id}')
+
+    except HttpError as error:
+        print(f'An error occured: {error}')
+
+    return f'https://drive.google.com/file/d/{file["id"]}/view?usp=share_link'
+
 
 @app.route('/')
 def home():
@@ -299,7 +398,6 @@ def log_estimate():
         except (ValueError, KeyError, TypeError):
             return jsonify({'data':'JSON format error'})
     return
-
 
 if __name__ == '__main__':
     app.run()

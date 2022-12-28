@@ -22,7 +22,7 @@
         id="banner2"
       >
         <div class="w-80 -ml-36 -mt-36">
-          <a href="./index.html">
+          <a href="./">
             <img src="./public/img/res_logo_white.png" alt="logo" />
           </a>
         </div>
@@ -40,7 +40,7 @@
             class="flex-col justify-start bg-white bg-opacity-20 shadow-2xl"
             id="final_table"
           >
-            <thead class="bg-transparent">
+            <thead class="bg-transparent border-b-2 border-gray-100">
               <tr>
                 <th
                   scope="col"
@@ -68,7 +68,7 @@
         <div class="pt-10 text-center text-lg">
           <button
             class="hover:text-gray-300 transition ease-in duration-150 uppercase"
-            onclick="generatePDF()"
+            onclick="generatePDF('Send')"
           >
             You can download a copy of your personalized quote here
           </button>
@@ -88,7 +88,7 @@
 
         for (let i = 0; i < total_order.length; i++) {
           table_body.innerHTML += `<tr
-        class="bg-grey-200 bg-opacity-20 border-b text-white transition duration-300 ease-in-out"
+        class="bg-grey-200 bg-opacity-20 text-white transition duration-300 ease-in-out"
       >
         <td
           class="px-6 py-4 whitespace-nowrap text-sm font-light text-grey-900"

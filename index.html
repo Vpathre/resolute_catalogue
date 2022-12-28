@@ -67,7 +67,7 @@
   </head>
 
   <body class="text-grey-600 font-poppins" data-barba="wrapper">
-    <ul
+    <!-- <ul
       class="transition flex fixed z-50 h-full w-full top-0 left-0 m-0 pointer-events-none"
     >
       <li class="transform scale-y-0 bg-resBlue w-1/5"></li>
@@ -75,10 +75,10 @@
       <li class="transform scale-y-0 bg-resBlue w-1/5"></li>
       <li class="transform scale-y-0 bg-resBlue w-1/5"></li>
       <li class="transform scale-y-0 bg-resBlue w-1/5"></li>
-    </ul>
+    </ul> -->
 
     <!-- main banner of the app -->
-    <main
+    <!-- <main
       data-barba="container"
       data-barba-namespace="intro-section"
       class="banner flex-col justify-center text-xl h-screen font-poppins uppercase bg-resBlue text-white z-40 w-screen fixed snap-end shadow-lg sm:pt-40 pl-20 pr-20 lg:p-40"
@@ -120,7 +120,7 @@
           </div>
         </div>
       </div>
-    </main>
+    </main> -->
 
     <!-- Swiper -->
     <div class="swiper mySwiper">
@@ -1886,7 +1886,7 @@
             class="font-poppins text-sm text-blue-500 hover:text-blue-900 transition ease-out duration-500 uppercase"
             data-bs-toggle="modal"
             data-bs-target="#cart_card"
-            onclick="cart_view()"
+            onclick="cart_view(false)"
           >
             View Cart
           </button>
@@ -1931,7 +1931,7 @@
               class="font-poppins text-blue-500 hover:text-blue-900 transition ease-out duration-500 uppercase"
               data-bs-toggle="modal"
               data-bs-target="#cart_card"
-              onclick="cart_view()"
+              onclick="cart_view(true)"
             >
               View Cart
             </button>
@@ -2629,7 +2629,7 @@
               <div class="flex justify-between bg-white">
                 <div class="pl-6 lg:pl-12 pr-12 pt-5">
                   <h1
-                    class="font-poppins text-2xl md:text-3xl lg:text-6xl text-left text-gray-800"
+                    class="font-poppins text-2xlmd:text-3xl lg:text-6xl text-left text-gray-800"
                   >
                     Choose your training plan
                   </h1>
@@ -2643,7 +2643,9 @@
                   ></button>
                 </div>
               </div>
-              <div class="pt-5 pl-6 pr-6 lg:pl-12 lg:pr-12 pb-10 bg-white">
+              <div
+                class="pt-2 md:pt-5 pl-6 pr-6 lg:pl-12 lg:pr-12 pb-10 bg-white"
+              >
                 <span
                   class="text-sm lg:text-lg font-semibold mt-14 mb-8 flex justify-center"
                   id="teacher_training_container"
@@ -3188,6 +3190,434 @@
                       </tr>
                     </tbody>
                   </table>
+                  <div id="mobile_container" class="overflow-x-scroll">
+                    <div
+                      class="grid md:grid-cols-3 md:gap-10 border-t border-gray-400"
+                      id="novice_small_div"
+                    >
+                      <div
+                        class="flex-col justify-center text-center items-center pt-3"
+                      >
+                        <div class="font-semibold text-lg">Novice</div>
+                        <div class="text-sm">Duration: 12 hours</div>
+
+                        <div class="flex justify-center">
+                          <div class="py-2 xl:w-40">
+                            <span class="text-sm mb-2">Split into</span>
+                            <select
+                              class="form-select pr-8 text-center appearance-none block w-full px-2 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                              aria-label="Default select example"
+                              id="session_novice_small"
+                            >
+                              <option selected>Select</option>
+                              <option value="1">1 session</option>
+                              <option value="2">2 sessions</option>
+                              <option value="3">3 sessions</option>
+                              <option value="4">4 sessions</option>
+                              <option value="6">6 sessions</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="flex justify-center pt-3 pb-2 lg:pt-8 lg:pb-8"
+                      >
+                        <div class="flex justify-evenly">
+                          <button
+                            class="w-10 h-10 mr-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+                            id="minus_teacher_novice_small"
+                            onclick="updateQuantityTraining(id, true)"
+                          >
+                            -
+                          </button>
+                          <input
+                            type="text"
+                            value="1"
+                            class="w-10 text-center p-0 flex"
+                            id="input_teacher_novice_small"
+                          />
+                          <button
+                            class="w-10 h-10 ml-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+                            id="plus_teacher_novice_small"
+                            onclick="updateQuantityTraining(id, true)"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+                      <div
+                        class="flex justify-center pt-3 pb-2 lg:pt-10 lg:pb-5"
+                      >
+                        <label
+                          for="sessions_novice_small"
+                          class="text-md text-gray-700 mr-5"
+                          >Select</label
+                        >
+                        <input
+                          id="select_novice_small"
+                          type="checkbox"
+                          value=""
+                          onclick="addTeacherTraining(false)"
+                          class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="grid md:grid-cols-3 md:gap-10 border-t border-gray-400"
+                      id="apprentice_small_div"
+                    >
+                      <div
+                        class="flex-col justify-center text-center items-center pt-3"
+                      >
+                        <div class="font-semibold text-lg">Apprentice</div>
+                        <div class="text-sm">Duration: 12 hours</div>
+
+                        <div class="flex justify-center">
+                          <div class="py-2 xl:w-40">
+                            <span class="text-sm mb-2">Split into</span>
+                            <select
+                              class="form-select pr-8 text-center appearance-none block w-full px-2 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                              aria-label="Default select example"
+                              id="session_apprentice_small"
+                            >
+                              <option selected>Select</option>
+                              <option value="1">1 session</option>
+                              <option value="2">2 sessions</option>
+                              <option value="3">3 sessions</option>
+                              <option value="4">4 sessions</option>
+                              <option value="6">6 sessions</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="flex justify-center pt-3 pb-2 lg:pt-8 lg:pb-8"
+                      >
+                        <div class="flex justify-evenly">
+                          <button
+                            class="w-10 h-10 mr-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+                            id="minus_teacher_apprentice_small"
+                            onclick="updateQuantityTraining(id, true)"
+                          >
+                            -
+                          </button>
+                          <input
+                            type="text"
+                            value="1"
+                            class="w-10 text-center p-0 flex"
+                            id="input_teacher_apprentice_small"
+                          />
+                          <button
+                            class="w-10 h-10 ml-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+                            id="plus_teacher_apprentice_small"
+                            onclick="updateQuantityTraining(id, true)"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+                      <div
+                        class="flex justify-center pt-3 pb-2 lg:pt-10 lg:pb-5"
+                      >
+                        <label
+                          for="sessions_apprentice_small"
+                          class="text-md text-gray-700 mr-5"
+                          >Select</label
+                        >
+                        <input
+                          id="select_apprentice_small"
+                          type="checkbox"
+                          value=""
+                          onclick="addTeacherTraining(false)"
+                          class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="grid md:grid-cols-3 md:gap-10 border-t border-gray-400"
+                      id="adept_small_div"
+                    >
+                      <div
+                        class="flex-col justify-center text-center items-center pt-3"
+                      >
+                        <div class="font-semibold text-lg">Adept</div>
+                        <div class="text-sm">Duration: 12 hours</div>
+
+                        <div class="flex justify-center">
+                          <div class="py-2 xl:w-40">
+                            <span class="text-sm mb-2">Split into</span>
+                            <select
+                              class="form-select pr-8 text-center appearance-none block w-full px-2 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                              aria-label="Default select example"
+                              id="session_adept_small"
+                            >
+                              <option selected>Select</option>
+                              <option value="1">1 session</option>
+                              <option value="2">2 sessions</option>
+                              <option value="3">3 sessions</option>
+                              <option value="4">4 sessions</option>
+                              <option value="6">6 sessions</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="flex justify-center">
+                        <div
+                          class="flex justify-evenly pt-3 pb-2 lg:pt-8 lg:pb-8"
+                        >
+                          <button
+                            class="w-10 h-10 mr-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+                            id="minus_teacher_adept_small"
+                            onclick="updateQuantityTraining(id, true)"
+                          >
+                            -
+                          </button>
+                          <input
+                            type="text"
+                            value="1"
+                            class="w-10 text-center p-0 flex"
+                            id="input_teacher_adept_small"
+                          />
+                          <button
+                            class="w-10 h-10 ml-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+                            id="plus_teacher_adept_small"
+                            onclick="updateQuantityTraining(id, true)"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+                      <div
+                        class="flex justify-center pt-3 pb-2 lg:pt-10 lg:pb-5"
+                      >
+                        <label
+                          for="sessions_adept_small"
+                          class="text-md text-gray-700 mr-5"
+                          >Select</label
+                        >
+                        <input
+                          id="select_adept_small"
+                          type="checkbox"
+                          value=""
+                          onclick="addTeacherTraining(false)"
+                          class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="grid md:grid-cols-3 md:gap-10 border-t border-gray-400"
+                      id="beginner_small_div"
+                    >
+                      <div
+                        class="flex-col justify-center text-center items-center pt-3"
+                      >
+                        <div class="font-semibold text-lg">Beginner</div>
+                        <div class="text-sm">Duration: 12 hours</div>
+
+                        <div class="flex justify-center">
+                          <div class="py-2 xl:w-40">
+                            <span class="text-sm mb-2">Split into</span>
+                            <select
+                              class="form-select pr-8 text-center appearance-none block w-full px-2 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                              aria-label="Default select example"
+                              id="session_beginner_small"
+                            >
+                              <option selected>Select</option>
+                              <option value="1">1 session</option>
+                              <option value="2">2 sessions</option>
+                              <option value="3">3 sessions</option>
+                              <option value="4">4 sessions</option>
+                              <option value="6">6 sessions</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="flex justify-center">
+                        <div
+                          class="flex justify-evenly pt-3 pb-2 lg:pt-8 lg:pb-8"
+                        >
+                          <button
+                            class="w-10 h-10 mr-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+                            id="minus_teacher_beginner_small"
+                            onclick="updateQuantityTraining(id, true)"
+                          >
+                            -
+                          </button>
+                          <input
+                            type="text"
+                            value="1"
+                            class="w-10 text-center p-0 flex"
+                            id="input_teacher_beginner_small"
+                          />
+                          <button
+                            class="w-10 h-10 ml-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+                            id="plus_teacher_beginner_small"
+                            onclick="updateQuantityTraining(id, true)"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+                      <div
+                        class="flex justify-center pt-3 pb-2 lg:pt-10 lg:pb-5"
+                      >
+                        <label
+                          for="sessions_beginner_small"
+                          class="text-md text-gray-700 mr-5"
+                          >Select</label
+                        >
+                        <input
+                          id="select_beginner_small"
+                          type="checkbox"
+                          value=""
+                          onclick="addTeacherTraining(false)"
+                          class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="grid md:grid-cols-3 md:gap-10 border-t border-gray-400"
+                      id="advanced_small_div"
+                    >
+                      <div
+                        class="flex-col justify-center text-center items-center pt-3"
+                      >
+                        <div class="font-semibold text-lg">Advanced</div>
+                        <div class="text-sm">Duration: 12 hours</div>
+
+                        <div class="flex justify-center">
+                          <div class="py-2 xl:w-40">
+                            <span class="text-sm mb-2">Split into</span>
+                            <select
+                              class="form-select pr-8 text-center appearance-none block w-full px-2 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                              aria-label="Default select example"
+                              id="session_advanced_small"
+                            >
+                              <option selected>Select</option>
+                              <option value="1">1 session</option>
+                              <option value="2">2 sessions</option>
+                              <option value="3">3 sessions</option>
+                              <option value="4">4 sessions</option>
+                              <option value="6">6 sessions</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="flex justify-center">
+                        <div
+                          class="flex justify-evenly pt-3 pb-2 lg:pt-8 lg:pb-8"
+                        >
+                          <button
+                            class="w-10 h-10 mr-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+                            id="minus_teacher_advanced_small"
+                            onclick="updateQuantityTraining(id, true)"
+                          >
+                            -
+                          </button>
+                          <input
+                            type="text"
+                            value="1"
+                            class="w-10 text-center p-0 flex"
+                            id="input_teacher_advanced_small"
+                          />
+                          <button
+                            class="w-10 h-10 ml-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+                            id="plus_teacher_advanced_small"
+                            onclick="updateQuantityTraining(id, true)"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+                      <div
+                        class="flex justify-center pt-3 pb-2 lg:pt-10 lg:pb-5"
+                      >
+                        <label
+                          for="sessions_advanced_small"
+                          class="text-md text-gray-700 mr-5"
+                          >Select</label
+                        >
+                        <input
+                          id="select_advanced_small"
+                          type="checkbox"
+                          value=""
+                          onclick="addTeacherTraining(false)"
+                          class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="grid md:grid-cols-3 md:gap-10 border-t border-gray-400"
+                      id="master_small_div"
+                    >
+                      <div
+                        class="flex-col justify-center text-center items-center pt-3"
+                      >
+                        <div class="font-semibold text-lg">Master</div>
+                        <div class="text-sm">Duration: 12 hours</div>
+
+                        <div class="flex justify-center">
+                          <div class="py-2 xl:w-40">
+                            <span class="text-sm mb-2">Split into</span>
+                            <select
+                              class="form-select pr-8 text-center appearance-none block w-full px-2 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                              aria-label="Default select example"
+                              id="session_master_small"
+                            >
+                              <option selected>Select</option>
+                              <option value="1">1 session</option>
+                              <option value="2">2 sessions</option>
+                              <option value="3">3 sessions</option>
+                              <option value="4">4 sessions</option>
+                              <option value="6">6 sessions</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="flex justify-center">
+                        <div
+                          class="flex justify-evenly pt-3 pb-2 lg:pt-8 lg:pb-8"
+                        >
+                          <button
+                            class="w-10 h-10 mr-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+                            id="minus_teacher_master_small"
+                            onclick="updateQuantityTraining(id, true)"
+                          >
+                            -
+                          </button>
+                          <input
+                            type="text"
+                            value="1"
+                            class="w-10 text-center p-0 flex"
+                            id="input_teacher_master_small"
+                          />
+                          <button
+                            class="w-10 h-10 ml-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+                            id="plus_teacher_master_small"
+                            onclick="updateQuantityTraining(id, true)"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+                      <div
+                        class="flex justify-center pt-3 pb-2 lg:pt-10 lg:pb-5"
+                      >
+                        <label
+                          for="sessions_master_small"
+                          class="text-md text-gray-700 mr-5"
+                          >Select</label
+                        >
+                        <input
+                          id="select_master_small"
+                          type="checkbox"
+                          value=""
+                          onclick="addTeacherTraining(false)"
+                          class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div
@@ -3293,38 +3723,36 @@
                     id="table_container"
                   ></span>
                   <div class="overflow-x-scroll">
-                    <table
-                      class="flex-col justify-start bg-blue-900 bg-opacity-20 shadow-2xl hidden"
-                      id="summary_table"
-                    >
-                      <thead class="bg-gray-500">
-                        <tr>
-                          <th
-                            scope="col"
-                            class="text-sm flex-row font-medium text-white px-6 py-4 text-left w-96"
-                          >
-                            Description
-                          </th>
-                          <th
-                            scope="col"
-                            class="text-sm flex-row font-medium text-white px-6 py-4 text-left"
-                          >
-                            Qty.
-                          </th>
-                          <th
-                            scope="col"
-                            class="text-sm flex-row font-medium text-white px-6 py-4 text-left"
-                          >
-                            Unit Price
-                          </th>
-                          <th
-                            scope="col"
-                            class="text-sm flex-row font-medium text-white px-6 py-4 text-left"
-                          ></th>
-                        </tr>
-                      </thead>
-                      <tbody id="update_cart_body"></tbody>
-                    </table>
+                    <div id="table-container">
+                      <table
+                        class="flex-col justify-start bg-opacity-20 hidden"
+                        id="summary_table"
+                      >
+                        <thead class="bg-transparent border-b-2">
+                          <tr>
+                            <th
+                              scope="col"
+                              class="text-sm lg:text-lg flex-col font-medium text-black px-6 py-4 text-left w-96"
+                            ></th>
+                            <th
+                              scope="col"
+                              class="text-sm lg:text-lg flex-col font-medium text-black px-6 py-4 text-left"
+                            ></th>
+                            <!-- <th
+                              scope="col"
+                              class="text-sm lg:text-lg flex-col font-medium text-black px-6 py-4 text-left"
+                            >
+                              Unit Price
+                            </th>
+                            <th
+                              scope="col"
+                              class="text-sm lg:text-lg flex-col font-medium text-black px-6 py-4 text-left"
+                            ></th> -->
+                          </tr>
+                        </thead>
+                        <tbody id="update_cart_body"></tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
 

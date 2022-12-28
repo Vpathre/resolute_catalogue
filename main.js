@@ -1,6 +1,17 @@
 // var url = "https://vpathre.github.io/resolute_catalogue/";
 var url = "http://127.0.0.1:5000/estimate";
-var total_order = [];
+var total_order = [
+  ["Package: Premium", "1", "109250", "package"],
+  ["Apprentice Stream", "10", "2173.5", "stream"],
+  ["Master Stream", "10", "3105", "stream"],
+  ["Facilitator's Guide: Apprentice Level 1", "1", "300", "facilitator"],
+  ["Facilitator's Guide: Advanced Level 2", "1", "300", "facilitator"],
+  ["Student's Guide: Novice Level 1", "1", "120", "student"],
+  ["Student's Guide: Apprentice Level 2", "1", "120", "student"],
+  ["Apprentice Training", "1", "6900", "3", "person training"],
+  ["Master Training", "1", "6900", "3", "person training"],
+];
+// var total_order = [];
 // [title, quantity, price, identifier]
 var package_selected = false;
 var teacher_online = 6900;
@@ -14,9 +25,9 @@ var product_array = [2300, 2415, 2530, 2645, 2875, 3450, 300, 120];
 
 // keeps track of streams selected, saves inefficiency of iterating through entire cart
 var stream_tracker = [];
-var teacher_training = [];
-var delete_item = "";
-var total_cost;
+var teacher_training = []; // keeps track of the teacher training modules selected
+var delete_item = ""; // item id being deleted
+var total_cost; // total cost of the cart
 
 function updateQuantity(button_id) {
   /**
@@ -554,10 +565,16 @@ function tableFieldEditor() {
   document.getElementById("teacher_beginner").style.display = "none";
   document.getElementById("teacher_advanced").style.display = "none";
   document.getElementById("teacher_master").style.display = "none";
+  document.getElementById("novice_small_div").style.display = "none";
+  document.getElementById("apprentice_small_div").style.display = "none";
+  document.getElementById("adept_small_div").style.display = "none";
+  document.getElementById("beginner_small_div").style.display = "none";
+  document.getElementById("advanced_small_div").style.display = "none";
+  document.getElementById("master_small_div").style.display = "none";
 
   // if no streams are selected
   console.log("table field editor", stream_tracker.length);
-  if (stream_tracker.length == 0) {
+  if (stream_tracker.length == 0 && window.innerWidth < 1000) {
     document.getElementById("teacher_training_table").classList.add("hidden");
     var div = document.getElementById("teacher_training_container");
     div.innerHTML = "No streams selected (ㆆ_ㆆ)";
@@ -567,8 +584,9 @@ function tableFieldEditor() {
     document
       .getElementById("AddTeacher")
       .setAttribute("data-bs-dismiss", "modal");
-  } else if (stream_tracker.length > 0) {
+  } else if (stream_tracker.length > 0 && window.innerWidth > 1000) {
     // if item is in the stream tracker array, table row, else none
+    // if viewport is on a larger screen
     for (let i = 0; i < stream_tracker.length; i++) {
       let temp = "teacher_" + stream_tracker[i].toLowerCase();
       document.getElementById(temp).style.display = "table-row";
@@ -577,6 +595,19 @@ function tableFieldEditor() {
       .getElementById("teacher_training_table")
       .classList.remove("hidden");
     document.getElementById("teacher_training_table").classList.add("flex-row");
+    document.getElementById("teacher_training_container").style.display =
+      "none";
+    document.getElementById("teacher_info").style.display = "flex";
+    document.getElementById("AddTeacher").innerHTML = "Add To Cart";
+    document.getElementById("AddTeacher").removeAttribute("data-bs-modal");
+  } else if (stream_tracker.length > 0 && window.innerWidth < 1000) {
+    // if item is in the stream tracker array, table row, else none
+    // if viewport is on a smaller screen
+    for (let i = 0; i < stream_tracker.length; i++) {
+      let temp = stream_tracker[i].toLowerCase() + "_small_div";
+      document.getElementById(temp).style.display = "grid";
+    }
+    document.getElementById("teacher_training_table").classList.add("hidden");
     document.getElementById("teacher_training_container").style.display =
       "none";
     document.getElementById("teacher_info").style.display = "flex";
@@ -628,12 +659,22 @@ function addTeacherTraining(param) {
   var toggle = document.getElementById("toogleA");
   var total = 0;
   let cart = [];
-
+  let stream_name_input;
+  let check_training;
+  let sessions;
   for (let i = 0; i < stream_tracker.length; i++) {
     let stream_name = stream_tracker[i].toLowerCase();
-    let stream_name_input = "input_teacher_" + stream_name;
-    let check_training = document.getElementById("select_" + stream_name);
-    let sessions = document.getElementById("session_" + stream_name);
+    if (window.innerWidth < 1000) {
+      stream_name_input = "input_teacher_" + stream_name + "_small";
+      check_training = document.getElementById(
+        "select_" + stream_name + "_small"
+      );
+      sessions = document.getElementById("session_" + stream_name + "_small");
+    } else {
+      stream_name_input = "input_teacher_" + stream_name;
+      check_training = document.getElementById("select_" + stream_name);
+      sessions = document.getElementById("session_" + stream_name);
+    }
     if (check_training.checked) {
       if (!toggle.checked) {
         total +=
@@ -687,13 +728,15 @@ function updateQuantityTraining(button_id, identifier = false) {
    * @param button_id: refers to the element id recieved as a parameter
    */
   var inputIdString;
+  var input;
   // get input element
   if (button_id.slice(0, 5) == "plus_") {
     inputIdString = "input_" + button_id.slice(5, button_id.length);
   } else if (button_id.slice(0, 6) == "minus_") {
     inputIdString = "input_" + button_id.slice(6, button_id.length);
   }
-  var input = document.getElementById(inputIdString);
+
+  input = document.getElementById(inputIdString);
 
   // update input element
   if (button_id.slice(0, 5) == "plus_") {
@@ -710,7 +753,11 @@ function updateQuantityTraining(button_id, identifier = false) {
   addTeacherTraining(false);
 }
 
-function cart_view() {
+function cart_view(flag) {
+  /**
+   * Is called whenever the user wishes to view the cart
+   * @param flag: If TRUE => refers to mobile. If FALSE => refers to normal screens
+   */
   document.getElementById("update_cart_card").innerHTML = "continue";
   // if cart is empty
   if (total_order.length == 0) {
@@ -725,19 +772,24 @@ function cart_view() {
     document.getElementById("summary_table").style.display = "table-row";
     var table_body = document.getElementById("update_cart_body");
     table_body.innerHTML = ``;
+    let mobile_body = document.getElementById("update_cart_body");
+    mobile_body.innerHTML = ``;
     document.getElementById("CartUnitPrice").style.display = "block";
 
     for (let i = 0; i < total_order.length; i++) {
       table_body.innerHTML += `<tr
     class="bg-white bg-opacity-20 border-b transition duration-300 ease-in-out"
   >
-    <td
-      class="px-6 py-4 whitespace-nowrap text-sm font-light text-grey-900"
-    >
-      ${total_order[i][0]}
+    <td class="px-6 py-4 flex-col text-sm lg:text-lg font-light text-grey-900">
+      <div>${total_order[i][0]}</div>
+      <div class="text-sm lg:text-lg pt-4 whitespace-nowrap"><b>Unit Price</b>: ${
+        "R " + getCartTotal(total_order[i][2].toString())
+      }
+      </div>
     </td>
+
     <td
-      class="text-sm text-grey-900 font-light px-6 py-4 whitespace-nowrap"
+      class="text-sm lg:text-lg flex-col text-grey-900 font-light px-6 py-4 whitespace-nowrap"
     >
       <div class="flex justify-center">
         <button
@@ -750,7 +802,7 @@ function cart_view() {
         <input
           type="text"
           value="${total_order[i][1]}"
-          class="w-10 text-center"
+          class="w-10 p-0 text-center"
           id="${"input_" + total_order[i][0] + "cart"}"
         />
         <button
@@ -761,20 +813,16 @@ function cart_view() {
           +
         </button>
       </div>
-    </td>
-    <td
-      class="text-sm text-grey-900 font-light px-6 py-4 whitespace-nowrap"
-    >
-      ${"R " + getCartTotal(total_order[i][2].toString())}
-    </td>
-    <td>
-    <button id="${"remove_" + total_order[i][0]}"
-    class="cursor-pointer tracking-wide hover:text-red-600 transition ease-out duration-150"
-    data-bs-toggle="modal"
-    data-bs-target="#delete_modal"
-    onclick="delete_item = id; confirmCartDelete(false)"
-    >
-    <svg
+      <div class="flex justify-center pt-4">
+      <button id="${"remove_" + total_order[i][0]}"
+      class="cursor-pointer tracking-wide hover:text-red-600 transition ease-out duration-150"
+      data-bs-toggle="modal"
+      data-bs-target="#delete_modal"
+      onclick="delete_item = id; confirmCartDelete(false)"
+      >
+        Remove
+
+        <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -788,7 +836,12 @@ function cart_view() {
             d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
           />
         </svg>
-      <button>
+        <button>
+      </div>
+    </td>
+    
+    <td class="flex-col>
+    
     </td>
   </tr>`;
     }
@@ -1036,12 +1089,12 @@ function submitForm(id) {
     console.log("training and package chosen");
     document.getElementById(id).removeAttribute("data-bs-toggle");
     document.getElementById(id).removeAttribute("data-bs-target");
-    localStorage.setItem("pdf", jsPDFInvoiceTemplate.default(props));
     document.getElementById(id).setAttribute("form", "contact_form");
     document.getElementById(id).setAttribute("type", "submit");
     document.getElementById(id).setAttribute("onclick", "process('loading')");
     document.getElementById(id).click();
-    window.location.replace("summary.html");
+    generatePDF("Send");
+    console.log("send pdf to api");
   }
 }
 
@@ -1085,8 +1138,17 @@ function updateBooks(button_id, identifier = false) {
   addTeacherTraining(false);
 }
 
-function generatePDF() {
-  var pdfObject = jsPDFInvoiceTemplate.default(saveProps); //returns number of pages created
+function generatePDF(param) {
+  /**
+   * @param param: used to differentiate between the action of sharing/ saving the pdf
+   */
+  if (param == "Save") {
+    let pdfObject = jsPDFInvoiceTemplate.default(saveProps); //returns number of pages created
+  } else if (param == "Send") {
+    var base64 = jsPDFInvoiceTemplate.default(props); //returns number of pages created
+    localStorage.setItem("pdfString", base64.dataUriString);
+    window.location.replace("summary.html");
+  }
 }
 
 function pdfTableGenerator() {
@@ -1107,7 +1169,7 @@ function pdfTableGenerator() {
 var saveProps = {
   outputType: jsPDFInvoiceTemplate.OutputType.Save,
   returnJsPDFDocObject: true,
-  fileName: "Test Invoice 2022",
+  fileName: "Resolute Education Estimate for " + localStorage.getItem("name"),
   orientationLandscape: false,
   compress: true,
   logo: {
@@ -1201,9 +1263,9 @@ var saveProps = {
 
 // jspdf localstorage
 var props = {
-  outputType: jsPDFInvoiceTemplate.OutputType,
+  outputType: jsPDFInvoiceTemplate.OutputType.DataUriString,
   returnJsPDFDocObject: true,
-  fileName: "Test Invoice 2022",
+  fileName: "Resolute Education Estimate for " + localStorage.getItem("name"),
   orientationLandscape: false,
   compress: true,
   logo: {
@@ -1381,7 +1443,7 @@ async function apiDataHandler(method) {
         package: package,
         total_order: total_order,
         cost: total_cost,
-        pdf: localStorage.getItem("pdf", jsPDFInvoiceTemplate.default(props)),
+        pdf: localStorage.getItem("pdfString"),
       }),
       get body() {
         return this._body;
