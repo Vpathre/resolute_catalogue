@@ -793,7 +793,7 @@ function cart_view(flag) {
     >
       <div class="flex justify-center">
         <button
-          class="w-10 h-10 mr-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+          class="mr-3 text-lg uppercase font-bold cursor-pointer tracking-wide text-gray-700 hover:text-green-600 transition ease-out duration-150"
           id="${"minus_" + total_order[i][0] + "cart"}"
           onclick="updateQuantityCart(id)"
         >
@@ -806,7 +806,7 @@ function cart_view(flag) {
           id="${"input_" + total_order[i][0] + "cart"}"
         />
         <button
-          class="w-10 h-10 ml-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+          class="ml-3 text-lg uppercase font-bold cursor-pointer tracking-wide text-gray-700 hover:text-green-600 transition ease-out duration-150"
           id="${"plus_" + total_order[i][0] + "cart"}"
           onclick="updateQuantityCart(id)"
         >
