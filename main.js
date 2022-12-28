@@ -1,17 +1,17 @@
 // var url = "https://vpathre.github.io/resolute_catalogue/";
 var url = "http://127.0.0.1:5000/estimate";
-var total_order = [
-  ["Package: Premium", "1", "109250", "package"],
-  ["Apprentice Stream", "10", "2173.5", "stream"],
-  ["Master Stream", "10", "3105", "stream"],
-  ["Facilitator's Guide: Apprentice Level 1", "1", "300", "facilitator"],
-  ["Facilitator's Guide: Advanced Level 2", "1", "300", "facilitator"],
-  ["Student's Guide: Novice Level 1", "1", "120", "student"],
-  ["Student's Guide: Apprentice Level 2", "1", "120", "student"],
-  ["Apprentice Training", "1", "6900", "3", "person training"],
-  ["Master Training", "1", "6900", "3", "person training"],
-];
-// var total_order = [];
+// var total_order = [
+//   ["Package: Premium", "1", "109250", "package"],
+//   ["Apprentice Stream", "10", "2173.5", "stream"],
+//   ["Master Stream", "10", "3105", "stream"],
+//   ["Facilitator's Guide: Apprentice Level 1", "1", "300", "facilitator"],
+//   ["Facilitator's Guide: Advanced Level 2", "1", "300", "facilitator"],
+//   ["Student's Guide: Novice Level 1", "1", "120", "student"],
+//   ["Student's Guide: Apprentice Level 2", "1", "120", "student"],
+//   ["Apprentice Training", "1", "6900", "3", "person training"],
+//   ["Master Training", "1", "6900", "3", "person training"],
+// ];
+var total_order = [];
 // [title, quantity, price, identifier]
 var package_selected = false;
 var teacher_online = 6900;
