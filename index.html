@@ -57,16 +57,29 @@
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-interactivity@latest/dist/lottie-interactivity.min.js"></script>
     <script src="./node_modules/tw-elements/dist/js/index.min.js"></script>
-    <!-- <script src="{{ url_for('static', filename='node_modules/toastr/toastr.js')}}"></script> -->
     <script src="./node_modules/flowbite/dist/flowbite.js"></script>
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
-    <script src="https://unpkg.com/jspdf-invoice-template@1.4.0/dist/index.js"></script>
+    <script src="./node_modules/jspdf-invoice-template/dist/index.js"></script>
     <script src="https://unpkg.com/@barba/core"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./public/toastr/CodeSeven-toastr-50092cc/build/toastr.css"
+    />
+    <script
+      type="text/javascript"
+      src="./public/toastr/CodeSeven-toastr-50092cc/build/toastr.min.js"
+    ></script>
   </head>
 
-  <body class="text-grey-600 font-poppins" data-barba="wrapper">
+  <body
+    class="text-grey-600 font-poppins"
+    data-barba="wrapper"
+    onload="localStorage.clear()"
+  >
     <ul
       class="transition flex fixed z-50 h-full w-full top-0 left-0 m-0 pointer-events-none"
     >
@@ -78,7 +91,7 @@
     </ul>
 
     <!-- main banner of the app -->
-    <main
+    <!-- <main
       data-barba="container"
       data-barba-namespace="intro-section"
       class="banner flex-col justify-center text-xl h-screen font-poppins uppercase bg-resBlue text-white z-40 w-screen fixed snap-end shadow-lg sm:pt-40 pl-20 pr-20 lg:p-40"
@@ -120,7 +133,126 @@
           </div>
         </div>
       </div>
-    </main>
+    </main> -->
+
+    <!-- button set at top of screen -->
+    <div class="z-20 h-8 top-0 flex absolute w-screen">
+      <button
+        class="bg-gray-200 w-1/5 text-black text-base border-r-2 border-gray-300 font-semibold hover:shadow-md hover:text-black hover:bg-gray-200 transition ease-in duration-200"
+        id="nav_step_1"
+        onclick="nav(0)"
+      >
+        <div class="items-center text-center">
+          <div class="hidden ml-2 absolute" id="package_tick">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="green"
+              class="w-6 h-6"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div class="text-center">1. Packages</div>
+        </div>
+      </button>
+      <button
+        class="bg-gray-100 w-1/5 text-gray-400 text-base border-r-2 border-gray-300 font-light hover:shadow-md hover:text-black hover:bg-gray-200 transition ease-in duration-200"
+        id="nav_step_2"
+        onclick="nav(1)"
+      >
+        <div class="items-center text-center">
+          <div class="hidden ml-2 absolute" id="streams_tick">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="green"
+              class="w-6 h-6"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div class="text-center">2. Streams</div>
+        </div>
+      </button>
+      <button
+        class="bg-gray-100 w-1/5 text-gray-400 text-base border-r-2 border-gray-300 font-light hover:shadow-md hover:text-black hover:bg-gray-200 transition ease-in duration-200"
+        id="nav_step_3"
+        onclick="nav(2)"
+      >
+        <div class="items-center text-center">
+          <div class="hidden ml-2 absolute" id="books_tick">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="green"
+              class="w-6 h-6"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div class="text-center">3. Books</div>
+        </div>
+      </button>
+      <button
+        class="bg-gray-100 w-1/5 text-gray-400 text-base border-r-2 border-gray-300 font-light hover:shadow-md hover:text-black hover:bg-gray-200 transition ease-in duration-200"
+        id="nav_step_4"
+        onclick="nav(3)"
+      >
+        <div class="items-center text-center">
+          <div class="hidden ml-2 absolute" id="training_tick">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="green"
+              class="w-6 h-6"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div class="text-center">4. Training and Events</div>
+        </div>
+      </button>
+      <button
+        class="bg-gray-100 w-1/5 text-gray-400 text-base font-light hover:shadow-md hover:text-black hover:bg-gray-200 transition ease-in duration-200"
+        id="nav_step_5"
+        onclick="nav(4)"
+      >
+        <div class="items-center text-center">
+          <div class="hidden ml-2 absolute" id="contact_tick">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="green"
+              class="w-6 h-6"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div class="text-center">5. Contact Details</div>
+        </div>
+      </button>
+    </div>
 
     <!-- Swiper -->
     <div class="swiper mySwiper">
@@ -136,20 +268,14 @@
             id="packages"
           >
             <header class="">
-              <h2
-                class="heading text-grey-700 text-md lg:text-xl font-poppins uppercase border-b border-gray-300"
-              >
-                Our Packages
-              </h2>
+              <h2 class="heading p-2"></h2>
             </header>
 
-            <div
-              class="grid lg:grid-cols-3 mt-8 gap-6 lg:gap-x-12 relative lg:hidden"
-            >
-              <div class="mb-6 lg:mb-0">
+            <div class="grid lg:grid-cols-3 mt-10 gap-6 lg:gap-x-12 relative">
+              <div class="mb-6 lg:mb-0 mt-6">
                 <div class="block rounded-lg shadow-xl bg-white h-full">
                   <div class="p-6 border-b border-gray-300 text-center">
-                    <p class="uppercase mb-4 text-sm">
+                    <p class="uppercase mb-4 text-xl text-blue-500">
                       <strong>Lite</strong>
                     </p>
                     <h3 class="text-2xl mb-6">
@@ -189,9 +315,16 @@
               </div>
 
               <div class="mb-6 lg:mb-0">
-                <div class="block rounded-lg shadow-xl bg-white h-full">
+                <div
+                  class="bg-resBlue text-white inline-block rounded-tr-lg rounded-tl-lg pl-4 pr-4"
+                >
+                  Most Popular
+                </div>
+                <div
+                  class="block rounded-tr-lg rounded-br-lg rounded-bl-lg shadow-xl bg-white h-full border-4 border-resBlue"
+                >
                   <div class="p-6 border-b border-gray-300 text-center">
-                    <p class="uppercase mb-4 text-sm">
+                    <p class="uppercase mb-4 text-yellow-300 text-xl">
                       <strong>Standard</strong>
                     </p>
                     <h3 class="text-2xl mb-6">
@@ -227,10 +360,10 @@
                 </div>
               </div>
 
-              <div class="mb-6 lg:mb-0">
+              <div class="mb-6 lg:mb-0 mt-6">
                 <div class="block rounded-lg shadow-xl bg-white h-full">
                   <div class="p-6 border-b border-gray-300 text-center">
-                    <p class="uppercase mb-4 text-sm">
+                    <p class="uppercase mb-4 text-xl text-red-500">
                       <strong>Premium</strong>
                     </p>
                     <h3 class="text-2xl mb-6">
@@ -259,712 +392,6 @@
                 </div>
               </div>
             </div>
-
-            <div class="tabs hidden lg:block">
-              <ul
-                class="nav nav-tabs nav-justified flex flex-col md:flex-row flex-wrap list-none border-b-0 pl-0 mb-4 mt-2"
-                id="tabs-tabJustify"
-                role="tablist"
-              >
-                <li class="nav-item flex-grow text-center" role="presentation">
-                  <a
-                    href="#tabs-homeJustify"
-                    class="nav-link w-full block font-poppins text-md leading-tight uppercase border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent transition ease-in duration-200 hover:text-resBlue hover:border-b-2 hover:border-gray-300 focus:border-transparent active"
-                    id="tabs-home-tabJustify"
-                    data-bs-toggle="pill"
-                    data-bs-target="#tabs-homeJustify"
-                    role="tab"
-                    aria-controls="tabs-homeJustify"
-                    aria-selected="true"
-                    >Lite</a
-                  >
-                </li>
-                <li class="nav-item flex-grow text-center" role="presentation">
-                  <a
-                    href="#tabs-profileJustify"
-                    class="nav-link w-full block font-poppins text-md leading-tight uppercase border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent transition ease-in duration-200 hover:text-resBlue hover:border-b-2 hover:border-gray-300 focus:border-transparent"
-                    id="tabs-profile-tabJustify"
-                    data-bs-toggle="pill"
-                    data-bs-target="#tabs-profileJustify"
-                    role="tab"
-                    aria-controls="tabs-profileJustify"
-                    aria-selected="false"
-                    >Standard</a
-                  >
-                </li>
-                <li class="nav-item flex-grow text-center" role="presentation">
-                  <a
-                    href="#tabs-messagesJustify"
-                    class="nav-link w-full block font-poppins text-md leading-tight uppercase border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent transition ease-in duration-200 hover:text-resBlue hover:border-b-2 hover:border-gray-300 focus:border-transparent"
-                    id="tabs-messages-tabJustify"
-                    data-bs-toggle="pill"
-                    data-bs-target="#tabs-messagesJustify"
-                    role="tab"
-                    aria-controls="tabs-messagesJustify"
-                    aria-selected="false"
-                    >Premium</a
-                  >
-                </li>
-              </ul>
-              <div class="tab-content" id="tabs-tabContentJustify">
-                <div
-                  class="tab-pane fade show active"
-                  id="tabs-homeJustify"
-                  role="tabpanel"
-                  aria-labelledby="tabs-home-tabJustify"
-                >
-                  <div class="flex">
-                    <table class="min-w-full border border-gray-200 mb-28">
-                      <thead class="bg-blue-200 border-b">
-                        <tr>
-                          <th
-                            scope="col"
-                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left bg-blue-300"
-                          >
-                            Student Licenses
-                          </th>
-                          <th
-                            scope="col"
-                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
-                          >
-                            Educator Licenses
-                          </th>
-                          <th
-                            scope="col"
-                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left bg-blue-300"
-                          >
-                            Training
-                          </th>
-                          <th
-                            scope="col"
-                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
-                          >
-                            Technical Support
-                          </th>
-                          <th
-                            scope="col"
-                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left bg-blue-300"
-                          >
-                            Expos
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr
-                          class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                        >
-                          <td
-                            class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900 bg-gray-100"
-                          >
-                            Online Video Library
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            Teaching Plans & Curriculum
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            Pre-recorded Training Modules
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            Onboarding
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            Included
-                          </td>
-                        </tr>
-                        <tr
-                          class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                        >
-                          <td
-                            class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900 bg-gray-100"
-                          >
-                            Quizzes
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                        </tr>
-                        <tr
-                          class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                        >
-                          <td
-                            class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900 bg-gray-100"
-                          >
-                            Student Guides & Textbooks
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                        </tr>
-                        <tr
-                          class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                        >
-                          <td
-                            class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900 bg-gray-100"
-                          >
-                            Web Simulators
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div
-                    class="text-center mt-5 border-t border-gray-300 flex justify-center"
-                  >
-                    <div class="flex-1 w-96">
-                      <div
-                        class="pt-6 text-end text-lg font-semibold flex-none"
-                      >
-                        <p>Price: R34,500</p>
-                      </div>
-                      <button
-                        class="btn mt-5 mb-5 border-2 bg-resBlue bg-opacity-80 border-transparent text-white hover:shadow-inner transform hover:bg-opacity-100 hover:scale-105 hover:text-resBlue hover:bg-white hover:border-resBlue transition ease-in duration-150"
-                        onclick="addPackages('lite')"
-                      >
-                        Add to cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="tab-pane fade"
-                  id="tabs-profileJustify"
-                  role="tabpanel"
-                  aria-labelledby="tabs-profile-tabJustify"
-                >
-                  <div class="flex lg:overflow-hidden sm:overflow-scroll">
-                    <table class="min-w-full border border-gray-200 mb-2">
-                      <thead class="bg-yellow-200 border-b">
-                        <tr>
-                          <th
-                            scope="col"
-                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left bg-yellow-300"
-                          >
-                            Student Licenses
-                          </th>
-                          <th
-                            scope="col"
-                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
-                          >
-                            Educator Licenses
-                          </th>
-                          <th
-                            scope="col"
-                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left bg-yellow-300"
-                          >
-                            Training
-                          </th>
-                          <th
-                            scope="col"
-                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
-                          >
-                            Technical Support
-                          </th>
-                          <th
-                            scope="col"
-                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left bg-yellow-300"
-                          >
-                            Expos
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr
-                          class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                        >
-                          <td
-                            class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900 bg-gray-100"
-                          >
-                            Online Video Library
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            Teaching Plans & Curriculum
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            Pre-recorded Training Modules
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            Onboarding
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            Included
-                          </td>
-                        </tr>
-                        <tr
-                          class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                        >
-                          <td
-                            class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900 bg-gray-100"
-                          >
-                            Quizzes
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            Assessments: PATs & Exams
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            Training (in-person/online): SACE Accredited
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            Continuous Technical Support
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                        </tr>
-                        <tr
-                          class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                        >
-                          <td
-                            class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900 bg-gray-100"
-                          >
-                            Student Guides & Textbooks
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            Facilitator Guides & Textbooks
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            Continuous Annual Training
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                        </tr>
-                        <tr
-                          class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                        >
-                          <td
-                            class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900 bg-gray-100"
-                          >
-                            Web Simulators
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            Student Analytics
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                        </tr>
-                        <tr
-                          class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                        >
-                          <td
-                            class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900 bg-gray-100"
-                          >
-                            New Courses & Updates
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            Class Management System
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                        </tr>
-                        <tr
-                          class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                        >
-                          <td
-                            class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900 bg-gray-100"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            Teacher Presentations
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div
-                    class="text-center mt-5 border-t border-gray-300 flex justify-center"
-                  >
-                    <div class="flex-1 w-96">
-                      <div
-                        class="pt-6 text-end text-lg font-semibold flex-none"
-                      >
-                        <p>Price: R69,000</p>
-                      </div>
-                      <button
-                        class="btn mt-5 mb-5 border-2 bg-resBlue bg-opacity-80 border-transparent text-white hover:shadow-inner transform hover:bg-opacity-100 hover:scale-105 hover:text-resBlue hover:bg-white hover:border-resBlue transition ease-in duration-150"
-                        onclick="addPackages('standard')"
-                      >
-                        Add to cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="tab-pane fade"
-                  id="tabs-messagesJustify"
-                  role="tabpanel"
-                  aria-labelledby="tabs-profile-tabJustify"
-                >
-                  <div class="flex lg:overflow-hidden sm:overflow-scroll">
-                    <table class="min-w-full border border-gray-200 mb-2">
-                      <thead class="bg-red-200 border-b">
-                        <tr>
-                          <th
-                            scope="col"
-                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left bg-red-300"
-                          >
-                            Student Licenses
-                          </th>
-                          <th
-                            scope="col"
-                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
-                          >
-                            Educator Licenses
-                          </th>
-                          <th
-                            scope="col"
-                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left bg-red-300"
-                          >
-                            Training
-                          </th>
-                          <th
-                            scope="col"
-                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
-                          >
-                            Technical Support
-                          </th>
-                          <th
-                            scope="col"
-                            class="text-sm font-medium text-gray-900 px-6 py-4 text-left bg-red-300"
-                          >
-                            Expos
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr
-                          class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                        >
-                          <td
-                            class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900 bg-gray-100"
-                          >
-                            Online Video Library
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            Teaching Plans & Curriculum
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            Pre-recorded Training Modules
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            Onboarding
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            Included
-                          </td>
-                        </tr>
-                        <tr
-                          class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                        >
-                          <td
-                            class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900 bg-gray-100"
-                          >
-                            Quizzes
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            Assessments: PATs & Exams
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            Training (in-person/online): SACE Accredited
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            Continuous Technical Support
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                        </tr>
-                        <tr
-                          class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                        >
-                          <td
-                            class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900 bg-gray-100"
-                          >
-                            Student Guides & Textbooks
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            Facilitator Guides & Textbooks
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            Continuous Annual Training
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            Annual Review
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                        </tr>
-                        <tr
-                          class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                        >
-                          <td
-                            class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900 bg-gray-100"
-                          >
-                            Web Simulators
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            Student Analytics
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                        </tr>
-                        <tr
-                          class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                        >
-                          <td
-                            class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900 bg-gray-100"
-                          >
-                            New Courses & Updates
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            Class management system
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                        </tr>
-                        <tr
-                          class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                        >
-                          <td
-                            class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900 bg-gray-100"
-                          >
-                            Live Chat Functionality
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            Teacher Presentations
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                          >
-                            -
-                          </td>
-                          <td
-                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap bg-gray-100"
-                          >
-                            -
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div
-                    class="text-center mt-5 border-t border-gray-300 flex justify-center"
-                  >
-                    <div class="flex-1 w-96">
-                      <div
-                        class="pt-6 text-end text-lg font-semibold flex-none"
-                      >
-                        <p>Price: R109,250</p>
-                      </div>
-                      <button
-                        class="btn mt-5 mb-5 border-2 bg-resBlue bg-opacity-80 border-transparent text-white hover:shadow-inner transform hover:bg-opacity-100 hover:scale-105 hover:text-resBlue hover:bg-white hover:border-resBlue transition ease-in duration-150"
-                        onclick="addPackages('premium')"
-                      >
-                        Add to cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </main>
         </div>
         <div
@@ -973,121 +400,94 @@
         >
           <!-- list of products for sale -->
           <main
-            class="px-16 py-6 bg-gray-100 min-h-screen w-screen h-fit pb-20 md:flex md:flex-col relative"
+            class="px-16 py-6 mt-5 bg-gray-100 min-h-screen w-screen h-fit pb-20 md:flex md:flex-col relative"
             id="streams"
           >
             <header>
-              <h2
-                class="text-grey-700 text-md lg:text-xl font-poppins uppercase border-b border-gray-300"
-              >
-                Our Streams
-              </h2>
+              <h2 class="p-2"></h2>
             </header>
 
             <div>
               <div class="mt-8 mb-8 grid lg:grid-cols-3 gap-10">
                 <!-- Make custom components to reduce the amount of code being written -->
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Novice_card"
-                >
-                  <product-card
-                    title="Novice"
-                    author="Grade R-3"
-                    image="./public/img/Novice Box New.png"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover "
-                    time="12h 46m"
-                    price="R2,300"
-                  >
-                  </product-card>
-                </button>
 
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Apprentice_card"
+                <product-card
+                  title="Novice"
+                  author="Grade R-3"
+                  image="./public/img/Novice Box New.png"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover "
+                  time="12h 46m"
+                  price="R2,300"
+                  target="#Novice_card"
+                  identifier="Add_Novice Stream"
                 >
-                  <product-card
-                    title="Apprentice"
-                    author="Grade 4-6"
-                    image="./public/img/Apprentice Box.png"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover"
-                    time="4h 45m"
-                    price="R2,415"
-                  >
-                  </product-card>
-                </button>
+                </product-card>
 
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Adept_card"
+                <product-card
+                  title="Apprentice"
+                  author="Grade 4-6"
+                  image="./public/img/Apprentice Box.png"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover"
+                  time="4h 45m"
+                  price="R2,415"
+                  target="#Apprentice_card"
+                  identifier="Add_Apprentice Stream"
                 >
-                  <product-card
-                    title="Adept"
-                    author="Grade 7-9"
-                    image="./public/img/Adept Box.png"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover"
-                    time="16h 12m"
-                    price="R2,530"
-                  >
-                  </product-card>
-                </button>
+                </product-card>
 
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Beginner_card"
+                <product-card
+                  title="Adept"
+                  author="Grade 7-9"
+                  image="./public/img/Adept Box.png"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover"
+                  time="16h 12m"
+                  price="R2,530"
+                  target="#Adept_card"
+                  identifier="Add_Adept Stream"
                 >
-                  <product-card
-                    title="Beginner"
-                    author="Grade 8-12"
-                    image="./public/img/Beginner Box.png"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover"
-                    time="15h 57m"
-                    price="R2,645"
-                  >
-                  </product-card>
-                </button>
+                </product-card>
 
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Advanced_card"
+                <product-card
+                  title="Beginner"
+                  author="Grade 8-12"
+                  image="./public/img/Beginner Box.png"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover"
+                  time="15h 57m"
+                  price="R2,645"
+                  target="#Beginner_card"
+                  identifier="Add_Beginner Stream"
                 >
-                  <product-card
-                    title="Advanced"
-                    author="Grade 9-12"
-                    image="./public/img/Advanced Box.png"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover"
-                    time="21h 31m"
-                    price="R2,875"
-                  >
-                  </product-card>
-                </button>
+                </product-card>
 
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Master_card"
+                <product-card
+                  title="Advanced"
+                  author="Grade 9-12"
+                  image="./public/img/Advanced Box.png"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover"
+                  time="21h 31m"
+                  price="R2,875"
+                  target="#Advanced_card"
+                  identifier="Add_Advanced Stream"
                 >
-                  <product-card
-                    title="Master"
-                    author="Grade 10+"
-                    image="./public/img/Master Box.png"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover"
-                    time="17h 28m"
-                    price="R3,450"
-                  >
-                  </product-card>
-                </button>
+                </product-card>
+
+                <product-card
+                  title="Master"
+                  author="Grade 10+"
+                  image="./public/img/Master Box.png"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover"
+                  time="17h 28m"
+                  price="R3,450"
+                  target="#Master_card"
+                  identifier="Add_Master Stream"
+                >
+                </product-card>
               </div>
             </div>
           </main>
@@ -1095,15 +495,11 @@
         <div class="swiper-slide overflow-y-scroll h-screen" id="books-slide">
           <!-- list of books and extras -->
           <main
-            class="px-16 py-6 bg-gray-100 min-h-screen w-screen h-fit pb-20 md:flex md:flex-col relative"
+            class="px-16 py-6 mt-5 bg-gray-100 min-h-screen w-screen h-fit pb-20 md:flex md:flex-col relative"
             id="extras"
           >
             <header>
-              <h2
-                class="text-grey-700 text-md lg:text-xl font-poppins uppercase border-b border-gray-300"
-              >
-                Our books
-              </h2>
+              <h2 class="p-2"></h2>
             </header>
 
             <div>
@@ -1117,159 +513,127 @@
               <div class="mb-8 grid lg:grid-cols-3 gap-10">
                 <!-- Facilitator Guides -->
                 <!-- Level 1 -->
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Novice_level_1_facilitator"
-                >
-                  <product-card
-                    title="Novice: Level 1"
-                    author="Grade R-3"
-                    image="./public/img/Level 1 Novice.png"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover "
-                    time="Level 1"
-                    price="R300"
-                  >
-                  </product-card>
-                </button>
 
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Apprentice_level_1_facilitator"
+                <product-card
+                  title="Novice: Level 1"
+                  author="Grade R-3"
+                  image="./public/img/Level 1 Novice.png"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover "
+                  time="Level 1"
+                  price="R300"
+                  target="#Novice_level_1_facilitator"
+                  identifier="Add_Facilitator's Guide: Novice Level 1"
                 >
-                  <product-card
-                    title="Apprentice: Level 1"
-                    author="Grade R-3"
-                    image="./public/img/Level 1 Apprentice.png"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover "
-                    time="Level 1"
-                    price="R300"
-                  >
-                  </product-card>
-                </button>
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Advanced_level_1_facilitator"
+                </product-card>
+
+                <product-card
+                  title="Apprentice: Level 1"
+                  author="Grade R-3"
+                  image="./public/img/Level 1 Apprentice.png"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover "
+                  time="Level 1"
+                  price="R300"
+                  target="#Apprentice_level_1_facilitator"
+                  identifier="Add_Facilitator's Guide: Apprentice Level 1"
                 >
-                  <product-card
-                    title="Advanced: Level 1"
-                    author="Grade R-3"
-                    image="./public/img/"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover "
-                    time="Level 1"
-                    price="R300"
-                  >
-                  </product-card>
-                </button>
+                </product-card>
+
+                <product-card
+                  title="Advanced: Level 1"
+                  author="Grade R-3"
+                  image="./public/img/"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover "
+                  time="Level 1"
+                  price="R300"
+                  target="#Advanced_level_1_facilitator"
+                  identifier="Add_Facilitator's Guide: Advanced Level 1"
+                >
+                </product-card>
 
                 <!-- Level 2 -->
 
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Novice_level_2_facilitator"
+                <product-card
+                  title="Novice: Level 2"
+                  author="Grade 4-6"
+                  image="./public/img/Level 2 Novice.png"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover"
+                  time="Level 2"
+                  price="R300"
+                  target="#Novice_level_2_facilitator"
+                  identifier="Add_Facilitator's Guide: Novice Level 2"
                 >
-                  <product-card
-                    title="Novice: Level 2"
-                    author="Grade 4-6"
-                    image="./public/img/Level 2 Novice.png"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover"
-                    time="Level 2"
-                    price="R300"
-                  >
-                  </product-card>
-                </button>
+                </product-card>
 
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Apprentice_level_2_facilitator"
+                <product-card
+                  title="Apprentice: Level 2"
+                  author="Grade 4-6"
+                  image="./public/img/Level 2 Apprentice.png"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover"
+                  time="Level 2"
+                  price="R300"
+                  target="#Apprentice_level_2_facilitator"
+                  identifier="Add_Facilitator's Guide: Apprentice Level 2"
                 >
-                  <product-card
-                    title="Apprentice: Level 2"
-                    author="Grade 4-6"
-                    image="./public/img/Level 2 Apprentice.png"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover"
-                    time="Level 2"
-                    price="R300"
-                  >
-                  </product-card>
-                </button>
+                </product-card>
 
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Advanced_level_2_facilitator"
+                <product-card
+                  title="Advanced: Level 2"
+                  author="Grade 4-6"
+                  image="./public/img/"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover"
+                  time="Level 2"
+                  price="R300"
+                  target="#Advanced_level_2_facilitator"
+                  identifier="Add_Facilitator's Guide: Advanced Level 2"
                 >
-                  <product-card
-                    title="Advanced: Level 2"
-                    author="Grade 4-6"
-                    image="./public/img/"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover"
-                    time="Level 2"
-                    price="R300"
-                  >
-                  </product-card>
-                </button>
+                </product-card>
 
                 <!-- Level 3 -->
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Novice_level_3_facilitator"
-                >
-                  <product-card
-                    title="Novice: Level 3"
-                    author="Grade 7-9"
-                    image="./public/img/"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover"
-                    time="Level 3"
-                    price="R300"
-                  >
-                  </product-card>
-                </button>
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Apprentice_level_3_facilitator"
-                >
-                  <product-card
-                    title="Apprentice: Level 3"
-                    author="Grade 7-9"
-                    image="./public/img/"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover"
-                    time="Level 3"
-                    price="R300"
-                  >
-                  </product-card>
-                </button>
 
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Advanced_level_3_facilitator"
+                <product-card
+                  title="Novice: Level 3"
+                  author="Grade 7-9"
+                  image="./public/img/"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover"
+                  time="Level 3"
+                  price="R300"
+                  target="#Novice_level_3_facilitator"
+                  identifier="Add_Facilitator's Guide: Novice Level 3"
                 >
-                  <product-card
-                    title="Advanced: Level 3"
-                    author="Grade 7-9"
-                    image="./public/img/"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover"
-                    time="Level 3"
-                    price="R300"
-                  >
-                  </product-card>
-                </button>
+                </product-card>
+
+                <product-card
+                  title="Apprentice: Level 3"
+                  author="Grade 7-9"
+                  image="./public/img/"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover"
+                  time="Level 3"
+                  price="R300"
+                  target="#Apprentice_level_3_facilitator"
+                  identifier="Add_Facilitator's Guide: Apprentice Level 3"
+                >
+                </product-card>
+
+                <product-card
+                  title="Advanced: Level 3"
+                  author="Grade 7-9"
+                  image="./public/img/"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover"
+                  time="Level 3"
+                  price="R300"
+                  target="#Advanced_level_3_facilitator"
+                  identifier="Add_Facilitator's Guide: Advanced Level 3"
+                >
+                </product-card>
               </div>
             </div>
 
@@ -1284,159 +648,127 @@
               <div class="mb-8 grid lg:grid-cols-3 gap-10">
                 <!-- Student Guides -->
                 <!-- Level 1 -->
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Novice_level_1_student"
-                >
-                  <product-card
-                    title="Novice: Level 1"
-                    author="Grade R-3"
-                    image="./public/img/Level 1 Novice.png"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover "
-                    time="Level 1"
-                    price="R300"
-                  >
-                  </product-card>
-                </button>
 
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Apprentice_level_1_student"
+                <product-card
+                  title="Novice: Level 1"
+                  author="Grade R-3"
+                  image="./public/img/Level 1 Novice.png"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover "
+                  time="Level 1"
+                  price="R300"
+                  target="#Novice_level_1_student"
+                  identifier="Add_Student's Guide: Novice Level 1"
                 >
-                  <product-card
-                    title="Apprentice: Level 1"
-                    author="Grade R-3"
-                    image="./public/img/Level 1 Apprentice.png"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover "
-                    time="Level 1"
-                    price="R300"
-                  >
-                  </product-card>
-                </button>
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Advanced_level_1_student"
+                </product-card>
+
+                <product-card
+                  title="Apprentice: Level 1"
+                  author="Grade R-3"
+                  image="./public/img/Level 1 Apprentice.png"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover "
+                  time="Level 1"
+                  price="R300"
+                  target="#Apprentice_level_1_student"
+                  identifier="Add_Student's Guide: Apprentice Level 1"
                 >
-                  <product-card
-                    title="Advanced: Level 1"
-                    author="Grade R-3"
-                    image="./public/img/"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover "
-                    time="Level 1"
-                    price="R300"
-                  >
-                  </product-card>
-                </button>
+                </product-card>
+
+                <product-card
+                  title="Advanced: Level 1"
+                  author="Grade R-3"
+                  image="./public/img/"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover "
+                  time="Level 1"
+                  price="R300"
+                  target="#Advanced_level_1_student"
+                  identifier="Add_Student's Guide: Advanced Level 1"
+                >
+                </product-card>
 
                 <!-- Level 2 -->
 
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Novice_level_2_student"
+                <product-card
+                  title="Novice: Level 2"
+                  author="Grade 4-6"
+                  image="./public/img/Level 2 Novice.png"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover"
+                  time="Level 2"
+                  price="R300"
+                  target="#Novice_level_2_student"
+                  identifier="Add_Student's Guide: Novice Level 2"
                 >
-                  <product-card
-                    title="Novice: Level 2"
-                    author="Grade 4-6"
-                    image="./public/img/Level 2 Novice.png"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover"
-                    time="Level 2"
-                    price="R300"
-                  >
-                  </product-card>
-                </button>
+                </product-card>
 
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Apprentice_level_2_student"
+                <product-card
+                  title="Apprentice: Level 2"
+                  author="Grade 4-6"
+                  image="./public/img/Level 1 Apprentice.png"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover"
+                  time="Level 2"
+                  price="R300"
+                  target="#Apprentice_level_2_student"
+                  identifier="Add_Student's Guide: Apprentice Level 2"
                 >
-                  <product-card
-                    title="Apprentice: Level 2"
-                    author="Grade 4-6"
-                    image="./public/img/Level 1 Apprentice.png"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover"
-                    time="Level 2"
-                    price="R300"
-                  >
-                  </product-card>
-                </button>
+                </product-card>
 
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Advanced_level_2_student"
+                <product-card
+                  title="Advanced: Level 2"
+                  author="Grade 4-6"
+                  image="./public/img/"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover"
+                  time="Level 2"
+                  price="R300"
+                  target="#Advanced_level_2_student"
+                  identifier="Add_Student's Guide: Advanced Level 2"
                 >
-                  <product-card
-                    title="Advanced: Level 2"
-                    author="Grade 4-6"
-                    image="./public/img/"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover"
-                    time="Level 2"
-                    price="R300"
-                  >
-                  </product-card>
-                </button>
+                </product-card>
 
                 <!-- Level 3 -->
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Novice_level_3_student"
-                >
-                  <product-card
-                    title="Novice: Level 3"
-                    author="Grade 7-9"
-                    image="./public/img/"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover"
-                    time="Level 3"
-                    price="R300"
-                  >
-                  </product-card>
-                </button>
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Apprentice_level_3_student"
-                >
-                  <product-card
-                    title="Apprentice: Level 3"
-                    author="Grade 7-9"
-                    image="./public/img/"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover"
-                    time="Level 3"
-                    price="R300"
-                  >
-                  </product-card>
-                </button>
 
-                <button
-                  class="text-left"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Advanced_level_3_student"
+                <product-card
+                  title="Novice: Level 3"
+                  author="Grade 7-9"
+                  image="./public/img/"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover"
+                  time="Level 3"
+                  price="R300"
+                  target="#Novice_level_3_student"
+                  identifier="Add_Student's Guide: Novice Level 3"
                 >
-                  <product-card
-                    title="Advanced: Level 3"
-                    author="Grade 7-9"
-                    image="./public/img/"
-                    alt="bbq"
-                    image_style="h-32 w-full sm:h-48 object-cover"
-                    time="Level 3"
-                    price="R300"
-                  >
-                  </product-card>
-                </button>
+                </product-card>
+
+                <product-card
+                  title="Apprentice: Level 3"
+                  author="Grade 7-9"
+                  image="./public/img/"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover"
+                  time="Level 3"
+                  price="R300"
+                  target="#Apprentice_level_3_student"
+                  identifier="Add_Student's Guide: Apprentice Level 3"
+                >
+                </product-card>
+
+                <product-card
+                  title="Advanced: Level 3"
+                  author="Grade 7-9"
+                  image="./public/img/"
+                  alt="bbq"
+                  image_style="h-32 w-full sm:h-48 object-cover"
+                  time="Level 3"
+                  price="R300"
+                  target="#Advanced_level_3_student"
+                  identifier="Add_Student's Guide: Advanced Level 3"
+                >
+                </product-card>
               </div>
             </div>
           </main>
@@ -1444,15 +776,11 @@
         <div class="swiper-slide overflow-y-scroll h-screen" id="events-slide">
           <!-- list of events and add-ons -->
           <main
-            class="px-16 py-6 pb-24 h-fit bg-gray-100 md:flex md:flex-col w-screen"
+            class="px-16 py-6 mt-5 pb-24 h-fit bg-gray-100 md:flex md:flex-col w-screen"
             id="events"
           >
             <header>
-              <h2
-                class="text-grey-700 text-md lg:text-xl font-poppins uppercase border-b border-gray-300"
-              >
-                Events and Add-ons
-              </h2>
+              <h2 class="p-2"></h2>
             </header>
 
             <div>
@@ -1648,14 +976,10 @@
         <div class="swiper-slide overflow-y-scroll h-screen" id="detail-slide">
           <!-- details of customer -->
           <main
-            class="px-16 py-6 h-fit lg:h-full bg-gray-100 md:flex md:flex-col w-screen pb-20 xl:pb-0"
+            class="px-16 py-6 mt-5 h-fit lg:h-full bg-gray-100 md:flex md:flex-col w-screen pb-20 xl:pb-0"
           >
             <header>
-              <h2
-                class="text-grey-700 text-md lg:text-xl font-poppins uppercase border-b border-gray-300"
-              >
-                Get in touch
-              </h2>
+              <h2 class="p-2"></h2>
             </header>
 
             <form id="contact_form" onsubmit="return false">
@@ -1722,10 +1046,9 @@
                   >
                   <select
                     class="form-select appearance-none block w-full px-2 font-normal bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-clip-padding bg-no-repeat transition ease-in-out m-0 focus:text-gray-700"
-                    aria-label="Default select example"
                     id="location"
                   >
-                    <option selected>Select</option>
+                    <option value="Select" selected>Select</option>
                     <option value="Eastern Cape">Eastern Cape</option>
                     <option value="Free State">Free State</option>
                     <option value="Gauteng">Gauteng</option>
@@ -1747,6 +1070,7 @@
                     id="phone"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="(+27) 12-345-6789"
+                    required=""
                   />
                 </div>
               </div>
@@ -1788,35 +1112,32 @@
       <div class="swiper-controls">
         <div class="swiper-button-next" \></div>
         <div class="swiper-button-prev"></div>
-        <div class="swiper-pagination sticky" style="padding-bottom: 6px"></div>
+        <div class="swiper-pagination sticky mt-8"></div>
       </div>
     </div>
 
     <!-- Success Modal -->
     <div
-      class="success-modal relative flex justify-center transform -translate-y-40"
-      style="z-index: 2000"
+      id="success-modal"
+      class="absolute bottom-0 hidden items-center w-full max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800 duration-2000 fade-500"
+      role="alert"
     >
-      <div
-        class="bg-green-200 rounded-lg mt-5 py-5 px-6 mb-3 text-base text-green-700 items-center w-3/6 hidden"
-        role="alert"
-        id="success-modal"
+      <svg
+        aria-hidden="true"
+        class="w-5 h-5 text-blue-600 dark:text-blue-500"
+        focusable="false"
+        data-prefix="fas"
+        data-icon="paper-plane"
+        role="img"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512"
       >
-        <svg
-          aria-hidden="true"
-          focusable="false"
-          data-prefix="fas"
-          data-icon="check-circle"
-          class="w-4 h-4 mr-2 fill-current"
-          role="img"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-        >
-          <path
-            fill="currentColor"
-            d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
-          ></path>
-        </svg>
+        <path
+          fill="currentColor"
+          d="M511.6 36.86l-64 415.1c-1.5 9.734-7.375 18.22-15.97 23.05c-4.844 2.719-10.27 4.097-15.68 4.097c-4.188 0-8.319-.8154-12.29-2.472l-122.6-51.1l-50.86 76.29C226.3 508.5 219.8 512 212.8 512C201.3 512 192 502.7 192 491.2v-96.18c0-7.115 2.372-14.03 6.742-19.64L416 96l-293.7 264.3L19.69 317.5C8.438 312.8 .8125 302.2 .0625 289.1s5.469-23.72 16.06-29.77l448-255.1c10.69-6.109 23.88-5.547 34 1.406S513.5 24.72 511.6 36.86z"
+        ></path>
+      </svg>
+      <div class="pl-4 text-sm font-normal">
         <span id="span-success-modal"></span>
       </div>
     </div>
@@ -3908,10 +3229,9 @@
       </div>
     </div>
 
-    <script src="main.js"></script>
+    <script src="./main.js"></script>
     <script src="./public/components.js"></script>
     <script src="./public/components_draf.js"></script>
-    <script src="./public/index.js"></script>
     <script>
       // Initialize Swiper
       var swiper = new Swiper(".mySwiper", {
@@ -3926,6 +3246,7 @@
         on: {
           slideChange: function () {
             const index_currentSlide = swiper.realIndex;
+            nav_buttons(index_currentSlide);
             if (index_currentSlide == 4) {
               document
                 .getElementById("submit-button")
@@ -3974,6 +3295,29 @@
       });
       function swipe() {
         swiper.slideTo(3);
+      }
+      function nav(number) {
+        swiper.slideTo(number);
+      }
+      function nav_buttons(index) {
+        for (let i = 0; i < 5; i++) {
+          let button = document.getElementById("nav_step_" + (i + 1));
+          if (i == index) {
+            button.classList.add("text-black");
+            button.classList.add("font-semibold");
+            button.classList.remove("font-light");
+            button.classList.add("bg-gray-200");
+            button.classList.remove("bg-gray-100");
+            button.classList.remove("text-gray-400");
+          } else {
+            button.classList.remove("text-black");
+            button.classList.add("text-gray-400");
+            button.classList.remove("bg-gray-200");
+            button.classList.add("bg-gray-100");
+            button.classList.remove("font-semibold");
+            button.classList.add("font-light");
+          }
+        }
       }
     </script>
     <script>

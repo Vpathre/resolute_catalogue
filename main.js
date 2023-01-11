@@ -17,8 +17,10 @@ var package_selected = false;
 var teacher_online = 6900;
 var teacher_person = 13800;
 var today = new Date();
-
 var cont = false;
+var submit = false;
+var props;
+var saveProps;
 
 // [Novice, Apprentice, Adept, Beginner, Advanced, Master, Facilitators, Student]
 var product_array = [2300, 2415, 2530, 2645, 2875, 3450, 300, 120];
@@ -28,6 +30,34 @@ var stream_tracker = [];
 var teacher_training = []; // keeps track of the teacher training modules selected
 var delete_item = ""; // item id being deleted
 var total_cost; // total cost of the cart
+
+// Making Global variables since local storage isn't accessing certain attributes
+var client_name;
+var client_school;
+var client_province;
+var client_email;
+var client_order;
+var client_pdf;
+var client_position;
+var client_phone;
+
+// properties of the toastr js popups
+toastr.options = {
+  closeButton: false,
+  newestOnTop: false,
+  progressBar: true,
+  positionClass: "toast-bottom-center",
+  preventDuplicates: false,
+  onclick: null,
+  showDuration: "300",
+  hideDuration: "1000",
+  timeOut: "5000",
+  extendedTimeOut: "1000",
+  showEasing: "swing",
+  hideEasing: "linear",
+  showMethod: "fadeIn",
+  hideMethod: "fadeOut",
+};
 
 function updateQuantity(button_id) {
   /**
@@ -63,9 +93,11 @@ function addPackages(id) {
    */
   var price;
   var title;
+  var modal_title;
   switch (id) {
     case "lite":
       title = "Package: Lite";
+      modal_title = "Lite Package";
       price = 34500;
       teacher_online = 6900;
       teacher_person = 13800;
@@ -73,6 +105,7 @@ function addPackages(id) {
       break;
     case "standard":
       title = "Package: Standard";
+      modal_title = "Standard Package";
       price = 69000;
       teacher_online = 3450;
       teacher_person = 11730;
@@ -80,6 +113,7 @@ function addPackages(id) {
       break;
     case "premium":
       title = "Package: Premium";
+      modal_title = "Premium Package";
       price = 109250;
       teacher_online = 0;
       teacher_person = 6900;
@@ -116,17 +150,25 @@ function addPackages(id) {
       "R " + getCartTotal(total_order);
   }
   package_selected = true;
+  displayModal("success", 0, modal_title, "package");
   teacherPricing();
 }
 
-function addToCart(button_id) {
+function addToCart(button_id, quickAdd = false, val = 0) {
   /**
    * Adds a certain stream to the cart based on the id passed in
    * @param button_id: passes in ID of the element relating to the stream; can be used to retrieve the type of stream
+   * @param quickAdd: if quickAdd, then pass in the quantity instead of obtaining from input box
+   * @param quick_qty: quantity of the product added via quick add
    */
-  var inputIdString = "input_" + button_id.slice(4, button_id.length);
   var title = button_id.slice(4, button_id.length);
-  var input = document.getElementById(inputIdString);
+  var input;
+  if (!quickAdd) {
+    var inputIdString = "input_" + button_id.slice(4, button_id.length);
+    input = document.getElementById(inputIdString).value;
+  } else {
+    input = parseInt(val);
+  }
   var price;
   var identifier;
 
@@ -164,8 +206,8 @@ function addToCart(button_id) {
     identifier = "student";
   }
 
-  displayModal("success", input, title);
-  var temp = [title, input.value, price.toString(), identifier];
+  displayModal("success", input, title, "streams/books");
+  var temp = [title, input, price.toString(), identifier];
   // if same stream is added more than once, just increase quantity of pre-existing stream
   if (total_order.length > 0) {
     let flag = false;
@@ -178,7 +220,7 @@ function addToCart(button_id) {
       }
     }
     if (flag) {
-      let temp_val = parseInt(total_order[index][1]) + parseInt(input.value);
+      let temp_val = parseInt(total_order[index][1]) + parseInt(input);
       total_order[index][1] = temp_val.toString();
     } else {
       total_order.push(temp);
@@ -286,7 +328,7 @@ function getCartTotal(param) {
 function cartChecker() {
   /**
    * Double checks the content of the cart against the selected package and compiles total.
-   * Targeted to fix an issue of
+   * Targeted to fix an issue of costs not rendering when packages selected (discounts don't apply to books)
    */
   let toggle = document.getElementById("toogleA");
   let temp;
@@ -574,7 +616,7 @@ function tableFieldEditor() {
 
   // if no streams are selected
   console.log("table field editor", stream_tracker.length);
-  if (stream_tracker.length == 0 && window.innerWidth < 1000) {
+  if (stream_tracker.length == 0) {
     document.getElementById("teacher_training_table").classList.add("hidden");
     var div = document.getElementById("teacher_training_container");
     div.innerHTML = "No streams selected (ㆆ_ㆆ)";
@@ -614,6 +656,19 @@ function tableFieldEditor() {
     document.getElementById("AddTeacher").innerHTML = "Add To Cart";
     document.getElementById("AddTeacher").removeAttribute("data-bs-modal");
   }
+}
+
+function quickAdd(product_id) {
+  /**
+   * Add items to cart using the plus button on the cards
+   * @param product_id: the id of the product to be added to the cart
+   */
+  var qty = product_id.slice(0, product_id.indexOf("_"));
+  var product = product_id.slice(
+    product_id.indexOf("_") + 1,
+    product_id.length
+  );
+  addToCart(product, true, qty);
 }
 
 function toggleSwitch() {
@@ -656,12 +711,17 @@ function teacherPricing() {
 }
 
 function addTeacherTraining(param) {
+  /**
+   * Configures and adds teacher trianing to the cart
+   * @param param: if true adds selected training to cart, else updates the costs on screen
+   */
   var toggle = document.getElementById("toogleA");
   var total = 0;
   let cart = [];
   let stream_name_input;
   let check_training;
   let sessions;
+  let modal_string;
   for (let i = 0; i < stream_tracker.length; i++) {
     let stream_name = stream_tracker[i].toLowerCase();
     if (window.innerWidth < 1000) {
@@ -701,7 +761,7 @@ function addTeacherTraining(param) {
       }
     }
   }
-
+  modal_string = "";
   console.log(total_order);
   // if we just need to add up total
   if (!param) {
@@ -712,6 +772,14 @@ function addTeacherTraining(param) {
   else {
     for (let i = 0; i < cart.length; i++) {
       total_order.push(cart[i].flat(2));
+      modal_string += cart[i][1] + " " + cart[i][0];
+      if (i != cart.length - 1) {
+        if (i == cart.length - 2) {
+          modal_string += " and ";
+        } else {
+          modal_string += ", ";
+        }
+      }
     }
     document.getElementById("cart_counter_small").innerHTML = getCartCount();
     document.getElementById("total_price_small").innerHTML =
@@ -719,6 +787,7 @@ function addTeacherTraining(param) {
     document.getElementById("cart_counter_large").innerHTML = getCartCount();
     document.getElementById("total_price_large").innerHTML =
       "R " + getCartTotal(total_order);
+    displayModal("success", 0, modal_string, "training");
   }
 }
 
@@ -756,7 +825,7 @@ function updateQuantityTraining(button_id, identifier = false) {
 function cart_view(flag) {
   /**
    * Is called whenever the user wishes to view the cart
-   * @param flag: If TRUE => refers to mobile. If FALSE => refers to normal screens
+   * @param flag: If TRUE => refers to mobile. If FALSE => refers to normal screens [NOT USED]
    */
   document.getElementById("update_cart_card").innerHTML = "continue";
   // if cart is empty
@@ -958,18 +1027,27 @@ function deleteCartItem(bin_id) {
   var training_string =
     stream_string.slice(0, stream_string.indexOf(" ")) + " Training";
   for (let i = 0; i < total_order.length; i++) {
-    if (total_order[i][0] == stream_string) {
-      total_order.splice(i, 1);
-      if (total_order.length == 0) {
-        cart_view();
+    if (
+      inputIdString.slice(inputIdString.length - 6, inputIdString.length) ==
+      "Stream"
+    ) {
+      if (total_order[i][0] == stream_string) {
+        total_order.splice(i, 1);
+        if (total_order.length == 0) {
+          cart_view(false);
+          break;
+        }
+      }
+      if (total_order[i][0] == training_string) {
+        total_order.splice(i, 1);
+        break;
+      }
+    } else {
+      if (total_order[i][0] == stream_string) {
+        total_order.splice(i, 1);
         break;
       }
     }
-    if (total_order[i][0] == training_string) {
-      total_order.splice(i, 1);
-      break;
-    }
-    cart_view();
   }
   document.getElementById("cart_counter_small").innerHTML = getCartCount();
   document.getElementById("cart_counter_large").innerHTML = getCartCount();
@@ -983,43 +1061,64 @@ function deleteCartItem(bin_id) {
     document.getElementById("total_price_large").innerHTML = "R 0";
   }
   trainingCounter(false);
+  cart_view(false);
 }
 
-function displayModal(type, input, id) {
+function displayModal(type, input, id, tangibles) {
+  /**
+   * Controls the type of modal to be displayed using toastr js
+   * @param type: type of modal to be displayed (success/ error/ warining)
+   * @param input: amount of products purchased
+   * @param id: Title of the product purchased
+   * @param tangibles: solely used to determine the return string.
+   * Used to indicate whether multiple of a product can be purchased
+   */
   if (type == "success") {
     var append;
-    if (parseInt(input.value) > 1) {
-      append = "Kits.";
+    if (parseInt(input) > 1) {
+      append = "kits";
     } else {
-      append = "Kit.";
+      append = "kit";
     }
+    let return_string;
 
-    document.getElementById("span-success-modal").innerHTML =
-      "Successfully added: " + input.value + " " + id + " " + append;
-    document.getElementById("success-modal").classList.remove("hidden");
-    document.getElementById("success-modal").classList.add("inline-flex");
-    var tl = gsap.timeline();
-    tl.from(".success-modal", {
-      duration: 0.5,
-      translateY: 250,
-      opacity: 100,
-      transformOrigin: "bottom left",
-      delay: 0.2,
-    });
-    tl.to(".success-modal", {
-      duration: 0.5,
-      translateY: -100,
-      opacity: 0,
-      transformOrigin: "bottom left",
-      delay: 2,
-    });
+    if (tangibles == "streams/books") {
+      return_string =
+        "Added: " + input + " " + id + " " + append + " to your cart";
+    } else if ((tangibles = "package")) {
+      return_string = "Added: " + id + " to your cart";
+    } else if ((tangibles = "training")) {
+      return_string = "Added: " + id + " to your cart";
+    }
+    toastr[type](return_string);
+    tick_manager(id);
+  }
+}
 
-    setTimeout(() => {
-      document.getElementById("success-modal").classList.remove("inline-flex");
-      document.getElementById("success-modal").classList.add("hidden");
-      tl.kill();
-      tl = null;
-    }, 4500);
+function tick_manager(item) {
+  /**
+   * Manages the appearance of completion ticks on buttons for each section
+   */
+  if (
+    item.indexOf("Package") != -1 &&
+    document.getElementById("package_tick").classList.contains("hidden")
+  ) {
+    document.getElementById("package_tick").classList.remove("hidden");
+  } else if (
+    item.indexOf("Stream") != -1 &&
+    document.getElementById("streams_tick").classList.contains("hidden")
+  ) {
+    document.getElementById("streams_tick").classList.remove("hidden");
+  } else if (
+    item.indexOf("Guide") != -1 &&
+    document.getElementById("books_tick").classList.contains("hidden")
+  ) {
+    document.getElementById("books_tick").classList.remove("hidden");
+  } else if (
+    item.indexOf("Training") != -1 &&
+    document.getElementById("training_tick").classList.contains("hidden")
+  ) {
+    document.getElementById("training_tick").classList.remove("hidden");
   }
 }
 
@@ -1027,15 +1126,20 @@ function submitForm(id) {
   var first = document.getElementById("first_name").value;
   var last = document.getElementById("last_name").value;
   var school = document.getElementById("school").value;
+  var designation = document.getElementById("position_school").value;
   var province = document.getElementById("location").value;
+  var phone = document.getElementById("phone").value;
   var email = document.getElementById("email").value;
   var training = false;
 
   localStorage.setItem("name", first + " " + last);
   localStorage.setItem("school", school);
+  localStorage.setItem("position", designation);
   localStorage.setItem("province", province);
+  localStorage.setItem("phone", phone);
   localStorage.setItem("email", email);
   localStorage.setItem("total_order", JSON.stringify(total_order));
+  updateParams();
 
   // check if total order contains training
   for (let i = 0; i < total_order.length; i++) {
@@ -1072,7 +1176,7 @@ function submitForm(id) {
     first != "" &&
     last != "" &&
     school != "" &&
-    province != "" &&
+    province != "Select" &&
     email != "" &&
     training == true &&
     package_selected == true &&
@@ -1083,7 +1187,9 @@ function submitForm(id) {
     document.getElementById(id).removeAttribute("data-bs-target");
     document.getElementById(id).setAttribute("form", "contact_form");
     document.getElementById(id).setAttribute("type", "submit");
-    document.getElementById(id).setAttribute("onclick", "process('loading')");
+    generatePDF("Send");
+    // window.location.replace("summary.html");
+    // process("loading");
     // TODO: ADD stuff here to cater for the pop-up modal regarding the addition of packages (custom for training and package)
   } else {
     console.log("training and package chosen");
@@ -1091,19 +1197,40 @@ function submitForm(id) {
     document.getElementById(id).removeAttribute("data-bs-target");
     document.getElementById(id).setAttribute("form", "contact_form");
     document.getElementById(id).setAttribute("type", "submit");
-    document.getElementById(id).setAttribute("onclick", "process('loading')");
-    document.getElementById(id).click();
-    generatePDF("Send");
-    console.log("send pdf to api");
+    document.getElementById(id).addEventListener("onclick", (e) => {
+      e.preventDefault();
+    });
+    // document.getElementById(id).click();
+    fieldChecker();
+  }
+}
+
+function fieldChecker() {
+  if (
+    document.getElementById("first_name").value &&
+    document.getElementById("last_name").value &&
+    document.getElementById("school").value &&
+    document.getElementById("location").value &&
+    document.getElementById("position_school").value &&
+    document.getElementById("location").value != "Select" &&
+    document.getElementById("phone").value &&
+    document.getElementById("email").value
+  ) {
+    if (!submit) {
+      generatePDF("Send");
+      submit = true;
+    }
+  } else {
+    return;
   }
 }
 
 function setContinue() {
   cont = true;
   if (document.documentElement.clientWidth < 1024) {
-    setTimeout(submitForm("submit-button"), 500);
+    setTimeout(submitForm("submit-button"), 0);
   } else {
-    setTimeout(submitForm("submit-button-large"), 500);
+    setTimeout(submitForm("submit-button-large"), 0);
   }
 }
 
@@ -1138,233 +1265,246 @@ function updateBooks(button_id, identifier = false) {
   addTeacherTraining(false);
 }
 
+function pdfTableGenerator() {
+  return_table = [];
+  temp = JSON.parse(localStorage.getItem("total_order"));
+  if (temp == null) {
+    return;
+  } else {
+    for (let i = 0; i < temp.length; i++) {
+      return_table.push([
+        temp[i][0],
+        temp[i][2],
+        temp[i][1],
+        temp[i][2] * temp[i][1],
+      ]);
+    }
+    return return_table;
+  }
+}
+
 function generatePDF(param) {
   /**
    * @param param: used to differentiate between the action of sharing/ saving the pdf
    */
   if (param == "Save") {
-    let pdfObject = jsPDFInvoiceTemplate.default(saveProps); //returns number of pages created
+    let pdfObject = jsPDFInvoiceTemplate.default(saveProps);
   } else if (param == "Send") {
-    var base64 = jsPDFInvoiceTemplate.default(props); //returns number of pages created
+    console.log(localStorage.getItem("name"));
+    console.log(localStorage.getItem("school"));
+    console.log(localStorage.getItem("province"));
+    console.log(localStorage.getItem("email"));
+    console.log(localStorage.getItem("total_order"));
+    var base64 = jsPDFInvoiceTemplate.default(props); //returns base64 string
     localStorage.setItem("pdfString", base64.dataUriString);
+    console.log(localStorage.getItem("pdfString"));
     window.location.replace("summary.html");
+    process("loading");
   }
 }
 
-function pdfTableGenerator() {
-  return_table = [];
-  temp = JSON.parse(localStorage.getItem("total_order"));
-  for (let i = 0; i < temp.length; i++) {
-    return_table.push([
-      temp[i][0],
-      temp[i][2],
-      temp[i][1],
-      temp[i][2] * temp[i][1],
-    ]);
-  }
-  return return_table;
+function updateParams() {
+  // jspdf: save the pdf
+  saveProps = {
+    outputType: jsPDFInvoiceTemplate.OutputType.Save,
+    returnJsPDFDocObject: true,
+    fileName: "Resolute Education Estimate for " + localStorage.getItem("name"),
+    orientationLandscape: false,
+    compress: true,
+    logo: {
+      src: "./public/img/res_logo_black.png",
+      type: "PNG", //optional, when src= data:uri (nodejs case)
+      width: 75, //aspect ratio = width/height
+      height: 18,
+      margin: {
+        top: 5, //negative or positive num, from the current position
+        left: 0, //negative or positive num, from the current position
+      },
+    },
+    stamp: {
+      inAllPages: true, //by default = false, just in the last page
+      src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
+      type: "JPG", //optional, when src= data:uri (nodejs case)
+      width: 20, //aspect ratio = width/height
+      height: 20,
+      margin: {
+        top: 0, //negative or positive num, from the current position
+        left: 0, //negative or positive num, from the current position
+      },
+    },
+    business: {
+      name: "Resolute Education",
+      address: "2 The Aviary, 60 Glenwood Road, Lynnwood Glen",
+      phone: "(+27) 067 609 0699",
+      email: "info@resolute.education",
+      email1: "xxyyzz@resolute.education",
+      website: "www.resoluteeducation.com",
+    },
+    contact: {
+      label: "Estimate issued for:",
+      name:
+        localStorage.getItem("name") + ", " + localStorage.getItem("school"),
+      email: localStorage.getItem("email"),
+    },
+    invoice: {
+      label: "Estimate #: ",
+      num: "1",
+      invGenDate: "Invoice Date: " + today.toString().slice(0, 15),
+      headerBorder: false,
+      tableBodyBorder: false,
+      header: [
+        {
+          title: "Description",
+          style: {
+            width: 80,
+          },
+        },
+        { title: "Price" },
+        { title: "Quantity" },
+        { title: "Total" },
+      ],
+      table: pdfTableGenerator(),
+      additionalRows: [
+        {
+          col1: "Total:",
+          col2: "145,250.50",
+          col3: "ALL",
+          style: {
+            fontSize: 14, //optional, default 12
+          },
+        },
+        {
+          col1: "VAT:",
+          col2: "20",
+          col3: "%",
+          style: {
+            fontSize: 10, //optional, default 12
+          },
+        },
+        {
+          col1: "SubTotal:",
+          col2: "116,199.90",
+          col3: "ALL",
+          style: {
+            fontSize: 10, //optional, default 12
+          },
+        },
+      ],
+      invDescLabel: "",
+      invDesc:
+        "Our team will get in touch with you and your school shortly.\nThank you for choosing Resolute.",
+    },
+    footer: {
+      text: "The invoice is created on a computer and is valid without the signature and stamp.",
+    },
+    pageEnable: true,
+    pageLabel: "Page ",
+  };
+
+  // jspdf: convert pdf to base64 string and send to API
+  props = {
+    outputType: jsPDFInvoiceTemplate.OutputType.DataUriString,
+    returnJsPDFDocObject: true,
+    fileName: "Resolute Education Estimate for " + localStorage.getItem("name"),
+    orientationLandscape: false,
+    compress: true,
+    logo: {
+      src: "./public/img/res_logo_black.png",
+      type: "PNG", //optional, when src= data:uri (nodejs case)
+      width: 75, //aspect ratio = width/height
+      height: 18,
+      margin: {
+        top: 5, //negative or positive num, from the current position
+        left: 0, //negative or positive num, from the current position
+      },
+    },
+    stamp: {
+      inAllPages: true, //by default = false, just in the last page
+      src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
+      type: "JPG", //optional, when src= data:uri (nodejs case)
+      width: 20, //aspect ratio = width/height
+      height: 20,
+      margin: {
+        top: 0, //negative or positive num, from the current position
+        left: 0, //negative or positive num, from the current position
+      },
+    },
+    business: {
+      name: "Resolute Education",
+      address: "2 The Aviary, 60 Glenwood Road, Lynnwood Glen",
+      phone: "(+27) 067 609 0699",
+      email: "info@resolute.education",
+      email1: "xxyyzz@resolute.education",
+      website: "www.resoluteeducation.com",
+    },
+    contact: {
+      label: "Estimate issued for:",
+      name:
+        localStorage.getItem("name") + ", " + localStorage.getItem("school"),
+      email: localStorage.getItem("email"),
+    },
+    invoice: {
+      label: "Estimate #: ",
+      num: "1",
+      invGenDate: "Invoice Date: " + today.toString().slice(0, 15),
+      headerBorder: false,
+      tableBodyBorder: false,
+      header: [
+        {
+          title: "Description",
+          style: {
+            width: 80,
+          },
+        },
+        { title: "Price" },
+        { title: "Quantity" },
+        { title: "Total" },
+      ],
+      table: pdfTableGenerator(),
+      additionalRows: [
+        {
+          col1: "Total:",
+          col2: "145,250.50",
+          col3: "ALL",
+          style: {
+            fontSize: 14, //optional, default 12
+          },
+        },
+        {
+          col1: "VAT:",
+          col2: "20",
+          col3: "%",
+          style: {
+            fontSize: 10, //optional, default 12
+          },
+        },
+        {
+          col1: "SubTotal:",
+          col2: "116,199.90",
+          col3: "ALL",
+          style: {
+            fontSize: 10, //optional, default 12
+          },
+        },
+      ],
+      invDescLabel: "Note",
+      invDesc:
+        "Our team will get in touch with you and your school shortly.\nThank you for choosing Resolute.",
+    },
+    footer: {
+      text: "The invoice is created on a computer and is valid without the signature and stamp.",
+    },
+    pageEnable: true,
+    pageLabel: "Page ",
+  };
 }
-
-// jspdf generation
-var saveProps = {
-  outputType: jsPDFInvoiceTemplate.OutputType.Save,
-  returnJsPDFDocObject: true,
-  fileName: "Resolute Education Estimate for " + localStorage.getItem("name"),
-  orientationLandscape: false,
-  compress: true,
-  logo: {
-    src: "./public/img/res_logo_black.png",
-    type: "PNG", //optional, when src= data:uri (nodejs case)
-    width: 75, //aspect ratio = width/height
-    height: 18,
-    margin: {
-      top: 5, //negative or positive num, from the current position
-      left: 0, //negative or positive num, from the current position
-    },
-  },
-  stamp: {
-    inAllPages: true, //by default = false, just in the last page
-    src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
-    type: "JPG", //optional, when src= data:uri (nodejs case)
-    width: 20, //aspect ratio = width/height
-    height: 20,
-    margin: {
-      top: 0, //negative or positive num, from the current position
-      left: 0, //negative or positive num, from the current position
-    },
-  },
-  business: {
-    name: "Resolute Education",
-    address: "2 The Aviary, 60 Glenwood Road, Lynnwood Glen",
-    phone: "(+27) 067 609 0699",
-    email: "info@resolute.education",
-    email1: "xxyyzz@resolute.education",
-    website: "www.resoluteeducation.com",
-  },
-  contact: {
-    label: "Estimate issued for:",
-    name: localStorage.getItem("name") + ", " + localStorage.getItem("school"),
-    email: localStorage.getItem("email"),
-  },
-  invoice: {
-    label: "Estimate #: ",
-    num: "1",
-    invGenDate: "Invoice Date: " + today.toString().slice(0, 15),
-    headerBorder: false,
-    tableBodyBorder: false,
-    header: [
-      {
-        title: "Description",
-        style: {
-          width: 80,
-        },
-      },
-      { title: "Price" },
-      { title: "Quantity" },
-      { title: "Total" },
-    ],
-    table: pdfTableGenerator(),
-    additionalRows: [
-      {
-        col1: "Total:",
-        col2: "145,250.50",
-        col3: "ALL",
-        style: {
-          fontSize: 14, //optional, default 12
-        },
-      },
-      {
-        col1: "VAT:",
-        col2: "20",
-        col3: "%",
-        style: {
-          fontSize: 10, //optional, default 12
-        },
-      },
-      {
-        col1: "SubTotal:",
-        col2: "116,199.90",
-        col3: "ALL",
-        style: {
-          fontSize: 10, //optional, default 12
-        },
-      },
-    ],
-    invDescLabel: "",
-    invDesc:
-      "Our team will get in touch with you and your school shortly.\nThank you for choosing Resolute.",
-  },
-  footer: {
-    text: "The invoice is created on a computer and is valid without the signature and stamp.",
-  },
-  pageEnable: true,
-  pageLabel: "Page ",
-};
-
-// jspdf localstorage
-var props = {
-  outputType: jsPDFInvoiceTemplate.OutputType.DataUriString,
-  returnJsPDFDocObject: true,
-  fileName: "Resolute Education Estimate for " + localStorage.getItem("name"),
-  orientationLandscape: false,
-  compress: true,
-  logo: {
-    src: "./public/img/res_logo_black.png",
-    type: "PNG", //optional, when src= data:uri (nodejs case)
-    width: 75, //aspect ratio = width/height
-    height: 18,
-    margin: {
-      top: 5, //negative or positive num, from the current position
-      left: 0, //negative or positive num, from the current position
-    },
-  },
-  stamp: {
-    inAllPages: true, //by default = false, just in the last page
-    src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
-    type: "JPG", //optional, when src= data:uri (nodejs case)
-    width: 20, //aspect ratio = width/height
-    height: 20,
-    margin: {
-      top: 0, //negative or positive num, from the current position
-      left: 0, //negative or positive num, from the current position
-    },
-  },
-  business: {
-    name: "Resolute Education",
-    address: "2 The Aviary, 60 Glenwood Road, Lynnwood Glen",
-    phone: "(+27) 067 609 0699",
-    email: "info@resolute.education",
-    email1: "xxyyzz@resolute.education",
-    website: "www.resoluteeducation.com",
-  },
-  contact: {
-    label: "Estimate issued for:",
-    name: localStorage.getItem("name") + ", " + localStorage.getItem("school"),
-    email: localStorage.getItem("email"),
-  },
-  invoice: {
-    label: "Estimate #: ",
-    num: "1",
-    invGenDate: "Invoice Date: " + today.toString().slice(0, 15),
-    headerBorder: false,
-    tableBodyBorder: false,
-    header: [
-      {
-        title: "Description",
-        style: {
-          width: 80,
-        },
-      },
-      { title: "Price" },
-      { title: "Quantity" },
-      { title: "Total" },
-    ],
-    table: pdfTableGenerator(),
-    additionalRows: [
-      {
-        col1: "Total:",
-        col2: "145,250.50",
-        col3: "ALL",
-        style: {
-          fontSize: 14, //optional, default 12
-        },
-      },
-      {
-        col1: "VAT:",
-        col2: "20",
-        col3: "%",
-        style: {
-          fontSize: 10, //optional, default 12
-        },
-      },
-      {
-        col1: "SubTotal:",
-        col2: "116,199.90",
-        col3: "ALL",
-        style: {
-          fontSize: 10, //optional, default 12
-        },
-      },
-    ],
-    invDescLabel: "",
-    invDesc:
-      "Our team will get in touch with you and your school shortly.\nThank you for choosing Resolute.",
-  },
-  footer: {
-    text: "The invoice is created on a computer and is valid without the signature and stamp.",
-  },
-  pageEnable: true,
-  pageLabel: "Page ",
-};
 
 // API Functionality
-
 async function process(field) {
   /**
    * Used as a redirection function to make API calls
    * @param field: denotes the type of function to carry out
    */
-
   if (field == "loading") {
     // make API call
     makeApiCall();
@@ -1390,7 +1530,6 @@ async function apiDataHandler(method) {
     newsletter_value = "No";
   }
 
-  console.log(total_order);
   // package selected??
   if (total_order.flat(2).findIndex((e) => e.includes("Package:")) != -1) {
     package = total_order
@@ -1407,7 +1546,7 @@ async function apiDataHandler(method) {
   }
 
   // process phone number
-  let phone_number = document.getElementById("phone").value;
+  let phone_number = localStorage.getItem("phone");
   phone_number = phone_number.slice(
     phone_number.length - 9,
     phone_number.length
@@ -1423,22 +1562,19 @@ async function apiDataHandler(method) {
       },
     });
   } else {
-    return fetch(url, {
+    var temp = fetch(url, {
       method: method,
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
       _body: JSON.stringify({
-        name:
-          document.getElementById("first_name").value +
-          " " +
-          document.getElementById("last_name").value,
-        designation: document.getElementById("position_school").value,
-        school_name: document.getElementById("school").value,
-        email: document.getElementById("email").value,
+        name: localStorage.getItem("name"),
+        designation: localStorage.getItem("position"),
+        school_name: localStorage.getItem("school"),
+        email: localStorage.getItem("email"),
         phone: phone_number_processed,
-        location: document.getElementById("location").value,
+        location: localStorage.getItem("province"),
         newsletter: newsletter_value,
         package: package,
         total_order: total_order,
@@ -1452,6 +1588,7 @@ async function apiDataHandler(method) {
         this._body = value;
       },
     });
+    return temp;
   }
 }
 

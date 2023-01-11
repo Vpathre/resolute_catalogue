@@ -83,9 +83,9 @@ def data_sort(data):
         pdf = convert_to_pdf(data["pdf"], name)        
         link = upload_to_drive2(pdf)
         os.remove(pdf)
-        # print(proposal)
-        # print(total_order)
-        # print(pdf)
+        print(proposal)
+        print(total_order)
+        print(pdf)
 
 
         for i in range(len(total_order)):

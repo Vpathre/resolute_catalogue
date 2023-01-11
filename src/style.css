@@ -28,8 +28,24 @@
     animation-play-state: paused;
 }
 
+.hover_button{
+  @apply bg-white text-black border-resBlue;
+}
+
+.card:hover .hover_button{
+  @apply bg-resBlue text-white border-white;
+}
+
 html{
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
+}
+
+.quick_add_dropdown{
+  @apply min-w-max absolute bg-white text-base z-50 float-left list-none text-left rounded-lg shadow-lg mt-1 hidden m-0 bg-clip-padding border-none overflow-y-scroll
+}
+
+.quick_add_item{
+  @apply text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100
 }
 
 .line-container{
