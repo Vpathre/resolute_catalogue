@@ -87,7 +87,7 @@
     </ul>
 
     <!-- main banner of the app -->
-    <main
+    <!-- <main
       data-barba="container"
       data-barba-namespace="intro-section"
       class="banner flex-col justify-center text-xl h-screen font-poppins uppercase bg-resBlue text-white z-40 w-screen fixed snap-end shadow-lg sm:pt-40 pl-20 pr-20 lg:p-40"
@@ -129,17 +129,17 @@
           </div>
         </div>
       </div>
-    </main>
+    </main> -->
 
     <!-- button set at top of screen -->
     <div class="z-20 h-8 top-0 flex absolute w-screen">
       <button
-        class="bg-gray-200 w-1/5 text-black text-base border-r-2 border-gray-300 font-semibold hover:shadow-md hover:text-black hover:bg-gray-200 transition ease-in duration-200"
+        class="text-black bg-gray-200 w-1/5 text-base border-r-2 border-gray-300 font-semibold hover:shadow-md hover:text-black hover:bg-gray-200 transition ease-in duration-200"
         id="nav_step_1"
         onclick="displayModal('warning', 'Please select a package to proceed.', 0, 0)"
       >
         <div class="items-center text-center">
-          <div class="hidden ml-2 absolute" id="package_tick">
+          <div class="hidden lg:hidden ml-2 absolute" id="package_tick">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -153,16 +153,21 @@
               />
             </svg>
           </div>
-          <div class="text-center">1. Packages</div>
+          <div
+            class="text-center text-xs md:text-lg text-black"
+            id="package_text"
+          >
+            1. Packages
+          </div>
         </div>
       </button>
       <button
-        class="bg-gray-100 w-1/5 text-gray-400 text-base border-r-2 border-gray-300 font-light hover:shadow-md hover:text-black hover:bg-gray-200 transition ease-in duration-200"
+        class="text-black bg-gray-100 w-1/5 text-base border-r-2 border-gray-300 font-light hover:shadow-md hover:text-black hover:bg-gray-200 transition ease-in duration-200"
         id="nav_step_2"
         onclick="displayModal('warning', 'Please select a package to proceed.', 0, 0)"
       >
         <div class="items-center text-center">
-          <div class="hidden ml-2 absolute" id="streams_tick">
+          <div class="hidden lg:hidden ml-2 absolute" id="streams_tick">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -176,16 +181,21 @@
               />
             </svg>
           </div>
-          <div class="text-center">2. Streams</div>
+          <div
+            class="text-center text-xs md:text-lg text-black"
+            id="streams_text"
+          >
+            2. Streams
+          </div>
         </div>
       </button>
       <button
-        class="bg-gray-100 w-1/5 text-gray-400 text-base border-r-2 border-gray-300 font-light hover:shadow-md hover:text-black hover:bg-gray-200 transition ease-in duration-200"
+        class="text-black bg-gray-100 w-1/5 text-base border-r-2 border-gray-300 font-light hover:shadow-md hover:text-black hover:bg-gray-200 transition ease-in duration-200"
         id="nav_step_3"
         onclick="displayModal('warning', 'Please select a package to proceed.', 0, 0)"
       >
         <div class="items-center text-center">
-          <div class="hidden ml-2 absolute" id="books_tick">
+          <div class="hidden lg:hidden ml-2 absolute" id="books_tick">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -199,16 +209,21 @@
               />
             </svg>
           </div>
-          <div class="text-center">3. Books</div>
+          <div
+            class="text-center text-xs md:text-lg text-black"
+            id="books_text"
+          >
+            3. Books
+          </div>
         </div>
       </button>
       <button
-        class="bg-gray-100 w-1/5 text-gray-400 text-base border-r-2 border-gray-300 font-light hover:shadow-md hover:text-black hover:bg-gray-200 transition ease-in duration-200"
+        class="text-black bg-gray-100 w-1/5 text-base border-r-2 border-gray-300 font-light hover:shadow-md hover:text-black hover:bg-gray-200 transition ease-in duration-200"
         id="nav_step_4"
         onclick="displayModal('warning', 'Please select a package to proceed.', 0, 0)"
       >
         <div class="items-center text-center">
-          <div class="hidden ml-2 absolute" id="training_tick">
+          <div class="hidden lg:hidden ml-2 absolute" id="training_tick">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -222,16 +237,21 @@
               />
             </svg>
           </div>
-          <div class="text-center">4. Training and Events</div>
+          <div
+            class="text-center text-xs md:text-lg text-black"
+            id="training_text"
+          >
+            4. Training and Events
+          </div>
         </div>
       </button>
       <button
-        class="bg-gray-100 w-1/5 text-gray-400 text-base font-light hover:shadow-md hover:text-black hover:bg-gray-200 transition ease-in duration-200"
+        class="text-black bg-gray-100 w-1/5 text-base font-light hover:shadow-md hover:text-black hover:bg-gray-200 transition ease-in duration-200"
         id="nav_step_5"
         onclick="displayModal('warning', 'Please select a package to proceed.', 0, 0)"
       >
         <div class="items-center text-center">
-          <div class="hidden ml-2 absolute" id="contact_tick">
+          <div class="hidden lg:hidden ml-2 absolute" id="contact_tick">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -245,7 +265,12 @@
               />
             </svg>
           </div>
-          <div class="text-center">5. Contact Details</div>
+          <div
+            class="text-center text-xs md:text-lg text-black"
+            id="contact_text"
+          >
+            5. Contact Details
+          </div>
         </div>
       </button>
     </div>
@@ -3339,15 +3364,15 @@
         for (let i = 0; i < 5; i++) {
           let button = document.getElementById("nav_step_" + (i + 1));
           if (i == index) {
-            button.classList.add("text-black");
+            button.classList.add("text-opacity-100");
             button.classList.add("font-semibold");
             button.classList.remove("font-light");
             button.classList.add("bg-gray-200");
             button.classList.remove("bg-gray-100");
-            button.classList.remove("text-gray-400");
+            button.classList.remove("text-opacity-50");
           } else {
-            button.classList.remove("text-black");
-            button.classList.add("text-gray-400");
+            button.classList.remove("text-opacity-100");
+            button.classList.add("text-opacity-50");
             button.classList.remove("bg-gray-200");
             button.classList.add("bg-gray-100");
             button.classList.remove("font-semibold");

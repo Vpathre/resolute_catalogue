@@ -51,8 +51,8 @@ toastr.options = {
   onclick: null,
   showDuration: "300",
   hideDuration: "1000",
-  timeOut: "5000",
-  extendedTimeOut: "1000",
+  timeOut: "2500",
+  extendedTimeOut: "800",
   showEasing: "swing",
   hideEasing: "linear",
   showMethod: "fadeIn",
@@ -1130,7 +1130,10 @@ function deleteCartItem(bin_id) {
     document.getElementById("total_price_large").innerHTML = "R 0";
   }
   // ensure continuity of data in quick add
-  document.getElementById("input_" + inputIdString).value = "0";
+  let quick_add_box = document.getElementById("input_" + inputIdString);
+  if (quick_add_box != null) {
+    quick_add_box.value = "0";
+  }
   trainingCounter(false);
   cart_view(false);
   displayModal("error");
@@ -1175,22 +1178,35 @@ function displayModal(type, input, id, tangibles) {
 function tick_manager() {
   /**
    * Runs through the current order and tallies up items to display tick marks on the tabs
+   * Swap tick mark with green banner text on mobile instead
    */
   let flat_order = total_order.flat();
   console.log(flat_order);
   for (let i = 0; i < flat_order.length; i++) {
     // packages
     if (flat_order.indexOf("package") != -1) {
-      document.getElementById("package_tick").classList.remove("hidden");
+      document.getElementById("package_tick").classList.remove("lg:hidden");
+      document.getElementById("package_tick").classList.add("lg:flex");
+      document.getElementById("package_text").classList.add("text-green-500");
     } else {
-      document.getElementById("package_tick").classList.add("hidden");
+      document.getElementById("package_tick").classList.add("lg:hidden");
+      document.getElementById("package_tick").classList.remove("lg:flex");
+      document
+        .getElementById("package_text")
+        .classList.remove("text-green-500");
     }
 
     // streams
     if (flat_order.indexOf("stream") != -1) {
-      document.getElementById("streams_tick").classList.remove("hidden");
+      document.getElementById("streams_tick").classList.remove("lg:hidden");
+      document.getElementById("streams_tick").classList.add("lg:flex");
+      document.getElementById("streams_text").classList.add("text-green-500");
     } else {
-      document.getElementById("streams_tick").classList.add("hidden");
+      document.getElementById("streams_tick").classList.add("lg:hidden");
+      document.getElementById("streams_tick").classList.remove("lg:flex");
+      document
+        .getElementById("streams_text")
+        .classList.remove("text-green-500");
     }
 
     // books
@@ -1198,9 +1214,13 @@ function tick_manager() {
       flat_order.indexOf("facilitator") != -1 ||
       flat_order.indexOf("student") != -1
     ) {
-      document.getElementById("books_tick").classList.remove("hidden");
+      document.getElementById("books_tick").classList.remove("lg:hidden");
+      document.getElementById("books_tick").classList.add("lg:flex");
+      document.getElementById("books_text").classList.add("text-green-500");
     } else {
-      document.getElementById("books_tick").classList.add("hidden");
+      document.getElementById("books_tick").classList.add("lg:hidden");
+      document.getElementById("books_tick").classList.remove("lg:flex");
+      document.getElementById("books_text").classList.remove("text-green-500");
     }
 
     // training
@@ -1208,9 +1228,15 @@ function tick_manager() {
       flat_order.indexOf("online training") != -1 ||
       flat_order.indexOf("person training") != -1
     ) {
-      document.getElementById("training_tick").classList.remove("hidden");
+      document.getElementById("training_tick").classList.remove("lg:hidden");
+      document.getElementById("training_tick").classList.add("lg:flex");
+      document.getElementById("training_text").classList.add("text-green-500");
     } else {
-      document.getElementById("training_tick").classList.add("hidden");
+      document.getElementById("training_tick").classList.add("lg:hidden");
+      document.getElementById("training_tick").classList.remove("lg:flex");
+      document
+        .getElementById("training_text")
+        .classList.remove("text-green-500");
     }
   }
 }
