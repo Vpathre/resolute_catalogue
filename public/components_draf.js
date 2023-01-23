@@ -190,35 +190,6 @@ class TileLeft extends HTMLElement {
         }">
           Unit Price: ${price}
         </div>
-        <div class="pt-10">
-          <div class="flex justify-center">
-            <button
-            class="w-10 h-10 mr-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
-            id="${"minus_" + title}"
-            onclick = updateQuantity(id)
-          >
-            -
-          </button>
-          <input type="text" value="${
-            this.quantity
-          }" class="w-10 text-center p-0 text-black"  id="${this.inputId}">
-          <button
-            class="w-10 h-10 ml-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
-            id="${"plus_" + title}"
-            onclick = updateQuantity(id)
-          >
-            +
-          </button>
-          </div>
-        <div class=" flex justify-center mt-3">
-          <button class="rounded-full py-2 px-3  uppercase text-xs font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
-            id="${"Add_" + title}"
-            onclick = addToCart(id)
-          >
-            Add to cart
-          </button>
-        </div>
-        </div>
         </div>
       </div>
     </div>
@@ -226,3 +197,36 @@ class TileLeft extends HTMLElement {
   }
 }
 window.customElements.define("product-tile-left", TileLeft);
+
+{
+  /* 
+<div class="pt-10">
+<div class="flex justify-center">
+<button
+class="w-10 h-10 mr-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+id="${"minus_" + title}"
+onclick = updateQuantity(id)
+>
+-
+</button>
+<input type="text" value="${
+this.quantity
+}" class="w-10 text-center p-0 text-black"  id="${this.inputId}">
+<button
+class="w-10 h-10 ml-3 rounded-full text-lg uppercase font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+id="${"plus_" + title}"
+onclick = updateQuantity(id)
+>
++
+</button>
+</div>
+<div class=" flex justify-center mt-3">
+<button class="rounded-full py-2 px-3  uppercase text-xs font-bold cursor-pointer tracking-wide border-2 border-gray-600 hover:bg-gray-700 hover:text-white hover:border-white transition ease-out duration-150"
+id="${"Add_" + title}"
+onclick = addToCart(id)
+>
+Add to cart
+</button>
+</div>
+</div> */
+}

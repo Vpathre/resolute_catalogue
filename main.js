@@ -59,29 +59,63 @@ toastr.options = {
   hideMethod: "fadeOut",
 };
 
-function updateQuantity(button_id) {
+/**
+ * Used to set up the page. Clears localStorage and disables swiper js
+ */
+function init() {
+  // disable pagination till the user selects a package
+  const prevEl = document.querySelector(".swiper-button-prev");
+  const nextEl = document.querySelector(".swiper-button-next");
+  prevEl.style.display = "none";
+  nextEl.style.display = "none";
+  // clear localstorage
+  localStorage.clear();
+}
+
+function updateQuantity(button_id, quickAdd = false, identifier) {
   /**
    * Updates the quantity of the streams selected in the modal pop-up.
    * @param button_id: refers to the element id recieved as a parameter
+   * @param quickAdd: if quickAdd is True, add to cart immediately. else skip (for now)
    */
   var inputIdString;
-  console.log(button_id);
+  let title;
   // get input element
   if (button_id.slice(0, 5) == "plus_") {
     inputIdString = "input_" + button_id.slice(5, button_id.length);
+    title = button_id.slice(5, button_id.length);
   } else if (button_id.slice(0, 6) == "minus_") {
     inputIdString = "input_" + button_id.slice(6, button_id.length);
+    title = button_id.slice(6, button_id.length);
   }
   var input = document.getElementById(inputIdString);
+  var cart_input = document.getElementById(inputIdString + "cart");
 
   // update input element
   if (button_id.slice(0, 5) == "plus_") {
+    // when "+" button is clicked; increment the quantity 1 by 1.
     input.value = (parseInt(input.value) + 1).toString();
+    addToCart("Add_" + button_id.slice(5, button_id.length), true, 1);
   } else if (button_id.slice(0, 6) == "minus_") {
-    if (parseInt(input.value) == 1) {
-      return;
-    } else {
+    if (parseInt(input.value) == 0) {
+      // when "-" button is clicked, decrement quantity 1 by 1.
+      deleteCartItem("remove_" + button_id.slice(6, button_id.length));
+    } else if (parseInt(input.value) > 0) {
       input.value = (parseInt(input.value) - 1).toString();
+      // modify the quantity present in the cart itself
+      let quantity = total_order[total_order.flat().indexOf(title) / 4][1];
+      quantity = parseInt(quantity) - 1;
+      total_order[total_order.flat().indexOf(title) / 4][1] =
+        quantity.toString();
+      cart_view(false);
+      if (cart_input != null) {
+        // border case when item goes from 1 to 0, the item is deleted first and then the cart is updated => NULL
+        cart_input.value = input.value;
+      }
+      updateCart();
+      if (parseInt(input.value) == 0) {
+        deleteCartItem("remove_" + button_id.slice(6, button_id.length));
+      }
     }
   }
 }
@@ -151,6 +185,16 @@ function addPackages(id) {
   }
   package_selected = true;
   displayModal("success", 0, modal_title, "package");
+  // enable swiper js nav buttons
+  swiper.navigation.prevEl.style.display = "inline";
+  swiper.navigation.nextEl.style.display = "inline";
+  swiper.allowSlidePrev = true;
+  swiper.allowSlideNext = true;
+  for (let i = 0; i < 5; i++) {
+    document
+      .getElementById("nav_step_" + (i + 1))
+      .setAttribute("onclick", "nav(" + i + ")");
+  }
   teacherPricing();
 }
 
@@ -206,7 +250,6 @@ function addToCart(button_id, quickAdd = false, val = 0) {
     identifier = "student";
   }
 
-  displayModal("success", input, title, "streams/books");
   var temp = [title, input, price.toString(), identifier];
   // if same stream is added more than once, just increase quantity of pre-existing stream
   if (total_order.length > 0) {
@@ -245,6 +288,7 @@ function addToCart(button_id, quickAdd = false, val = 0) {
     "R " + getCartTotal(total_order);
   console.log("Stream tracker", stream_tracker);
   trainingCounter(true);
+  tick_manager();
 }
 
 function getCartCount() {
@@ -619,7 +663,7 @@ function tableFieldEditor() {
   if (stream_tracker.length == 0) {
     document.getElementById("teacher_training_table").classList.add("hidden");
     var div = document.getElementById("teacher_training_container");
-    div.innerHTML = "No streams selected (ㆆ_ㆆ)";
+    div.innerHTML = "No streams selected.";
     div.style.display = "flex";
     document.getElementById("teacher_info").style.display = "none";
     document.getElementById("AddTeacher").innerHTML = "Continue";
@@ -663,12 +707,23 @@ function quickAdd(product_id) {
    * Add items to cart using the plus button on the cards
    * @param product_id: the id of the product to be added to the cart
    */
-  var qty = product_id.slice(0, product_id.indexOf("_"));
-  var product = product_id.slice(
-    product_id.indexOf("_") + 1,
-    product_id.length
-  );
+  var qty = product_id.slice(0, product_id.indexOf("Add_"));
+  var product = product_id.slice(product_id.indexOf("Add_"), product_id.length);
   addToCart(product, true, qty);
+}
+
+function darkenBackground(id, toggle) {
+  /**
+   * serves to darken the background when a dropdown is opened in order to make the dropdown stand out.
+   * @param id: id of the card/div to be darkened
+   * @param toggle: if TRUE: darken; if FALSE: lighten
+   */
+  let div = document.getElementById("mask_" + id);
+  if (toggle) {
+    div.classList.remove("hidden");
+  } else {
+    div.classList.add("hidden");
+  }
 }
 
 function toggleSwitch() {
@@ -822,7 +877,7 @@ function updateQuantityTraining(button_id, identifier = false) {
   addTeacherTraining(false);
 }
 
-function cart_view(flag) {
+function cart_view(flag = false) {
   /**
    * Is called whenever the user wishes to view the cart
    * @param flag: If TRUE => refers to mobile. If FALSE => refers to normal screens [NOT USED]
@@ -832,7 +887,7 @@ function cart_view(flag) {
   if (total_order.length == 0) {
     document.getElementById("summary_table").style.display = "none";
     var div = document.getElementById("table_container");
-    div.innerHTML = "No items in cart (ㆆ_ㆆ)";
+    div.innerHTML = "No items in cart.";
     div.style.display = "flex";
     document.getElementById("CartUnitPrice").style.display = "none";
   } else {
@@ -844,9 +899,8 @@ function cart_view(flag) {
     let mobile_body = document.getElementById("update_cart_body");
     mobile_body.innerHTML = ``;
     document.getElementById("CartUnitPrice").style.display = "block";
-
     for (let i = 0; i < total_order.length; i++) {
-      table_body.innerHTML += `<tr
+      let temp = `<tr
     class="bg-white bg-opacity-20 border-b transition duration-300 ease-in-out"
   >
     <td class="px-6 py-4 flex-col text-sm lg:text-lg font-light text-grey-900">
@@ -884,10 +938,13 @@ function cart_view(flag) {
       </div>
       <div class="flex justify-center pt-4">
       <button id="${"remove_" + total_order[i][0]}"
-      class="cursor-pointer tracking-wide hover:text-red-600 transition ease-out duration-150"
-      data-bs-toggle="modal"
-      data-bs-target="#delete_modal"
-      onclick="delete_item = id; confirmCartDelete(false)"
+      class="cursor-pointer tracking-wide hover:text-red-600 transition ease-out duration-150"`;
+      if (total_order[i][0].slice(0, 7) != "Package") {
+        temp += `data-bs-toggle="modal"
+                                data-bs-target="#delete_modal"`;
+      }
+
+      temp += `onclick="delete_item = id; confirmCartDelete(false, id)"
       >
         Remove
 
@@ -913,6 +970,7 @@ function cart_view(flag) {
     
     </td>
   </tr>`;
+      table_body.innerHTML += temp;
     }
 
     document.getElementById("CartUnitPrice").innerHTML =
@@ -935,12 +993,16 @@ function updateCart() {
   /**
    * Updates the cart if any of the item quantities in the cart modal are modified
    */
-  console.log(total_order);
   for (let i = 0; i < total_order.length; i++) {
     let current_input = document.getElementById(
       "input_" + total_order[i][0] + "cart"
     ).value;
     total_order[i][1] = current_input;
+    // ensures continuity of input fields
+    if (document.getElementById("input_" + total_order[i][0]) != null) {
+      document.getElementById("input_" + total_order[i][0]).value =
+        current_input.toString();
+    }
   }
   document.getElementById("cart_counter_small").innerHTML = getCartCount();
   document.getElementById("total_price_small").innerHTML =
@@ -980,13 +1042,21 @@ function updateQuantityCart(button_id) {
   document.getElementById("update_cart_card").innerHTML = "update";
 }
 
-function confirmCartDelete(param) {
+function confirmCartDelete(param, id = "") {
   /**
    * Pop-up modal to delete an item from the cart
    * @param param: used to confirm deletion of item in cart*/
   if (param) {
     deleteCartItem(delete_item);
   } else {
+    if (id.slice(7, 14) == "Package") {
+      displayModal(
+        "warning",
+        "A package cannot be deleted. You may select another package.",
+        0,
+        0
+      );
+    }
     return;
   }
 }
@@ -996,13 +1066,13 @@ function deleteCartItem(bin_id) {
    * Removes a particular product from the cart.
    * @param bin_id: refers to the element id recieved as a parameter
    */
-
   var inputIdString;
   // get input element
   if (bin_id.slice(0, 7) == "remove_") {
     inputIdString = bin_id.slice(7, bin_id.length);
   }
 
+  // not effective since packages cant be deleted [left in for potential use]
   if (inputIdString.slice(0, 7) == "Package") {
     // if package deleted, revert price benefits
     package_selected = false;
@@ -1037,8 +1107,7 @@ function deleteCartItem(bin_id) {
           cart_view(false);
           break;
         }
-      }
-      if (total_order[i][0] == training_string) {
+      } else if (total_order[i][0] == training_string) {
         total_order.splice(i, 1);
         break;
       }
@@ -1060,15 +1129,19 @@ function deleteCartItem(bin_id) {
     document.getElementById("total_price_small").innerHTML = "R 0";
     document.getElementById("total_price_large").innerHTML = "R 0";
   }
+  // ensure continuity of data in quick add
+  document.getElementById("input_" + inputIdString).value = "0";
   trainingCounter(false);
   cart_view(false);
+  displayModal("error");
+  tick_manager();
 }
 
 function displayModal(type, input, id, tangibles) {
   /**
    * Controls the type of modal to be displayed using toastr js
    * @param type: type of modal to be displayed (success/ error/ warining)
-   * @param input: amount of products purchased
+   * @param input: Message to be written
    * @param id: Title of the product purchased
    * @param tangibles: solely used to determine the return string.
    * Used to indicate whether multiple of a product can be purchased
@@ -1091,37 +1164,61 @@ function displayModal(type, input, id, tangibles) {
       return_string = "Added: " + id + " to your cart";
     }
     toastr[type](return_string);
-    tick_manager(id);
+    tick_manager();
+  } else if (type == "error") {
+    toastr[type]("Item deleted from cart.");
+  } else if (type == "warning") {
+    toastr[type](input);
   }
 }
 
-function tick_manager(item) {
+function tick_manager() {
   /**
-   * Manages the appearance of completion ticks on buttons for each section
+   * Runs through the current order and tallies up items to display tick marks on the tabs
    */
-  if (
-    item.indexOf("Package") != -1 &&
-    document.getElementById("package_tick").classList.contains("hidden")
-  ) {
-    document.getElementById("package_tick").classList.remove("hidden");
-  } else if (
-    item.indexOf("Stream") != -1 &&
-    document.getElementById("streams_tick").classList.contains("hidden")
-  ) {
-    document.getElementById("streams_tick").classList.remove("hidden");
-  } else if (
-    item.indexOf("Guide") != -1 &&
-    document.getElementById("books_tick").classList.contains("hidden")
-  ) {
-    document.getElementById("books_tick").classList.remove("hidden");
-  } else if (
-    item.indexOf("Training") != -1 &&
-    document.getElementById("training_tick").classList.contains("hidden")
-  ) {
-    document.getElementById("training_tick").classList.remove("hidden");
+  let flat_order = total_order.flat();
+  console.log(flat_order);
+  for (let i = 0; i < flat_order.length; i++) {
+    // packages
+    if (flat_order.indexOf("package") != -1) {
+      document.getElementById("package_tick").classList.remove("hidden");
+    } else {
+      document.getElementById("package_tick").classList.add("hidden");
+    }
+
+    // streams
+    if (flat_order.indexOf("stream") != -1) {
+      document.getElementById("streams_tick").classList.remove("hidden");
+    } else {
+      document.getElementById("streams_tick").classList.add("hidden");
+    }
+
+    // books
+    if (
+      flat_order.indexOf("facilitator") != -1 ||
+      flat_order.indexOf("student") != -1
+    ) {
+      document.getElementById("books_tick").classList.remove("hidden");
+    } else {
+      document.getElementById("books_tick").classList.add("hidden");
+    }
+
+    // training
+    if (
+      flat_order.indexOf("online training") != -1 ||
+      flat_order.indexOf("person training") != -1
+    ) {
+      document.getElementById("training_tick").classList.remove("hidden");
+    } else {
+      document.getElementById("training_tick").classList.add("hidden");
+    }
   }
 }
 
+/**
+ * Function invoked to submit a form by reading in the input fields. Also invokes error modal if training not selected.
+ * @param {Element} id: refers to the button the changes are to be applied to.
+ */
 function submitForm(id) {
   var first = document.getElementById("first_name").value;
   var last = document.getElementById("last_name").value;

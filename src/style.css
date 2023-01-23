@@ -8,6 +8,10 @@
     @apply bg-white rounded overflow-hidden shadow-md relative;
 }
 
+.product-card{
+  @apply rounded overflow-hidden shadow-md relative;
+}
+
 .badge{
     @apply bg-blue-200 text-gray-700 text-xs uppercase font-bold rounded-full p-2 absolute top-0 ml-2 mt-2;
 }
@@ -32,7 +36,7 @@
   @apply bg-white text-black border-resBlue;
 }
 
-.card:hover .hover_button{
+.product-card:hover .hover_button{
   @apply bg-resBlue text-white border-white;
 }
 
@@ -41,7 +45,7 @@ html{
 }
 
 .quick_add_dropdown{
-  @apply min-w-max absolute bg-white text-base z-50 float-left list-none text-left rounded-lg shadow-lg mt-1 hidden m-0 bg-clip-padding border-none overflow-y-scroll
+  @apply min-w-max absolute bg-white text-base z-50 float-left list-none text-left rounded-lg shadow-xl mt-1 hidden m-0 bg-clip-padding border-none overflow-y-scroll
 }
 
 .quick_add_item{
