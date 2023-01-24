@@ -136,6 +136,9 @@ function addPackages(id) {
       teacher_online = 6900;
       teacher_person = 13800;
       packageBenefits("lite", package_selected);
+      document.getElementById("lite_card").classList.add("scale-105");
+      document.getElementById("standard_card").classList.remove("scale-105");
+      document.getElementById("premium_card").classList.remove("scale-105");
       break;
     case "standard":
       title = "Package: Standard";
@@ -144,6 +147,9 @@ function addPackages(id) {
       teacher_online = 3450;
       teacher_person = 11730;
       packageBenefits("standard", package_selected);
+      document.getElementById("lite_card").classList.remove("scale-105");
+      document.getElementById("standard_card").classList.add("scale-105");
+      document.getElementById("premium_card").classList.remove("scale-105");
       break;
     case "premium":
       title = "Package: Premium";
@@ -152,6 +158,9 @@ function addPackages(id) {
       teacher_online = 0;
       teacher_person = 6900;
       packageBenefits("premium", package_selected);
+      document.getElementById("lite_card").classList.remove("scale-105");
+      document.getElementById("standard_card").classList.remove("scale-105");
+      document.getElementById("premium_card").classList.add("scale-105");
       break;
   }
 
@@ -710,20 +719,6 @@ function quickAdd(product_id) {
   var qty = product_id.slice(0, product_id.indexOf("Add_"));
   var product = product_id.slice(product_id.indexOf("Add_"), product_id.length);
   addToCart(product, true, qty);
-}
-
-function darkenBackground(id, toggle) {
-  /**
-   * serves to darken the background when a dropdown is opened in order to make the dropdown stand out.
-   * @param id: id of the card/div to be darkened
-   * @param toggle: if TRUE: darken; if FALSE: lighten
-   */
-  let div = document.getElementById("mask_" + id);
-  if (toggle) {
-    div.classList.remove("hidden");
-  } else {
-    div.classList.add("hidden");
-  }
 }
 
 function toggleSwitch() {
@@ -1389,19 +1384,26 @@ function updateBooks(button_id, identifier = false) {
 }
 
 function pdfTableGenerator() {
-  return_table = [];
+  let return_table = [];
+  let temp_sum = 0;
+  let temp_vat = 0;
   temp = JSON.parse(localStorage.getItem("total_order"));
   if (temp == null) {
     return;
   } else {
     for (let i = 0; i < temp.length; i++) {
+      let multiple = temp[i][2] * temp[i][1];
+      temp_sum += multiple;
       return_table.push([
         temp[i][0],
-        temp[i][2],
+        getCartTotal(temp[i][2]),
         temp[i][1],
-        temp[i][2] * temp[i][1],
+        getCartTotal(multiple.toString()),
       ]);
     }
+    temp_vat = (temp_sum - temp_sum * 0.15).toFixed(2);
+    localStorage.setItem("total_sum", temp_sum);
+    localStorage.setItem("VAT", temp_vat);
     return return_table;
   }
 }
@@ -1411,6 +1413,7 @@ function generatePDF(param) {
    * @param param: used to differentiate between the action of sharing/ saving the pdf
    */
   if (param == "Save") {
+    updateParams();
     let pdfObject = jsPDFInvoiceTemplate.default(saveProps);
   } else if (param == "Send") {
     console.log(localStorage.getItem("name"));
@@ -1446,8 +1449,8 @@ function updateParams() {
     },
     stamp: {
       inAllPages: true, //by default = false, just in the last page
-      src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
-      type: "JPG", //optional, when src= data:uri (nodejs case)
+      src: "./public/img/QR code.png",
+      type: "PNG", //optional, when src= data:uri (nodejs case)
       width: 20, //aspect ratio = width/height
       height: 20,
       margin: {
@@ -1490,24 +1493,24 @@ function updateParams() {
       additionalRows: [
         {
           col1: "Total:",
-          col2: "145,250.50",
-          col3: "ALL",
+          col2: "R " + getCartTotal(localStorage.getItem("VAT")),
+          col3: "",
           style: {
             fontSize: 14, //optional, default 12
           },
         },
         {
           col1: "VAT:",
-          col2: "20",
-          col3: "%",
+          col2: "14%",
+          col3: "",
           style: {
             fontSize: 10, //optional, default 12
           },
         },
         {
           col1: "SubTotal:",
-          col2: "116,199.90",
-          col3: "ALL",
+          col2: "R " + getCartTotal(localStorage.getItem("total_sum")),
+          col3: "",
           style: {
             fontSize: 10, //optional, default 12
           },
@@ -1543,8 +1546,8 @@ function updateParams() {
     },
     stamp: {
       inAllPages: true, //by default = false, just in the last page
-      src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
-      type: "JPG", //optional, when src= data:uri (nodejs case)
+      src: "./public/img/QR code.png",
+      type: "PNG", //optional, when src= data:uri (nodejs case)
       width: 20, //aspect ratio = width/height
       height: 20,
       margin: {
@@ -1587,24 +1590,24 @@ function updateParams() {
       additionalRows: [
         {
           col1: "Total:",
-          col2: "145,250.50",
-          col3: "ALL",
+          col2: "R " + getCartTotal(localStorage.getItem("VAT")),
+          col3: "",
           style: {
             fontSize: 14, //optional, default 12
           },
         },
         {
           col1: "VAT:",
-          col2: "20",
-          col3: "%",
+          col2: "14%",
+          col3: "",
           style: {
             fontSize: 10, //optional, default 12
           },
         },
         {
           col1: "SubTotal:",
-          col2: "116,199.90",
-          col3: "ALL",
+          col2: "R " + getCartTotal(localStorage.getItem("total_sum")),
+          col3: "",
           style: {
             fontSize: 10, //optional, default 12
           },

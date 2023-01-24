@@ -59,7 +59,7 @@
     <script src="./node_modules/tw-elements/dist/js/index.min.js"></script>
     <script src="./node_modules/flowbite/dist/flowbite.js"></script>
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
-    <script src="./node_modules/jspdf-invoice-template/dist/index.js"></script>
+    <script src="https://unpkg.com/jspdf-invoice-template@1.4.3/dist/index.js"></script>
     <script src="https://unpkg.com/@barba/core"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
@@ -298,7 +298,10 @@
 
             <div class="grid lg:grid-cols-3 mt-10 gap-6 lg:gap-x-12 relative">
               <div class="mb-6 lg:mb-0 mt-6">
-                <div class="block rounded-lg shadow-xl bg-white h-full">
+                <div
+                  class="block rounded-lg shadow-xl bg-white h-full transform transition ease-in duration-150"
+                  id="lite_card"
+                >
                   <div class="p-6 border-b border-gray-300 text-center">
                     <p class="uppercase mb-4 text-xl text-blue-500">
                       <strong>Lite</strong>
@@ -308,7 +311,7 @@
                     </h3>
 
                     <button
-                      class="btn mt-5 mb-5 border-2 bg-resBlue bg-opacity-80 border-transparent text-white hover:shadow-inner transform hover:bg-opacity-100 hover:scale-105 hover:text-resBlue hover:bg-white hover:border-resBlue transition ease-in duration-150"
+                      class="btn mt-5 mb-5 border-2 bg-resBlue bg-opacity-80 border-transparent text-white hover:shadow-inner transform hover:bg-opacity-100 hover:scale-105 hover:text-black hover:bg-white hover:border-resBlue transition ease-in duration-150"
                       onclick="addPackages('lite')"
                     >
                       Add to cart
@@ -339,14 +342,17 @@
                 </div>
               </div>
 
-              <div class="mb-6 lg:mb-0">
+              <div
+                class="mb-6 lg:mb-0 transform transition ease-in duration-150 shadow-xl"
+                id="standard_card"
+              >
                 <div
                   class="bg-resBlue text-white inline-block rounded-tr-lg rounded-tl-lg pl-4 pr-4"
                 >
                   Most Popular
                 </div>
                 <div
-                  class="block rounded-tr-lg rounded-br-lg rounded-bl-lg shadow-xl bg-white h-full border-4 border-resBlue"
+                  class="block rounded-tr-lg rounded-br-lg rounded-bl-lg bg-white h-full border-4 border-resBlue"
                 >
                   <div class="p-6 border-b border-gray-300 text-center">
                     <p class="uppercase mb-4 text-yellow-300 text-xl">
@@ -356,7 +362,7 @@
                       <strong>R 69,000</strong>
                     </h3>
                     <button
-                      class="btn mt-5 mb-5 border-2 bg-resBlue bg-opacity-80 border-transparent text-white hover:shadow-inner transform hover:bg-opacity-100 hover:scale-105 hover:text-resBlue hover:bg-white hover:border-resBlue transition ease-in duration-150"
+                      class="btn mt-5 mb-5 border-2 bg-resBlue bg-opacity-80 border-transparent text-white hover:shadow-inner transform hover:bg-opacity-100 hover:scale-105 hover:text-black hover:bg-white hover:border-resBlue transition ease-in duration-150"
                       onclick="addPackages('standard')"
                     >
                       Add to cart
@@ -386,7 +392,10 @@
               </div>
 
               <div class="mb-6 lg:mb-0 mt-6">
-                <div class="block rounded-lg shadow-xl bg-white h-full">
+                <div
+                  class="block rounded-lg shadow-xl bg-white h-full transform transition ease-in duration-150"
+                  id="premium_card"
+                >
                   <div class="p-6 border-b border-gray-300 text-center">
                     <p class="uppercase mb-4 text-xl text-red-500">
                       <strong>Premium</strong>
@@ -395,7 +404,7 @@
                       <strong>R 109,250 </strong>
                     </h3>
                     <button
-                      class="btn mt-5 mb-5 border-2 bg-resBlue bg-opacity-80 border-transparent text-white hover:shadow-inner transform hover:bg-opacity-100 hover:scale-105 hover:text-resBlue hover:bg-white hover:border-resBlue transition ease-in duration-150"
+                      class="btn mt-5 mb-5 border-2 bg-resBlue bg-opacity-80 border-transparent text-white hover:shadow-inner transform hover:bg-opacity-100 hover:scale-105 hover:text-black hover:bg-white hover:border-resBlue transition ease-in duration-150"
                       onclick="addPackages('premium')"
                     >
                       Add to cart
@@ -3259,6 +3268,8 @@
       var swiper = new Swiper(".mySwiper", {
         allowSlidePrev: false,
         allowSlideNext: false,
+        resistance: true,
+        resistanceRatio: 1,
         pagination: {
           el: ".swiper-pagination",
           type: "progressbar",
