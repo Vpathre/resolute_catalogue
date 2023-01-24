@@ -167,6 +167,10 @@ input:checked ~ .dot {
     background-color: #2cce14;
   }
 
+body.disable-dbl-tap-zoom {
+  touch-action: manipulation;
+}
+
 @keyframes gradient {
     0% {
       background-position: 0% 50%;
