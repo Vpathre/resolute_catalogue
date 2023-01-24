@@ -167,7 +167,7 @@ input:checked ~ .dot {
     background-color: #2cce14;
   }
 
-body.disable-dbl-tap-zoom {
+.disable-dbl-tap-zoom {
   touch-action: manipulation;
 }
 
