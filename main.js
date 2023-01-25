@@ -1496,7 +1496,7 @@ function updateParams() {
           col2: "R " + getCartTotal(localStorage.getItem("VAT")),
           col3: "",
           style: {
-            fontSize: 14, //optional, default 12
+            fontSize: 12, //optional, default 12
           },
         },
         {
@@ -1512,7 +1512,7 @@ function updateParams() {
           col2: "R " + getCartTotal(localStorage.getItem("total_sum")),
           col3: "",
           style: {
-            fontSize: 10, //optional, default 12
+            fontSize: 14, //optional, default 12
           },
         },
       ],
@@ -1593,7 +1593,7 @@ function updateParams() {
           col2: "R " + getCartTotal(localStorage.getItem("VAT")),
           col3: "",
           style: {
-            fontSize: 14, //optional, default 12
+            fontSize: 12, //optional, default 12
           },
         },
         {
@@ -1609,7 +1609,7 @@ function updateParams() {
           col2: "R " + getCartTotal(localStorage.getItem("total_sum")),
           col3: "",
           style: {
-            fontSize: 10, //optional, default 12
+            fontSize: 14, //optional, default 12
           },
         },
       ],
