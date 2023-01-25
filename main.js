@@ -47,7 +47,7 @@ toastr.options = {
   newestOnTop: false,
   progressBar: true,
   positionClass: "toast-bottom-center",
-  preventDuplicates: false,
+  preventDuplicates: true,
   onclick: null,
   showDuration: "300",
   hideDuration: "1000",
@@ -64,10 +64,10 @@ toastr.options = {
  */
 function init() {
   // disable pagination till the user selects a package
-  const prevEl = document.querySelector(".swiper-button-prev");
-  const nextEl = document.querySelector(".swiper-button-next");
-  prevEl.style.display = "none";
-  nextEl.style.display = "none";
+  // const prevEl = document.querySelector(".swiper-button-prev");
+  // const nextEl = document.querySelector(".swiper-button-next");
+  // prevEl.style.display = "none";
+  // nextEl.style.display = "none";
   // clear localstorage
   localStorage.clear();
 }
@@ -99,7 +99,7 @@ function updateQuantity(button_id, quickAdd = false, identifier) {
   } else if (button_id.slice(0, 6) == "minus_") {
     if (parseInt(input.value) == 0) {
       // when "-" button is clicked, decrement quantity 1 by 1.
-      deleteCartItem("remove_" + button_id.slice(6, button_id.length));
+      deleteCartItem("remove_" + button_id.slice(6, button_id.length), true);
     } else if (parseInt(input.value) > 0) {
       input.value = (parseInt(input.value) - 1).toString();
       // modify the quantity present in the cart itself
@@ -174,6 +174,12 @@ function addPackages(id) {
     document.getElementById("cart_counter_large").innerHTML = getCartCount();
     document.getElementById("total_price_large").innerHTML =
       "R " + getCartTotal(total_order);
+    document
+      .getElementById("submit-button-large")
+      .classList.add("bg-resBlue", "text-white", "swiper-next");
+    document
+      .getElementById("submit-button-large")
+      .classList.remove("hover:border-red-500");
   }
   // only can select one package (revised package condition)
   else {
@@ -195,8 +201,8 @@ function addPackages(id) {
   package_selected = true;
   displayModal("success", 0, modal_title, "package");
   // enable swiper js nav buttons
-  swiper.navigation.prevEl.style.display = "inline";
-  swiper.navigation.nextEl.style.display = "inline";
+  // swiper.navigation.prevEl.style.display = "inline";
+  // swiper.navigation.nextEl.style.display = "inline";
   swiper.allowSlidePrev = true;
   swiper.allowSlideNext = true;
   for (let i = 0; i < 5; i++) {
@@ -1056,10 +1062,11 @@ function confirmCartDelete(param, id = "") {
   }
 }
 
-function deleteCartItem(bin_id) {
+function deleteCartItem(bin_id, flag = false) {
   /**
    * Removes a particular product from the cart.
    * @param bin_id: refers to the element id recieved as a parameter
+   * @param flag: boolean to invoke the toastr pop-up when an item is deleted. Prevents spamming the toaster after items DNE.
    */
   var inputIdString;
   // get input element
@@ -1131,8 +1138,10 @@ function deleteCartItem(bin_id) {
   }
   trainingCounter(false);
   cart_view(false);
-  displayModal("error");
   tick_manager();
+  if (!flag) {
+    displayModal("error");
+  }
 }
 
 function displayModal(type, input, id, tangibles) {

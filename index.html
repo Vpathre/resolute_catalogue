@@ -1144,8 +1144,8 @@
         </div>
       </div>
       <div class="swiper-controls">
-        <div class="swiper-button-next hidden"></div>
-        <div class="swiper-button-prev hidden"></div>
+        <!-- <div class="swiper-button-next hidden"></div>
+        <div class="swiper-button-prev hidden"></div> -->
         <div class="swiper-pagination sticky mt-8"></div>
       </div>
     </div>
@@ -1271,16 +1271,24 @@
       class="z-20 h-16 bg-white hidden lg:flex justify-between absolute w-screen -bottom-0 shadow-inner"
     >
       <div class="flex justify-between">
-        <div class="pl-5 md:flex md:justify-between">
-          <p class="font-poppins mt-5 mr-3 text-sm sm:text-xl">
+        <div class="md:flex md:justify-between">
+          <p class="hidden font-poppins mt-5 mr-3 text-sm sm:text-xl">
             Items in cart:
           </p>
           <p
-            class="font-semibold mt-5 mr-3 text-sm sm:text-xl"
+            class="hidden font-semibold mt-5 mr-3 text-sm sm:text-xl"
             id="cart_counter_large"
           >
             0
           </p>
+          <button
+            class="text-sm text-center w-48 h-full text-black border-resBlue bg-white hover:bg-gray-50 hover:text-black hover:border-red-500 md:border-2 hover:border-4 transition ease-out duration-500 uppercase font-poppins cursor-pointer tracking-wide"
+            id="prev-button-large"
+            type="button"
+            onclick="swiper.slidePrev()"
+          >
+            Previous
+          </button>
           <div class="mt-3 ml-5 pt-2">
             <button
               class="font-poppins text-resBlue hover:text-blue-900 transition ease-out duration-500 uppercase"
@@ -1304,12 +1312,12 @@
         </p>
 
         <button
-          class="text-xs w-48 h-full text-black border-blue-400 bg-white hover:bg-gray-50 hover:text-black hover:border-red-500 md:border-2 hover:border-4 transition ease-out duration-500 uppercase font-poppins cursor-pointer tracking-wide"
+          class="text-sm text-center w-48 h-full text-black border-resBlue bg-white hover:bg-gray-50 hover:text-black hover:border-red-500 md:border-2 hover:border-4 transition ease-out duration-500 uppercase font-poppins cursor-pointer tracking-wide"
           id="submit-button-large"
           type="button"
-          onclick=""
+          onclick="swiper.slideNext()"
         >
-          Submit
+          Next
         </button>
       </div>
     </div>
@@ -3317,6 +3325,7 @@
                 "hover:text-blue-900",
                 "hover:border-blue-400"
               );
+              large_button.innerHTML = "Submit";
               mobile_button.setAttribute("onclick", "submitForm(id)");
               large_button.setAttribute("onclick", "submitForm(id)");
             } else {
@@ -3337,24 +3346,9 @@
                 "hover:border-blue-400",
                 "w-full"
               );
-              large_button.classList.add(
-                "text-black",
-                "border-blue-400",
-                "bg-white",
-                "hover:border-red-500",
-                "hover:text-black",
-                "hover:border-gray-200"
-              );
-              large_button.classList.remove(
-                "text-white",
-                "border-resBlue",
-                "bg-resBlue",
-                "hover:bg-white",
-                "hover:text-blue-900",
-                "hover:border-blue-400"
-              );
+              large_button.innerHTML = "Next";
               mobile_button.setAttribute("onclick", "");
-              large_button.setAttribute("onclick", "");
+              large_button.setAttribute("onclick", "swiper.slideNext()");
               mobile_button.removeAttribute("form");
               large_button.removeAttribute("form");
               mobile_button.setAttribute("type", "button");
@@ -3363,6 +3357,47 @@
               mobile_button.removeAttribute("data-bs-toggle");
               large_button.removeAttribute("data-bs-target");
               mobile_button.removeAttribute("data-bs-target");
+            }
+            // previous button
+            if (index_currentSlide == 0) {
+              // on the first
+              document
+                .getElementById("prev-button-large")
+                .classList.add(
+                  "text-black",
+                  "bg-white",
+                  "hover:bg-gray-50",
+                  "hover:text-black",
+                  "hover:border-red-500"
+                );
+              document
+                .getElementById("prev-button-large")
+                .classList.remove(
+                  "text-white",
+                  "bg-resBlue",
+                  "hover:bg-white",
+                  "hover:text-blue-900",
+                  "hover:border-resBlue"
+                );
+            } else {
+              document
+                .getElementById("prev-button-large")
+                .classList.remove(
+                  "text-black",
+                  "bg-white",
+                  "hover:bg-gray-50",
+                  "hover:text-black",
+                  "hover:border-red-500"
+                );
+              document
+                .getElementById("prev-button-large")
+                .classList.add(
+                  "text-white",
+                  "bg-resBlue",
+                  "hover:bg-white",
+                  "hover:text-blue-900",
+                  "hover:border-resBlue"
+                );
             }
           },
         },
