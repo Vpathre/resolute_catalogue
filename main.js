@@ -1,4 +1,3 @@
-// var url = "https://vpathre.github.io/resolute_catalogue/";
 var url = "http://127.0.0.1:5000/estimate";
 // var total_order = [
 //   ["Package: Premium", "1", "109250", "package"],
